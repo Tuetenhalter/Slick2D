@@ -18,7 +18,7 @@ public class Main extends StateBasedGame{
 	public static void main(String[] args) throws SlickException {
 		
 		
-		System.out.println("selber kek");
+		System.out.println("Pascal ist Sauer auf der Lauer");
 		
 		AppGameContainer container = new AppGameContainer(new Main());
 		container.setDisplayMode(container.getScreenWidth(), container.getScreenHeight(), true);
