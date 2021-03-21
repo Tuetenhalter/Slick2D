@@ -46,7 +46,7 @@ public class Bullet extends GameObject {
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta, MyBasicGameState mygame) {
 
-		for (GameObject gameObject : mygame.gameList) {
+		for (GameObject gameObject : mygame.gameList ) {
 			if (gameObject instanceof Wall) {
 				colltiontoWall((Wall) gameObject);
 			}
