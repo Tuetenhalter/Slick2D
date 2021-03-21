@@ -1,4 +1,4 @@
-package test;
+package GameObjects;
 
 
 import org.newdawn.slick.Color;
@@ -6,7 +6,6 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.state.StateBasedGame;
 
-import GameObjects.GameObject;
 import GameObjects.Wall.BouncieWall;
 import GameObjects.Wall.Wall;
 import GameStates.MyBasicGameState;
