@@ -18,7 +18,9 @@ public class Main extends StateBasedGame{
 	public static void main(String[] args) throws SlickException {
 		
 		
-		System.out.println("selber adfasdfsadfsdf");
+
+		System.out.println("lul");
+
 		
 		AppGameContainer container = new AppGameContainer(new Main());
 		container.setDisplayMode(container.getScreenWidth(), container.getScreenHeight(), true);
