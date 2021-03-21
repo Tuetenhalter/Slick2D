@@ -10,10 +10,10 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.StateBasedGame;
 
+import GameObjects.GameObject;
+import GameObjects.GameObjectLife.Player;
+import GameObjects.Wall.Wall;
 import idk.Camara;
-import test.GameObject;
-import test.Player;
-import test.Wall;
 
 public class Test1 extends MyBasicGameState {
 

@@ -1,7 +1,8 @@
-package test;
+package GameObjects.GameObjectLife;
 
 import org.newdawn.slick.geom.Shape;
 
+import GameObjects.GameObject;
 import idk.Vector2D;
 
 public abstract class GameObjectLife extends GameObject {

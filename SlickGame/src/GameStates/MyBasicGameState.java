@@ -8,9 +8,9 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+import GameObjects.GameObject;
+import GameObjects.GameObjectLife.Player;
 import idk.Camara;
-import test.GameObject;
-import test.Player;
 
 public abstract class MyBasicGameState extends BasicGameState {
 	
