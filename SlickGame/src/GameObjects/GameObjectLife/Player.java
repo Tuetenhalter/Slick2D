@@ -38,7 +38,9 @@ public class Player extends GameObjectLife{
 		getHitBox().setX(getPos().getX());
 		getHitBox().setY(getPos().getY());
 		
-		mygame.camara.drawShape(g, getHitBox(), Color.blue);
+//		mygame.camara.drawShape(g, getHitBox(), Color.blue);
+		
+		g.fill(getHitBox());
 		
 		
 		g.setColor(Color.red);

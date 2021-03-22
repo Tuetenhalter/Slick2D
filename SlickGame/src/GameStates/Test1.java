@@ -43,13 +43,14 @@ public class Test1 extends MyBasicGameState {
 
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
-		camara.camaraMove(this);
 		
 		
-		
+		g.translate(-camara.getPos().getX(), -camara.getPos().getY());
 		for (GameObject gameObject : gameList) {
 			gameObject.render(container, game, g, this);
 		}
+		
+		
 		g.setColor(Color.red);
 		g.drawString("List: " + gameList.size(), 10, 50);
 
@@ -59,7 +60,9 @@ public class Test1 extends MyBasicGameState {
 
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
-
+		
+		
+		camara.camaraMove(this);
 		for (int i = gameList.size() - 1; i >= 0; i--) {
 
 			gameList.get(i).update(container, game, delta, this);

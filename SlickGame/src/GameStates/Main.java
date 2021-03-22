@@ -24,7 +24,7 @@ public class Main extends StateBasedGame{
 		
 		AppGameContainer container = new AppGameContainer(new Main());
 		container.setDisplayMode(container.getScreenWidth(), container.getScreenHeight(), true);
-		
+		container.setVSync(true);
 		container.start();
 	}
 
