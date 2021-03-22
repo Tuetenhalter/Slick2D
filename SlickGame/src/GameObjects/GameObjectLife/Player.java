@@ -4,11 +4,12 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
-import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.state.StateBasedGame;
 
+import GameObjects.GameObject;
 import GameObjects.Wall.BouncieWall;
+import GameObjects.Wall.Wall;
 import GameStates.MyBasicGameState;
 import idk.Vector2D;
 
@@ -33,8 +34,10 @@ public class Player extends GameObjectLife{
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g,
 			MyBasicGameState mygame) {
+		
 		getHitBox().setX(getPos().getX());
 		getHitBox().setY(getPos().getY());
+		
 		mygame.camara.drawShape(g, getHitBox(), Color.blue);
 		
 		
@@ -76,40 +79,40 @@ public class Player extends GameObjectLife{
 		
 //		getAcc().setMagnitude(.1f);
 		
-		getAcc().sub(getVel().clone().mul(.01f));
+		getAcc().sub(getVel().clone().mul(.1f));
 		getVel().add(getAcc());
 		getPos().add(getVel());
 
 		
 
-//		for (GameObject gameObject : mygame.gameList) {
-//			if (gameObject instanceof Wall) {
-//				colltiontoWall((Wall) gameObject);
-//			}
-//			if (gameObject instanceof BouncieWall) {
-//				collitcionBounciWall((BouncieWall) gameObject);
-//
-//			}
-//		}
+		for (GameObject gameObject : mygame.gameList) {
+			if (gameObject instanceof Wall) {
+				colltiontoWall((Wall) gameObject);
+			}
+			if (gameObject instanceof BouncieWall) {
+				collitcionBounciWall((BouncieWall) gameObject);
+
+			}
+		}
 	}
 
-	/*
+	
 	public void colltiontoWall(Wall gameObject) {
 
-		double x = getPos().getX();
-		double y = getPos().getY();
+		float x = getX();
+		float y = getY();
 
-		double speedx = getVel().getX();
-		double speedy = getVel().getY();
+		float speedx = getSpeedX();
+		float speedy = getSpeedY();
 
-		double height = getHeight();
-		double width = getWidth();
+		float height = getHeight();
+		float width = getWidth();
 
-		double x2 = gameObject.getPos().getX();
-		double y2 = gameObject.getPos().getY();
+		float x2 = gameObject.getX();
+		float y2 = gameObject.getY();
 
-		double height2 = gameObject.getHeight();
-		double width2 = gameObject.getWidth();
+		float height2 = gameObject.getHeight();
+		float width2 = gameObject.getWidth();
 
 //		System.out.println("x: " + x);
 //		System.out.println("y: " + y);
@@ -130,24 +133,24 @@ public class Player extends GameObjectLife{
 		// Links
 		if (x + speedx < x2 + width2 && x + speedx > x2 && y2 < y + height && y2 + height2 > y) {
 			setSpeedX(0);
-			setX(x2 + width2);
+			setX(x2 + width2+1);
 		}
 
 		// Rechts
 		if (x + speedx + width > x2 && x + speedx + width < x2 + width2 && y2 < y + height && y2 + height2 > y) {
 			setSpeedX(0);
-			setX(x2 - width);
+			setX(x2 - width-1);
 		}
-
+		
 		// oben
 		if (y + speedy < y2 + height2 && y + speedy > y2 && x2 < x + width && x2 + width2 > x) {
 			setSpeedY(0);
-			setY(y2 + height2);
+			setY(y2 + height2+1);
 		}
 		// untem
 		if (y + speedy + height > y2 && y + speedy + height < y2 + height2 && x2 < x + width && x2 + width2 > x) {
 			setSpeedY(0);
-			setY(y2 - height);
+			setY(y2 - height-1);
 		}
 
 		// links oben
@@ -173,24 +176,24 @@ public class Player extends GameObjectLife{
 		}
 
 	}
-	*/
+	
 	
 	public void collitcionBounciWall(BouncieWall gameObject) {
 
-		double x = getPos().getX();
-		double y = getPos().getY();
+		float x = getPos().getX();
+		float y = getPos().getY();
 
-		double speedx = getVel().getX();
-		double speedy = getVel().getY();
+		float speedx = getVel().getX();
+		float speedy = getVel().getY();
 
-		double height = getHeight();
-		double width = getWidth();
+		float height = getHeight();
+		float width = getWidth();
 
-		double x2 = gameObject.getPos().getX();
-		double y2 = gameObject.getPos().getY();
+		float x2 = gameObject.getPos().getX();
+		float y2 = gameObject.getPos().getY();
 
-		double height2 = gameObject.getHeight();
-		double width2 = gameObject.getWidth();
+		float height2 = gameObject.getHeight();
+		float width2 = gameObject.getWidth();
 
 //		System.out.println("x: " + x);
 //		System.out.println("y: " + y);
@@ -210,22 +213,22 @@ public class Player extends GameObjectLife{
 
 		// Links
 		if (x + speedx < x2 + width2 && x + speedx > x2 && y2 < y + height && y2 + height2 > y) {
-			getVel().set(-getVel().getX(), getVel().getY());
+			setSpeedX(-getSpeedX());
 			return;
 		}
 		// Rechts
 		if (x + speedx + width > x2 && x + speedx + width < x2 + width2 && y2 < y + height && y2 + height2 > y) {
-			getVel().set(-getVel().getX(), getVel().getY());
+			setSpeedX(-getSpeedX());
 			return;
 		}
 		// oben
 		if (y + speedy < y2 + height2 && y + speedy > y2 && x2 < x + width && x2 + width2 > x) {
-			getVel().set(getVel().getX(), -getVel().getY());
+			setSpeedY(-getSpeedY());
 			return;
 		}
 		// untem
 		if (y + speedy + height > y2 && y + speedy + height < y2 + height2 && x2 < x + width && x2 + width2 > x) {
-			getVel().set(getVel().getX(), -getVel().getY());
+			setSpeedY(-getSpeedY());
 			return;
 		}
 	}
