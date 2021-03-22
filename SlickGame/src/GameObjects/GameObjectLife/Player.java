@@ -81,7 +81,7 @@ public class Player extends GameObjectLife{
 		
 		
 		if(getAcc().magnitude()>0){
-			getAcc().setMagnitude(1f);
+			getAcc().setMagnitude(5f);
 		}
 		
 		getAcc().sub(getVel().clone().mul(.1f));

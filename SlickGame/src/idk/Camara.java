@@ -66,7 +66,7 @@ public class Camara {
 		
 		
 		target.sub(pos);
-		target.mul(.05f);
+		target.mul(1f);
 		pos.add(target);
 
 	}

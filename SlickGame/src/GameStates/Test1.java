@@ -23,7 +23,7 @@ public class Test1 extends MyBasicGameState {
 		container.setMinimumLogicUpdateInterval(20);
 		container.setMaximumLogicUpdateInterval(20);
 
-		camara = new Camara(0, 0, -1000, 0, 10000, 10000);
+		camara = new Camara(0, 0, -1000, -1000, 10000, 10000);
 
 		gameList = new ArrayList<GameObject>();
 
