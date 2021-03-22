@@ -22,8 +22,8 @@ public class Test1 extends MyBasicGameState {
 
 		container.setMinimumLogicUpdateInterval(20);
 		container.setMaximumLogicUpdateInterval(20);
-		
-		camara = new Camara(0, 0);
+
+		camara = new Camara(0, 0, -1000, 0, 10000, 10000);
 
 		gameList = new ArrayList<GameObject>();
 
@@ -43,14 +43,12 @@ public class Test1 extends MyBasicGameState {
 
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
-		
-		
+
 		g.translate(-camara.getPos().getX(), -camara.getPos().getY());
 		for (GameObject gameObject : gameList) {
 			gameObject.render(container, game, g, this);
 		}
-		
-		
+
 		g.setColor(Color.red);
 		g.drawString("List: " + gameList.size(), 10, 50);
 
@@ -60,8 +58,7 @@ public class Test1 extends MyBasicGameState {
 
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
-		
-		
+
 		camara.camaraMove(this);
 		for (int i = gameList.size() - 1; i >= 0; i--) {
 

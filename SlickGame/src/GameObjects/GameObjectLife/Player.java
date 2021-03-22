@@ -7,6 +7,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.state.StateBasedGame;
 
+import GameObjects.Bullet;
 import GameObjects.GameObject;
 import GameObjects.Wall.BouncieWall;
 import GameObjects.Wall.Wall;
@@ -56,12 +57,11 @@ public class Player extends GameObjectLife{
 	public void update(GameContainer container, StateBasedGame game, int delta, MyBasicGameState mygame) {
 		Input input = container.getInput();
 
-//		if (input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
-//
-//			mygame.gameList.add(new Bullet(getPos() + getWidth() / 2, getY() + getHeight() / 2, input.getMouseX() + mygame.viewx,
-//					input.getMouseY() + mygame.viewy, 1, 10, 10, null,
-//					new Circle((float) (getPos() + getWidth() / 2), (float) (getY() + getHeight() / 2), 5f)));
-//		}
+		if (input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
+
+			mygame.gameList.add(new Bullet(getPos().clone().add(getWidth()/2-5, getHeight()/2-5), new Vector2D(input.getMouseX()+mygame.camara.getPos().getX(), input.getMouseY()+mygame.camara.getPos().getY()), 10, 10, 10));
+			
+		}
 		
 		getAcc().set(0, 0);
 		
@@ -79,7 +79,10 @@ public class Player extends GameObjectLife{
 			getAcc().add(-1, 0);
 		}
 		
-//		getAcc().setMagnitude(.1f);
+		
+		if(getAcc().magnitude()>0){
+			getAcc().setMagnitude(1f);
+		}
 		
 		getAcc().sub(getVel().clone().mul(.1f));
 		getVel().add(getAcc());

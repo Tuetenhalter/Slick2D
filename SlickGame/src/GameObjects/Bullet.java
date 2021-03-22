@@ -4,11 +4,13 @@ package GameObjects;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.state.StateBasedGame;
 
 import GameObjects.Wall.BouncieWall;
 import GameObjects.Wall.Wall;
 import GameStates.MyBasicGameState;
+import idk.Vector2D;
 
 public class Bullet extends GameObject {
 
@@ -32,6 +34,14 @@ public class Bullet extends GameObject {
 //		
 //		
 //	}
+	
+	public Bullet(Vector2D pos, Vector2D shootPos, float speed, float width, float height) {
+		super(pos, shootPos.sub(pos).setMagnitude(speed), new Vector2D(0, 0), width, height, null);
+		setHitBox(new Circle(pos.getX()+width/2, pos.getY()+height/2, width/2));
+		
+	}
+	
+	
 
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g,
@@ -95,22 +105,22 @@ public class Bullet extends GameObject {
 
 		// Links
 		if (x + speedx < x2 + width2 && x + speedx > x2 && y2 < y + height && y2 + height2 > y) {
-			getVel().mul(-2);
+			getVel().setX(getVel().getX()*-1);
 			return;
 		}
 		// Rechts
 		if (x + speedx + width > x2 && x + speedx + width < x2 + width2 && y2 < y + height && y2 + height2 > y) {
-			getVel().mul(-2);
+			getVel().setX(getVel().getX()*-1);
 			return;
 		}
 		// oben
 		if (y + speedy < y2 + height2 && y + speedy > y2 && x2 < x + width && x2 + width2 > x) {
-			getVel().mul(-2);
+			getVel().setY(getVel().getY()*-1);
 			return;
 		}
 		// untem
 		if (y + speedy + height > y2 && y + speedy + height < y2 + height2 && x2 < x + width && x2 + width2 > x) {
-			getVel().mul(-2);
+			getVel().setY(getVel().getY()*-1);
 			return;
 		}
 
