@@ -63,6 +63,10 @@ public class Player extends GameObjectLife{
 			
 		}
 		
+		if(input.isKeyPressed(Input.KEY_H)){
+			game.enterState(1);
+		}
+		
 		getAcc().set(0, 0);
 		
 		if (input.isKeyDown(Input.KEY_S)) {
