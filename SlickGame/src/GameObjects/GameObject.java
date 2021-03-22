@@ -37,6 +37,46 @@ public abstract class GameObject {
 
 	public abstract void update(GameContainer container, StateBasedGame game, int delta, MyBasicGameState mygame);
 
+	public float getX() {
+		return pos.getX();
+	}
+
+	public float getY() {
+		return pos.getY();
+	}
+
+	public void setX(float x) {
+		getPos().setX(x);
+	}
+	
+	public void setY(float y) {
+		getPos().setY(y);
+	}
+	
+	public void setPos(float x, float y) {
+		getPos().set(x, y);
+	}
+	
+	public float getSpeedX() {
+		return vel.getX();
+	}
+
+	public float getSpeedY() {
+		return vel.getY();
+	}
+
+	public void setSpeedX(float speedX) {
+		getVel().setX(speedX);
+	}
+	
+	public void setSpeedY(float speedY) {
+		getVel().setY(speedY);
+	}
+	
+	public void setVel(float speedX, float speedY) {
+		getVel().set(speedX, speedY);
+	}
+
 	// Getter Setters
 
 	public Vector2D getPos() {
