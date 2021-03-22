@@ -19,7 +19,7 @@ public class Main extends StateBasedGame{
 		
 		
 
-		System.out.println("lul");
+		System.out.println("lull");
 
 		
 		AppGameContainer container = new AppGameContainer(new Main());
