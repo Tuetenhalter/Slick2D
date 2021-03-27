@@ -34,8 +34,6 @@ public class Menu extends BasicGameState{
 			play.setClicked(false);
 			
 			
-			Main.main(null);
-			container.exit();
 		}
 		
 		if(container.getInput().isKeyPressed(Input.KEY_ESCAPE)) {
