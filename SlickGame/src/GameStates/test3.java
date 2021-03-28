@@ -22,7 +22,7 @@ public class test3 extends MyBasicGameState{
 		
 		g.setColor(Color.green);
 		g.resetTransform();
-		g.drawString("test3", 0, 0);
+		g.drawString("test3", 100, 100);
 		
 		
 	}

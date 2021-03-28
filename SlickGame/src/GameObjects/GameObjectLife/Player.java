@@ -15,13 +15,12 @@ import GameObjects.Wall.Wall;
 import GameStates.MyBasicGameState;
 import idk.Vector2D;
 
-public class Player extends GameObjectLife{
+public class Player extends GameObjectLife {
 
 	public static double speed = .2;
 	public static double maxspeed = 24;
 	public static double slow = .2;
-	
-	
+
 	public Player(Vector2D pos, Vector2D vel, Vector2D acc, float width, float height, Shape hitBox, float live,
 			float maxLive) {
 		super(pos, vel, acc, width, height, hitBox, live, maxLive);
@@ -34,44 +33,42 @@ public class Player extends GameObjectLife{
 	}
 
 	@Override
-	public void render(GameContainer container, StateBasedGame game, Graphics g,
-			MyBasicGameState mygame) {
-		
+	public void render(GameContainer container, StateBasedGame game, Graphics g, MyBasicGameState mygame) {
+
 		getHitBox().setX(getPos().getX());
 		getHitBox().setY(getPos().getY());
-		
+
 //		mygame.camara.drawShape(g, getHitBox(), Color.blue);
-		
+
 		g.fill(getHitBox());
 		
-		
+		g.resetTransform();
 		g.setColor(Color.red);
 		g.drawString("speedX: " + getVel().getX(), 5, 20);
 		g.drawString("speedY: " + getVel().getY(), 5, 40);
-		
+
 		g.drawString("X: " + getPos().getX(), 5, 100);
 		g.drawString("Y: " + getPos().getY(), 5, 120);
+		g.translate(-mygame.camara.getPos().getX(), -mygame.camara.getPos().getY());
 
 	}
 
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta, MyBasicGameState mygame) {
-		
-		
+
 		Input input = container.getInput();
 
 		if (input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
 
-			mygame.gameList.add(new Bullet(getPos().clone().add(getWidth()/2-5, getHeight()/2-5), new Vector2D(input.getMouseX()+mygame.camara.getPos().getX(), input.getMouseY()+mygame.camara.getPos().getY()), 10, 10, 10));
-			
+			mygame.gameList.add(new Bullet(getPos().clone().add(getWidth() / 2 - 5, getHeight() / 2 - 5),
+					new Vector2D(input.getMouseX() + mygame.camara.getPos().getX(),
+							input.getMouseY() + mygame.camara.getPos().getY()),
+					10, 10, 10));
+
 		}
-		
-		if(input.isKeyPressed(Input.KEY_H)){
-			game.enterState(1);
-		}
-		
+
 		getAcc().set(0, 0);
-		
+
 		if (input.isKeyDown(Input.KEY_S)) {
 			getAcc().add(0, 1);
 		}
@@ -85,30 +82,33 @@ public class Player extends GameObjectLife{
 		if (input.isKeyDown(Input.KEY_A)) {
 			getAcc().add(-1, 0);
 		}
-		
-		
-		if(getAcc().magnitude()>0){
+
+		if (getAcc().magnitude() > 0) {
 			getAcc().setMagnitude(5f);
 		}
 		
-		getAcc().sub(getVel().clone().mul(.1f));
-		getVel().add(getAcc());
-		getPos().add(getVel());
 
-		
+		getAcc().sub(getVel().clone().mul(.25f));
+
+		getVel().add(getAcc());
+
 
 		for (GameObject gameObject : mygame.gameList) {
 			if (gameObject instanceof Wall) {
 				colltiontoWall((Wall) gameObject);
 			}
-			if (gameObject instanceof BouncieWall) {
-				collitcionBounciWall((BouncieWall) gameObject);
-
-			}
+			
+			
+//			if (gameObject instanceof BouncieWall) {
+//				collitcionBounciWall((BouncieWall) gameObject);
+//
+//			}
 		}
+		
+		
+		getPos().add(getVel());
 	}
 
-	
 	public void colltiontoWall(Wall gameObject) {
 
 		float x = getX();
@@ -145,24 +145,24 @@ public class Player extends GameObjectLife{
 		// Links
 		if (x + speedx < x2 + width2 && x + speedx > x2 && y2 < y + height && y2 + height2 > y) {
 			setSpeedX(0);
-			setX(x2 + width2+1);
+			setX(x2 + width2);
 		}
 
 		// Rechts
 		if (x + speedx + width > x2 && x + speedx + width < x2 + width2 && y2 < y + height && y2 + height2 > y) {
 			setSpeedX(0);
-			setX(x2 - width-1);
+			setX(x2 - width);
 		}
-		
+
 		// oben
 		if (y + speedy < y2 + height2 && y + speedy > y2 && x2 < x + width && x2 + width2 > x) {
 			setSpeedY(0);
-			setY(y2 + height2+1);
+			setY(y2 + height2);
 		}
 		// untem
 		if (y + speedy + height > y2 && y + speedy + height < y2 + height2 && x2 < x + width && x2 + width2 > x) {
 			setSpeedY(0);
-			setY(y2 - height-1);
+			setY(y2 - height);
 		}
 
 		// links oben
@@ -188,8 +188,7 @@ public class Player extends GameObjectLife{
 		}
 
 	}
-	
-	
+
 	public void collitcionBounciWall(BouncieWall gameObject) {
 
 		float x = getPos().getX();

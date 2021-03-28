@@ -33,6 +33,7 @@ public class Menu extends BasicGameState{
 		if(play.isClicked()) {
 			play.setClicked(false);
 			
+			game.enterState(0);
 			
 		}
 		
