@@ -114,13 +114,17 @@ public class Test1 extends MyBasicGameState {
 		int blocky = 64;
 		int ranx;
 		int rany;
+		
 		do {
 			ranx = ran.nextInt(mapMaker.getWidth());
 			rany = ran.nextInt(mapMaker.getHeight());
 
 		} while (map[ranx][rany] == 1);
+		
 		player = new Player(ranx * blockx, rany * blocky, blockx, blocky, 100);
 		gameList.add(player);
+		
+		
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map[0].length; j++) {
 				if (map[i][j] == 1) {
@@ -144,7 +148,6 @@ public class Test1 extends MyBasicGameState {
 			for (int j = 0; j < map[0].length; j++) {
 				if (map[i][j] == 1) {
 					gameList.add(new Wall(i * blockx, j * blocky, blockx, blocky));
-
 				}
 			}
 		}
