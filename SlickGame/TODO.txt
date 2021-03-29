@@ -20,6 +20,21 @@ Ideen
 
 Zu Ideen: 
 
+Gegener:
+	Grünen
+		Bewegt sich nicht
+		schisst auf Spieler
+		
+	Rot
+		Bewegt sich auf Spieler
+		Dmg wenn Spiler berürcht
+		
+	
+	Blau
+		schisst auf Spieler
+		
+		
+
 1. Maybe ne art Speed boost (per shift)?
 2. Bam sound von Moritz klauen
 3. Wir können eigene sounbds mit Bfxr btw
