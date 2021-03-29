@@ -41,8 +41,6 @@ public class Button
 		float width = container.getWidth() * (1 - distancebotten) - x;
 		float height = container.getHeight() * (1 - distanceright) - y;
 
-		
-		
 		rect1 = new Rectangle(x, y, width, height);
 
 		height -= x * .02f;
@@ -63,29 +61,33 @@ public class Button
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException
 	{
 		startButton = new Image("res/start-knopf-400-117977923.jpg");
-		
+
 		g.resetTransform();
 		g.setColor(Color.gray);
 		g.fill(rect1);
 		g.setColor(Color.red);
-		g.drawString("Start the game!", rect1.getCenterX()-75, rect1.getCenterY());
+		g.drawString("Start the game!", rect1.getCenterX() - 75, rect1.getCenterY());
 
 		if (!mouseOver)
 		{
 			g.setColor(Color.white);
 			g.fill(rect2);
 			g.setColor(Color.red);
-			g.drawString("Click this button to start the game!", rect1.getCenterX()-200, rect1.getCenterY());
+			g.drawString("Click this button to start the game!", rect1.getCenterX() - 200, rect1.getCenterY());
 		}
-		
+
 		g.drawImage(startButton, 100, 300);
 
 	}
 
 	public void update(GameContainer container, StateBasedGame game, int delta)
 	{
-
+		System.out.println(container.getWidth());
 		Input input = container.getInput();
+		if (rect1.contains(input.getMouseX(), input.getMouseY()))
+		{
+			mouseOver = true;
+
 		if (rect1.contains(input.getMouseX(), input.getMouseY()))
 		{
 			mouseOver = true;
@@ -103,7 +105,7 @@ public class Button
 		}
 
 	}
-	
+
 	public void bilder() throws SlickException
 	{
 		startButton = new Image("res/start-knopf-400-117977923.jpg");
