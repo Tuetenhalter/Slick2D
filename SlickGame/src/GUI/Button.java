@@ -68,7 +68,7 @@ public class Button {
 	}
 
 	public void update(GameContainer container, StateBasedGame game, int delta) {
-		
+		System.out.println(container.getWidth());
 		Input input = container.getInput();	
 		if(rect1.contains(input.getMouseX(), input.getMouseY())) {	
 			mouseOver = true;
