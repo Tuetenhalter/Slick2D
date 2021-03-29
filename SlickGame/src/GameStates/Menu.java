@@ -33,9 +33,8 @@ public class Menu extends BasicGameState {
 
 		if (play.isClicked()) {
 			play.setClicked(false);
-
-			AppGameContainer agc = new AppGameContainer(new ScalableGame(game, 1000, 1500));
-			agc.setDisplayMode(500, 500, false);
+			
+			game.enterState(0);
 
 		}
 

@@ -17,10 +17,6 @@ import idk.Vector2D;
 
 public class Player extends GameObjectLife {
 
-	public static double speed = .2;
-	public static double maxspeed = 24;
-	public static double slow = .2;
-
 	public Player(Vector2D pos, Vector2D vel, Vector2D acc, float width, float height, Shape hitBox, float live,
 			float maxLive) {
 		super(pos, vel, acc, width, height, hitBox, live, maxLive);
@@ -84,7 +80,7 @@ public class Player extends GameObjectLife {
 		}
 
 		if (getAcc().magnitude() > 0) {
-			getAcc().setMagnitude(1f);
+			getAcc().setMagnitude(10f);
 		}
 		
 

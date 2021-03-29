@@ -14,6 +14,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import GameObjects.GameObject;
 import GameObjects.GameObjectLife.Player;
+import GameObjects.GameObjectLife.Gegner.Blue;
 import GameObjects.Wall.Wall;
 import Tile.Tile;
 import Tile.TileMap;
@@ -124,6 +125,12 @@ public class Test1 extends MyBasicGameState {
 		player = new Player(ranx * blockx, rany * blocky, blockx, blocky, 100);
 		gameList.add(player);
 		
+		do {
+			ranx = ran.nextInt(mapMaker.getWidth());
+			rany = ran.nextInt(mapMaker.getHeight());
+
+		} while (map[ranx][rany] == 1);
+		gameList.add(new Blue(ranx*blockx, rany*blocky, blocky, blocky, 10));
 		
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map[0].length; j++) {

@@ -1,5 +1,6 @@
 package GUI;
 
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -9,8 +10,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.StateBasedGame;
 
-public class Button
-{
+public class Button {
 
 	private boolean clicked = false;
 	private boolean mouseOver = false;
@@ -27,8 +27,7 @@ public class Button
 	Image startButton, menuButton, exitButton;
 
 	public Button(String label, float distanceright, float distanceleft, float distancetop, float distancebotten,
-			GameContainer container)
-	{
+			GameContainer container) {
 		super();
 		this.label = label;
 		this.distanceright = distanceright;
@@ -52,141 +51,116 @@ public class Button
 
 		System.out.println(this);
 
-		System.out.println("x: " + x);
-		System.out.println("y: " + y);
-		System.out.println("height: " + height);
-		System.out.println("width: " + width);
+//		System.out.println("x: " + x);
+//		System.out.println("y: " + y);
+//		System.out.println("height: " + height);
+//		System.out.println("width: " + width);
 	}
 
-	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException
-	{
+	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
+
 		startButton = new Image("res/start-knopf-400-117977923.jpg");
 
 		g.resetTransform();
+
 		g.setColor(Color.gray);
 		g.fill(rect1);
-		g.setColor(Color.red);
-		g.drawString("Start the game!", rect1.getCenterX() - 75, rect1.getCenterY());
+		
 
-		if (!mouseOver)
-		{
+		if (!mouseOver) {
 			g.setColor(Color.white);
 			g.fill(rect2);
 			g.setColor(Color.red);
-			g.drawString("Click this button to start the game!", rect1.getCenterX() - 200, rect1.getCenterY());
 		}
 
-		g.drawImage(startButton, 100, 300);
+		g.setColor(Color.red);
+	
+		g.drawString(label, rect1.getCenterX() - g.getFont().getLineHeight() / 2,
+				rect1.getCenterY() - g.getFont().getWidth(label) / 2);
+
+//		g.drawImage(startButton, 100, 300);
 
 	}
 
-	public void update(GameContainer container, StateBasedGame game, int delta)
-	{
-		System.out.println(container.getWidth());
+	public void update(GameContainer container, StateBasedGame game, int delta) {
 		Input input = container.getInput();
-		if (rect1.contains(input.getMouseX(), input.getMouseY()))
-		{
-			mouseOver = true;
-		}
 
-		if (rect1.contains(input.getMouseX(), input.getMouseY()))
-		{
+		if (rect1.contains(input.getMouseX(), input.getMouseY())) {
 			mouseOver = true;
-
-			if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON))
-			{
+			if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
 				clicked = true;
-				System.out.println("moin");
 			}
 
-		}
-		else
-		{
+		} else {
 			mouseOver = false;
 		}
 
 	}
 
-	public void bilder() throws SlickException
-	{
+	public void bilder() throws SlickException {
 		startButton = new Image("res/start-knopf-400-117977923.jpg");
 		menuButton = new Image("res/start-knopf-400-117977923.jpg");
 		exitButton = new Image("res/start-knopf-400-117977923.jpg");
 	}
 
-	public boolean isClicked()
-	{
+	public boolean isClicked() {
 		return clicked;
 	}
 
-	public void setClicked(boolean clicked)
-	{
+	public void setClicked(boolean clicked) {
 		this.clicked = clicked;
 	}
 
-	public boolean isMouseOver()
-	{
+	public boolean isMouseOver() {
 		return mouseOver;
 	}
 
-	public void setMouseOver(boolean mouseOver)
-	{
+	public void setMouseOver(boolean mouseOver) {
 		this.mouseOver = mouseOver;
 	}
 
-	public String getLabel()
-	{
+	public String getLabel() {
 		return label;
 	}
 
-	public void setLabel(String label)
-	{
+	public void setLabel(String label) {
 		this.label = label;
 	}
 
-	public float getDistancetop()
-	{
+	public float getDistancetop() {
 		return distancetop;
 	}
 
-	public void setDistancetop(float distancetop)
-	{
+	public void setDistancetop(float distancetop) {
 		this.distancetop = distancetop;
 	}
 
-	public float getDistancebotten()
-	{
+	public float getDistancebotten() {
 		return distancebotten;
 	}
 
-	public void setDistancebotten(float distancebotten)
-	{
+	public void setDistancebotten(float distancebotten) {
 		this.distancebotten = distancebotten;
 	}
 
-	public float getDistanceright()
-	{
+	public float getDistanceright() {
 		return distanceright;
 	}
 
-	public void setDistanceright(float distanceright)
-	{
+	public void setDistanceright(float distanceright) {
 		this.distanceright = distanceright;
 	}
 
-	public float getDistanceleft()
-	{
+	public float getDistanceleft() {
 		return distanceleft;
 	}
 
-	public void setDistanceleft(float distanceleft)
-	{
+	public void setDistanceleft(float distanceleft) {
 		this.distanceleft = distanceleft;
 	}
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return "Button [clicked=" + clicked + ", mouseOver=" + mouseOver + ", label=" + label + ", distanceright="
 				+ distanceright + ", distanceleft=" + distanceleft + ", distancetop=" + distancetop
 				+ ", distancebotten=" + distancebotten + ", rect1=" + rect1 + ", rect2=" + rect2 + "]";
