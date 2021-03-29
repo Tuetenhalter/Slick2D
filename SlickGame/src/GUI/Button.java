@@ -87,6 +87,7 @@ public class Button
 		if (rect1.contains(input.getMouseX(), input.getMouseY()))
 		{
 			mouseOver = true;
+		}
 
 		if (rect1.contains(input.getMouseX(), input.getMouseY()))
 		{
