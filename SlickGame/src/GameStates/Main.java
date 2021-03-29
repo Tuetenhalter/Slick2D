@@ -21,14 +21,14 @@ public class Main extends StateBasedGame{
 		System.out.println("lull");
 		AppGameContainer container = new AppGameContainer(new Main());
 		container.setDisplayMode(container.getScreenWidth(), container.getScreenHeight(), false);
-		container.setVSync(true);
+		container.setVSync(false);
 		container.start();
 	}
 
 	@Override
 	public void initStatesList(GameContainer container) throws SlickException {
-		addState(new Test1());
 		addState(new Menu());
+		addState(new Test1());
 		addState(new test3());
 				
 	}

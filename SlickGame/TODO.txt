@@ -20,21 +20,63 @@ Ideen
 
 Zu Ideen: 
 
+
+
+
 Gegener:
+
+
 	Grünen
 		Bewegt sich nicht
-		schisst auf Spieler
+		schiesst auf Spieler
 		
 	Rot
 		Bewegt sich auf Spieler
-		Dmg wenn Spiler berürcht
+		Dmg wenn Spieler berürcht
 		
 	
 	Blau
-		schisst auf Spieler
+		schiesst auf Spieler
 		
 		
+		
+		
+		
+		
+Lootsystem: 
+
+	XP-System:
+			XP, je Gegner (steigend pro Ebene) 
+			XP untrschiedlich, je nach Gegner und der angehörigen Schwierigkeit.
+			Skill Points gained
+			
+					1. Schneller Schießen
+					2. Mehr HP
+					3. Größere Schusshitbox
+					4. Mehr Damage
+					5. Schild?
+					6. Schneller bewegen?
+					7. Crits
+					8. Dodge possabilty
+					
+			
+	Skill-System: 
+	
+			Verschiede Skills: 
+								1. Multiple Enemy hits, hin und her fliegen zwischen gegnern
+								2. Explodierende Gegner 
+								3. Kleine Fläche um Spieler, welche gegnern Schaden hinzufügt
+								4. Mehrere Schüsse gelichzeitig schießen
+										Frontal / Diagonal / Hinten / Seitlich
+								5. Sonderschüsse (skills) zb. Großer Schuss
+								6. Stacheln um einen Rum
+								7. Rage => Je weniger HP, desto mehr dmg/atackspeed
+								
+			Standard skills wählbar: 1-3 idk yet
+			
+			
+
 
 1. Maybe ne art Speed boost (per shift)?
-2. Bam sound von Moritz klauen
+2. Bam sound von Moritz klauen (Done)
 3. Wir können eigene sounbds mit Bfxr btw
