@@ -43,14 +43,16 @@ public class MapMaker {
 		this.fs = fs;
 		this.randon = randon;
 		this.fillholes = fillholes;
-		ran = new Random(seed.hashCode());
+		ran = new Random();
 	}
 	
 	public void creat(String seed) {
 		ran = new Random(seed.hashCode());
+		creat();
 	}
 	public void creat(long seed) {
 		ran = new Random(seed);
+		creat();
 	}
 	
 	

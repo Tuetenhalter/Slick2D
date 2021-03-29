@@ -28,8 +28,9 @@ public class Player extends GameObjectLife {
 	}
 
 	public Player(float x, float y, float width, float height, float maxlive) {
-		super(x, y, width, height, maxlive);
-		// TODO Auto-generated constructor stub
+		super(x, y, width+1, height+1, maxlive);
+		setHeight(height);
+		setWidth(width);
 	}
 
 	@Override
@@ -37,7 +38,6 @@ public class Player extends GameObjectLife {
 
 		getHitBox().setX(getPos().getX());
 		getHitBox().setY(getPos().getY());
-
 //		mygame.camara.drawShape(g, getHitBox(), Color.blue);
 
 		g.fill(getHitBox());
@@ -84,7 +84,7 @@ public class Player extends GameObjectLife {
 		}
 
 		if (getAcc().magnitude() > 0) {
-			getAcc().setMagnitude(5f);
+			getAcc().setMagnitude(1f);
 		}
 		
 
@@ -165,27 +165,27 @@ public class Player extends GameObjectLife {
 			setY(y2 - height);
 		}
 
-		// links oben
-		if (!(x < x2 + width2) && speedx < 1 && speedy < 1 && x + speedx < x2 + width2 && x + speedx > x2
-				&& y + speedy < y2 + height2 && y + speedy > y2) {
-			setSpeedX(0);
-		}
-		// links unten
-		if (!(x < x2 + width2) && speedx < 1 && speedy > 1 && x + speedx < x2 + width2 && x + speedx > x2
-				&& y + speedy + height > y2 && y + speedy + height < y2 + height2) {
-			setSpeedX(0);
-		}
-		// recht oben
-		if (!(x + width > x2) && speedx > 1 && speedy < 1 && x + speedx + width > x2
-				&& x + speedx + width < x2 + height2 && y + speedy < y2 + height2 && y + speedy > y2) {
-			setSpeedX(0);
-		}
-		// rechts unten
-		if (!(x + width > x2) && speedx > 1 && speedy > 1 && x + speedx + width > x2
-				&& x + speedx + width < x2 + height2 && y + speedy + height > y2
-				&& y + speedy + height < y2 + height2) {
-			setSpeedX(0);
-		}
+//		// links oben
+//		if (!(x < x2 + width2) && speedx < 1 && speedy < 1 && x + speedx < x2 + width2 && x + speedx > x2
+//				&& y + speedy < y2 + height2 && y + speedy > y2) {
+//			setSpeedX(0);
+//		}
+//		// links unten
+//		if (!(x < x2 + width2) && speedx < 1 && speedy > 1 && x + speedx < x2 + width2 && x + speedx > x2
+//				&& y + speedy + height > y2 && y + speedy + height < y2 + height2) {
+//			setSpeedX(0);
+//		}
+//		// recht oben
+//		if (!(x + width > x2) && speedx > 1 && speedy < 1 && x + speedx + width > x2
+//				&& x + speedx + width < x2 + height2 && y + speedy < y2 + height2 && y + speedy > y2) {
+//			setSpeedX(0);
+//		}
+//		// rechts unten
+//		if (!(x + width > x2) && speedx > 1 && speedy > 1 && x + speedx + width > x2
+//				&& x + speedx + width < x2 + height2 && y + speedy + height > y2
+//				&& y + speedy + height < y2 + height2) {
+//			setSpeedX(0);
+//		}
 
 	}
 

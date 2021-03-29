@@ -20,9 +20,9 @@ public class Wall extends GameObject {
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g, MyBasicGameState mygame) {
 
-		getHitBox().setX(getPos().getX());
-		getHitBox().setY(getPos().getY());
-		mygame.camara.drawShape(g, getHitBox(), Color.white);
+//		getHitBox().setX(getPos().getX());
+//		getHitBox().setY(getPos().getY());
+//		mygame.camara.drawShape(g, getHitBox(), Color.white);
 
 	}
 

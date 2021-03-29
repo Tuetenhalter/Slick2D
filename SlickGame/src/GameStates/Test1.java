@@ -6,6 +6,7 @@ import java.util.Random;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
@@ -14,13 +15,21 @@ import org.newdawn.slick.state.StateBasedGame;
 import GameObjects.GameObject;
 import GameObjects.GameObjectLife.Player;
 import GameObjects.Wall.Wall;
+import Tile.Tile;
+import Tile.TileMap;
 import idk.Camara;
 import idk.MapMaker;
 
 public class Test1 extends MyBasicGameState {
 
+	TileMap tileMap;
+
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
+
+		tileMap = new TileMap(100, 100, 64, 64, new Image("testdata/dungeontiles.gif"));
+
+		tileMap.setTileMap(Tile.FLOOR, 2, 2);
 
 		container.setMinimumLogicUpdateInterval(20);
 		container.setMaximumLogicUpdateInterval(20);
@@ -29,6 +38,8 @@ public class Test1 extends MyBasicGameState {
 		gameList = new ArrayList<GameObject>();
 
 		creatMap();
+		tileMap.setTileMap(Tile.FLOOR, 0, 0);
+		tileMap.createTileMap();
 
 //		gameList.add(new BouncieWall(500, 500, 25, 50, null));
 
@@ -41,7 +52,7 @@ public class Test1 extends MyBasicGameState {
 
 //		gameList.add(new Player(0, 0, 210, 210, 50, 50, null, new Rectangle(200, 200, 50, 50), 100, 100));
 
-		//player = new Player(200, 200, 50, 50, 100);
+		// player = new Player(200, 200, 50, 50, 100);
 		gameList.add(player);
 	}
 
@@ -57,6 +68,9 @@ public class Test1 extends MyBasicGameState {
 		g.drawString("viewY: " + camara.getPos().getY(), 5, 160);
 
 		g.translate(-camara.getPos().getX(), -camara.getPos().getY());
+
+		g.drawImage(tileMap.getMap(), 0, 0);
+
 		for (GameObject gameObject : gameList) {
 			gameObject.render(container, game, g, this);
 		}
@@ -90,40 +104,47 @@ public class Test1 extends MyBasicGameState {
 
 	public void creatMap() {
 
-		MapMaker mapMaker = new MapMaker(200, 200, "Pascal", 4, 0, 48, true);
+		MapMaker mapMaker = new MapMaker(100, 100, "Pascal", 0, 1, 48, true);
 		mapMaker.creat();
 
 		int[][] map = mapMaker.getList();
-		
-		
+
 		Random ran = new Random();
-		int blockx = 50;
-		int blocky = 50;
+		int blockx = 64;
+		int blocky = 64;
 		int ranx;
 		int rany;
 		do {
 			ranx = ran.nextInt(mapMaker.getWidth());
 			rany = ran.nextInt(mapMaker.getHeight());
-			
+
 		} while (map[ranx][rany] == 1);
-		player = new Player(ranx*blockx, rany*blocky, blockx, blocky, 100);
+		player = new Player(ranx * blockx, rany * blocky, blockx, blocky, 100);
 		gameList.add(player);
-		
-		
+		for (int i = 0; i < map.length; i++) {
+			for (int j = 0; j < map[0].length; j++) {
+				if (map[i][j] == 1) {
+					tileMap.setTileMap(Tile.WALL, i, j);
+				} else {
+					tileMap.setTileMap(Tile.FLOOR, i, j);
+				}
+			}
+		}
+
 		mapMaker.onlyEges();
-		
+
 		map = mapMaker.getList();
-		
+
 		camara.setRangex(0);
 		camara.setRangey(0);
-		camara.setRangex2(map.length*blockx + blockx);
-		camara.setRangey2(map[0].length*blocky + blocky);
-		
+		camara.setRangex2(map.length * blockx + blockx);
+		camara.setRangey2(map[0].length * blocky + blocky);
 
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map[0].length; j++) {
-				if(map[i][j] == 1) {
-					gameList.add(new Wall(i*blockx, j*blocky, blockx, blocky));
+				if (map[i][j] == 1) {
+					gameList.add(new Wall(i * blockx, j * blocky, blockx, blocky));
+
 				}
 			}
 		}
