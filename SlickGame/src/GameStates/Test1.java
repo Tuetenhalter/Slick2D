@@ -104,7 +104,7 @@ public class Test1 extends MyBasicGameState {
 
 	public void creatMap() {
 
-		MapMaker mapMaker = new MapMaker(100, 100, "Pascal", 0, 1, 48, true);
+		MapMaker mapMaker = new MapMaker(100, 100, "Pascal", 2, 1, 48, true);
 		mapMaker.creat();
 
 		int[][] map = mapMaker.getList();
