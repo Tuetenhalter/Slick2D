@@ -17,13 +17,10 @@ public class Main extends StateBasedGame{
 
 	public static void main(String[] args) throws SlickException {
 		
-		
-
+	
 		System.out.println("lull");
-
-		
 		AppGameContainer container = new AppGameContainer(new Main());
-		container.setDisplayMode(container.getScreenWidth(), container.getScreenHeight(), true);
+		container.setDisplayMode(container.getScreenWidth(), container.getScreenHeight(), false);
 		container.setVSync(true);
 		container.start();
 	}
@@ -31,6 +28,8 @@ public class Main extends StateBasedGame{
 	@Override
 	public void initStatesList(GameContainer container) throws SlickException {
 		addState(new Test1());
-		
+		addState(new Menu());
+		addState(new test3());
+				
 	}
 }

@@ -2,9 +2,16 @@ Start Menu
 Gegner
 Level
 Pause Menü
-Einstellugen
+
 Sounds
 
+Rerfominso und dies das
+
+Einstellugen
+	- Größe änder
+	- fullsreen
+	- sounds
+	- 
 
 
 
@@ -15,3 +22,4 @@ Zu Ideen:
 
 1. Maybe ne art Speed boost (per shift)?
 2. Bam sound von Moritz klauen
+3. Wir können eigene sounbds mit Bfxr btw
