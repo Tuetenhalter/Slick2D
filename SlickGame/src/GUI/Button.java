@@ -112,7 +112,6 @@ public class Button
 		startButton = new Image("res/start-knopf-400-117977923.jpg");
 		menuButton = new Image("res/start-knopf-400-117977923.jpg");
 		exitButton = new Image("res/start-knopf-400-117977923.jpg");
-
 	}
 
 	public boolean isClicked()
