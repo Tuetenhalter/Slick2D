@@ -37,6 +37,7 @@ public class TileMap {
 	}
 	
 	public void createTileMap() throws SlickException{
+		
 		Image cimage = new Image(widhtArray*widhtTile, heigthArray*heightTile, Image.FILTER_NEAREST);
 		image.setFilter(Image.FILTER_NEAREST);
 		Graphics g = cimage.getGraphics();
@@ -47,7 +48,9 @@ public class TileMap {
 				
 				if(tile != null) {
 					//g.drawImage(image, i*widhtTile, j*heightTile, tile.getX(), tile.getY(), tile.getX2(), tile.getY2());
-					g.drawImage(image, i*widhtTile, j*heightTile, i*widhtTile+widhtTile, j*heightTile+heightTile, tile.getX(), tile.getY(), tile.getX2(), tile.getY2());
+					if(tile.getImage() != null) {
+						g.drawImage(tile.getImage(), i*widhtTile, j*heightTile, i*widhtTile+widhtTile, j*heightTile+heightTile, tile.getX(), tile.getY(), tile.getX2(), tile.getY2());
+					}
 					
 				}
 				

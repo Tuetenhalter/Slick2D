@@ -1,4 +1,4 @@
-package GameObjects.GameObjectLife.Gegner;
+package GameObjects.GameObjectLife.Enemy;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -11,16 +11,16 @@ import GameObjects.GameObjectLife.GameObjectLife;
 import GameStates.MyBasicGameState;
 import idk.Vector2D;
 
-public class Blue extends GameObjectLife {
+public class Blue extends Enemy{
 
 	public Blue(Vector2D pos, Vector2D vel, Vector2D acc, float width, float height, Shape hitBox, float live,
-			float maxLive) {
-		super(pos, vel, acc, width, height, hitBox, live, maxLive);
+			float maxLive, int shootDelay, int shootDelayMax) {
+		super(pos, vel, acc, width, height, hitBox, live, maxLive, shootDelay, shootDelayMax);
 		// TODO Auto-generated constructor stub
 	}
 
-	public Blue(float x, float y, float width, float height, float maxlive) {
-		super(x, y, width + 1, height + 1, maxlive);
+	public Blue(float x, float y, float width, float height, float maxlive, int shootDelayMax) {
+		super(x, y, width + 1, height + 1, maxlive, shootDelayMax);
 		setHeight(height);
 		setWidth(width);
 	}
@@ -36,13 +36,17 @@ public class Blue extends GameObjectLife {
 
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta, MyBasicGameState mygame) {
-
-		if (getPos().distanceSq(mygame.player.getPos()) < 10000000) {
-			Bullet bullte = new Bullet(getPos().clone().add(getWidth() / 2 - 5, getHeight() / 2 - 5),
-					mygame.player.getPos().clone().add(mygame.player.getWidth() / 2, mygame.player.getHeight() / 2), 10,
-					10, 10);
-			mygame.gameList.add(bullte);
+		
+		if(getLive() < 0 ) {
+			setDestroy(true);
 		}
+
+//		if (getPos().distanceSq(mygame.player.getPos()) < 10000000) {
+//			Bullet bullte = new Bullet(getPos().clone().add(getWidth() / 2 - 5, getHeight() / 2 - 5),
+//					mygame.player.getPos().clone().add(mygame.player.getWidth() / 2, mygame.player.getHeight() / 2), 10,
+//					10, 10);
+//			mygame.gameList.add(bullte);
+//		}
 
 	}
 

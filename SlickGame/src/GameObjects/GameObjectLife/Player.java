@@ -3,7 +3,6 @@ package GameObjects.GameObjectLife;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.state.StateBasedGame;
@@ -18,13 +17,13 @@ import idk.Vector2D;
 public class Player extends GameObjectLife {
 
 	public Player(Vector2D pos, Vector2D vel, Vector2D acc, float width, float height, Shape hitBox, float live,
-			float maxLive) {
-		super(pos, vel, acc, width, height, hitBox, live, maxLive);
+			float maxLive, int shootDelay, int shootDelayMax) {
+		super(pos, vel, acc, width, height, hitBox, live, maxLive, shootDelay, shootDelayMax);
 		// TODO Auto-generated constructor stub
 	}
 
-	public Player(float x, float y, float width, float height, float maxlive) {
-		super(x, y, width+1, height+1, maxlive);
+	public Player(float x, float y, float width, float height, float maxlive, int shootDelayMax) {
+		super(x, y, width + 1, height + 1, maxlive, shootDelayMax);
 		setHeight(height);
 		setWidth(width);
 	}
@@ -37,7 +36,7 @@ public class Player extends GameObjectLife {
 //		mygame.camara.drawShape(g, getHitBox(), Color.blue);
 
 		g.fill(getHitBox());
-		
+
 		g.resetTransform();
 		g.setColor(Color.red);
 		g.drawString("speedX: " + getVel().getX(), 5, 20);
@@ -54,12 +53,22 @@ public class Player extends GameObjectLife {
 
 		Input input = container.getInput();
 
-		if (input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
+		if (getShootDelay() <= getMaxLive()) {
+			setShootDelay(getShootDelay() + 1);
+		}
 
-			mygame.gameList.add(new Bullet(getPos().clone().add(getWidth() / 2 - 5, getHeight() / 2 - 5),
-					new Vector2D(input.getMouseX() + mygame.camara.getPos().getX(),
-							input.getMouseY() + mygame.camara.getPos().getY()),
-					10, 10, 10));
+		if (input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
+			if (getShootDelay() > getMaxLive()) {
+				Bullet bullet = new Bullet(getPos().clone().add(getWidth() / 2 - 5, getHeight() / 2 - 5),
+						new Vector2D(input.getMouseX() + mygame.camara.getPos().getX(),
+								input.getMouseY() + mygame.camara.getPos().getY()),
+						10, 10, 10);
+				bullet.setBounce(1);
+				bullet.setGroup(Bullet.GROUP_PLAYER);
+				mygame.gameList.add(bullet);
+				setShootDelay(0);
+				;
+			}
 
 		}
 
@@ -80,28 +89,24 @@ public class Player extends GameObjectLife {
 		}
 
 		if (getAcc().magnitude() > 0) {
-			getAcc().setMagnitude(10f);
+			getAcc().setMagnitude(1f);
 		}
-		
 
 		getAcc().sub(getVel().clone().mul(.25f));
 
 		getVel().add(getAcc());
 
-
 		for (GameObject gameObject : mygame.gameList) {
 			if (gameObject instanceof Wall) {
 				colltiontoWall((Wall) gameObject);
 			}
-			
-			
+
 //			if (gameObject instanceof BouncieWall) {
 //				collitcionBounciWall((BouncieWall) gameObject);
 //
 //			}
 		}
-		
-		
+
 		getPos().add(getVel());
 	}
 

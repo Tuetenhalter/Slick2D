@@ -17,6 +17,7 @@ public abstract class GameObject {
 	private float width;
 	private float height;
 	private Shape hitBox;
+	private boolean destroy = false;
 
 	public GameObject(Vector2D pos, Vector2D vel, Vector2D acc, float width, float height, Shape hitBox) {
 		super();
@@ -125,6 +126,14 @@ public abstract class GameObject {
 
 	public void setHitBox(Shape hitBox) {
 		this.hitBox = hitBox;
+	}
+
+	public boolean isDestroy() {
+		return destroy;
+	}
+
+	public void setDestroy(boolean destroy) {
+		this.destroy = destroy;
 	}
 
 }
