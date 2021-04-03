@@ -67,7 +67,7 @@ public class Player extends GameObjectLife {
 				bullet.setGroup(Bullet.GROUP_PLAYER);
 				mygame.gameList.add(bullet);
 				setShootDelay(0);
-				;
+				
 			}
 
 		}

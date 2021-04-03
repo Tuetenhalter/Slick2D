@@ -21,7 +21,7 @@ public class Tile {
 
 	public Tile(int[][] map, int i, int j, Image image) {
 		int up, down, left, right, leftUp, leftDown, rightUp, rightDown;
-		
+
 		int tilelenght = 32;
 
 		if (map[i][j] == 1) {
@@ -82,68 +82,96 @@ public class Tile {
 			}
 
 			// Wich tile
+
+//			setTile(1, 1, tilelenght, image);
+
 			
-			setTile(1, 1, tilelenght, image);
+			if (left == 0 && up == 0 && right == 1 && down == 1 && rightDown == 1) {
+				setTile(0, 0, tilelenght, image);
+			}
+
+			if (up == 0 && left == 1 && right == 1 && down == 1 && leftDown == 1 && rightDown == 1) {
+				setTile(1, 0, tilelenght, image);
+			}
+
+			if (left == 1 && down == 1 && leftDown == 1 && up == 0 && right == 0) {
+				setTile(2, 0, tilelenght, image);
+			}
+
+			if (down == 1 && up == 0 && left == 0 && right == 0) {
+				setTile(3, 0, tilelenght, image);
+			}
+
+			if (up == 0 && left == 0 && rightDown == 0 && right == 1 && down == 1) {
+				setTile(4, 0, tilelenght, image);
+			}
+
+			if (up == 0 && left == 1 && rightDown == 0 && right == 1 && down == 1 && leftDown == 1) {
+				setTile(5, 0, tilelenght, image);
+			}
+
+			if (up == 0 && left == 1 && rightDown == 1 && right == 1 && down == 1 && leftDown == 0) {
+				setTile(6, 0, tilelenght, image);
+			}
+
+			if (up == 0 && right == 0 && leftDown == 0 && left == 1 && down == 1) {
+				setTile(7, 0, tilelenght, image);
+			}
+
+			if (up == 0 && left == 1 && rightDown == 0 && right == 1 && down == 1 && leftDown == 0) {
+				setTile(8, 0, tilelenght, image);
+			}
+
+			if (up == 1 && down == 1 && left == 1 && right == 1 && leftDown == 0 && leftUp == 1 && rightDown == 1
+					&& rightUp == 0) {
+				setTile(9, 0, tilelenght, image);
+			}
+
+			if (left == 0 && up == 1 && rightUp == 1 && right == 1 && rightDown == 1 && down == 1) {
+				setTile(0, 1, tilelenght, image);
+			}
 			
 			if (up == 1 && down == 1 && left == 1 && right == 1 && leftDown == 1 && leftUp == 1 && rightDown == 1
 					&& rightUp == 1) {
 				setTile(1, 1, tilelenght, image);
 			}
-			
-			if (left == 0 && up == 0 && right == 1 && down == 1 && rightDown == 1) {
-				setTile(0, 0, tilelenght, image);
-			}
-			
-			if(up == 0 && left == 1 && right  == 1 && down  == 1 && leftDown == 1 && rightDown == 1) {
-				setTile(1, 0, tilelenght, image);
-			}
-			
-			if(left == 1 && down == 1 && leftDown == 1 && up == 0 && right == 0) {
-				setTile(2, 0, tilelenght, image);
-			}
-			
-			if( down == 1 && up == 0 && left == 0 && right == 0) {
-				setTile(3, 0, tilelenght, image);
-			}
-			
-			
-			if(left == 0 && up == 1 && rightUp == 1 && right == 1 && rightDown == 1 && down == 1) {
-				setTile(0, 1, tilelenght, image);
-			}
-			
-			if(right == 0 && up == 1 && leftUp == 1 && left == 1 && leftDown == 1 && down == 1) {
+
+			if (down == 1 && up == 1 && left == 0 && right == 0) {
 				setTile(2, 1, tilelenght, image);
 			}
 			
-			if(left == 0 && down == 0 && up == 1 && right == 1 && rightUp == 1) {
+			
+
+			if (right == 0 && up == 1 && leftUp == 1 && left == 1 && leftDown == 1 && down == 1) {
+				setTile(2, 1, tilelenght, image);
+			}
+
+			if (left == 0 && down == 0 && up == 1 && right == 1 && rightUp == 1) {
 				setTile(0, 2, tilelenght, image);
 			}
-			
-			if(down == 0 && left == 1 && right  == 1 && up  == 1 && leftUp == 1 && rightUp == 1) {
+
+			if (down == 0 && left == 1 && right == 1 && up == 1 && leftUp == 1 && rightUp == 1) {
 				setTile(1, 2, tilelenght, image);
 			}
-			
-			if(right == 0 && down == 0 && up == 1 && left == 1 && leftUp == 1) {
+
+			if (right == 0 && down == 0 && up == 1 && left == 1 && leftUp == 1) {
 				setTile(2, 2, tilelenght, image);
 			}
-			
-			
-			
+
 			if (up == 1 && down == 1 && left == 1 && right == 1 && leftDown == 1 && leftUp == 1 && rightDown == 1
 					&& rightUp == 0) {
 				setTile(5, 2, tilelenght, image);
 			}
-			
 
 		}
 
 	}
 
 	public void setTile(float x, float y, int tilelenght, Image image) {
-		this.x = x*tilelenght;
-		this.y = y*tilelenght;
-		this.x2 = x*tilelenght +tilelenght;
-		this.y2 = y*tilelenght + tilelenght;
+		this.x = x * tilelenght;
+		this.y = y * tilelenght;
+		this.x2 = x * tilelenght + tilelenght;
+		this.y2 = y * tilelenght + tilelenght;
 		this.image = image;
 	}
 

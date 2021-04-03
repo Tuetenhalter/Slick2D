@@ -14,7 +14,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import GameObjects.GameObject;
 import GameObjects.GameObjectLife.Player;
-import GameObjects.GameObjectLife.Enemy.Enemy.Blue;
+import GameObjects.GameObjectLife.Enemy.Blue;
 import GameObjects.Wall.Wall;
 import Tile.Tile;
 import Tile.TileMap;
@@ -133,6 +133,8 @@ public class Test1 extends MyBasicGameState {
 
 		} while (map[ranx][rany] == 1);
 		gameList.add(new Blue(ranx*blockx, rany*blocky, blocky, blocky, 10, 20));
+		
+		
 		
 		Image image = new Image("res/test.png");
 		

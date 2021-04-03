@@ -60,7 +60,7 @@ public class MapMaker
 
 	public void creat()
 	{
-
+		ran = new Random();
 		list = new int[width][height];
 
 		for (int i = 0; i < list.length; i++)

@@ -6,6 +6,8 @@ import GameObjects.GameObjectLife.GameObjectLife;
 import idk.Vector2D;
 
 public abstract class Enemy extends GameObjectLife {
+	
+	private float shootAngel;
 
 	public Enemy(Vector2D pos, Vector2D vel, Vector2D acc, float width, float height, Shape hitBox, float live,
 			float maxLive, int shootDelay, int shootDelayMax) {
@@ -16,5 +18,13 @@ public abstract class Enemy extends GameObjectLife {
 	public Enemy(float x, float y, float width, float height, float maxlive, int shootDelayMax) {
 		super(x, y, width, height, maxlive, shootDelayMax);
 		// TODO Auto-generated constructor stub
+	}
+
+	public float getShootAngel() {
+		return shootAngel;
+	}
+
+	public void setShootAngel(float shootAngel) {
+		this.shootAngel = shootAngel;
 	}
 }
