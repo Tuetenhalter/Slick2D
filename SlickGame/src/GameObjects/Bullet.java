@@ -6,6 +6,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.state.StateBasedGame;
 
+import GameObjects.GameObjectLife.Player;
 import GameObjects.GameObjectLife.Enemy.Enemy;
 import GameObjects.Wall.BouncieWall;
 import GameObjects.Wall.Wall;
@@ -72,12 +73,25 @@ public class Bullet extends GameObject {
 						Enemy blue = (Enemy) gameObject;
 						blue.setLive(blue.getLive() - 1);
 
-						if (blue.getLive() < 0) {
+						if (blue.getLive() <= 0) {
 							blue.setDestroy(true);
 						}
 					}
 				}
-
+			}
+			
+			if(gameObject instanceof Player) {
+				if (group == GROUP_ENEMY) {
+					if (gameObject.getHitBox().intersects(getHitBox())) {
+						setDestroy(true);
+						Player player = (Player) gameObject;
+						player.setLive(player.getLive() - 1);
+						System.out.println(this);
+						if (player.getLive() <= 0) {
+							player.setDestroy(true);
+						}
+					}
+				}
 			}
 		}
 

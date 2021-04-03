@@ -7,6 +7,8 @@ import org.newdawn.slick.geom.Shape;
 import GameStates.MyBasicGameState;
 
 public class Camara {
+	
+	static final float smooth = .9f;
 
 	private Vector2D pos;
 	private float rangex;
@@ -46,27 +48,23 @@ public class Camara {
 		Vector2D target = mygame.player.getPos().clone();
 		target.sub(1920 / 2, 1080 / 2);
 		target.add(mygame.player.getWidth() / 2, mygame.player.getHeight() / 2);
-		
 
-		if (rangex2 != 0) {
-			if (target.getX() < rangex) {
-				target.setX(rangex);
-			}
-			if (target.getX() > rangex2) {
-				target.setX(rangex2);
-			}
-
-			if (target.getY() < rangey) {
-				target.setY(rangey);
-			}
-			if (target.getY() > rangey2) {
-				target.setY(rangey2);
-			}
+		if (target.getX() < rangex) {
+			target.setX(rangex);
 		}
-		
-		
+		if (target.getX() > rangex2) {
+			target.setX(rangex2);
+		}
+
+		if (target.getY() < rangey) {
+			target.setY(rangey);
+		}
+		if (target.getY() > rangey2) {
+			target.setY(rangey2);
+		}
+
 		target.sub(pos);
-		target.mul(1f);
+		target.mul(smooth);
 		pos.add(target);
 
 	}

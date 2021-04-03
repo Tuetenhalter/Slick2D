@@ -9,14 +9,9 @@ public abstract class GameObjectLife extends GameObject {
 
 	private float live;
 	private float maxLive;
-	
+
 	private int shootDelay = 0;
-	private int shootDelayMax = 20;
-
-	// Getter Setter
-
-	
-	
+	private int shootDelayMax;
 
 	public GameObjectLife(float x, float y, float width, float height, float maxlive, int shootDelayMax) {
 		super(x, y, width, height);
@@ -25,8 +20,6 @@ public abstract class GameObjectLife extends GameObject {
 		this.shootDelayMax = shootDelayMax;
 		// TODO Auto-generated constructor stub
 	}
-	
-	
 
 	public GameObjectLife(Vector2D pos, Vector2D vel, Vector2D acc, float width, float height, Shape hitBox, float live,
 			float maxLive, int shootDelay, int shootDelayMax) {
@@ -37,7 +30,7 @@ public abstract class GameObjectLife extends GameObject {
 		this.shootDelayMax = shootDelayMax;
 	}
 
-
+	// Getter Setter
 
 	public float getLive() {
 		return live;

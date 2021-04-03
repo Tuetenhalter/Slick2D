@@ -34,37 +34,40 @@ public class Player extends GameObjectLife {
 		getHitBox().setX(getPos().getX());
 		getHitBox().setY(getPos().getY());
 //		mygame.camara.drawShape(g, getHitBox(), Color.blue);
-
+		g.setColor(Color.red);
 		g.fill(getHitBox());
 
 		g.resetTransform();
-		g.setColor(Color.red);
-		g.drawString("speedX: " + getVel().getX(), 5, 20);
-		g.drawString("speedY: " + getVel().getY(), 5, 40);
-
-		g.drawString("X: " + getPos().getX(), 5, 100);
-		g.drawString("Y: " + getPos().getY(), 5, 120);
+//		g.setColor(Color.red);
+//		g.drawString("speedX: " + getVel().getX(), 5, 20);
+//		g.drawString("speedY: " + getVel().getY(), 5, 40);
+//
+//		g.drawString("X: " + getPos().getX(), 5, 100);
+//		g.drawString("Y: " + getPos().getY(), 5, 120);
 		g.translate(-mygame.camara.getPos().getX(), -mygame.camara.getPos().getY());
 
 	}
 
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta, MyBasicGameState mygame) {
-
 		Input input = container.getInput();
+		if (getLive() <= 0) {
+			setDestroy(true);
+		}
 
-		if (getShootDelay() <= getMaxLive()) {
+		if (getShootDelay() <= getShootDelayMax()) {
 			setShootDelay(getShootDelay() + 1);
 		}
 
 		if (input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
-			if (getShootDelay() > getMaxLive()) {
+			if (getShootDelay() > getShootDelayMax()) {
 				Bullet bullet = new Bullet(getPos().clone().add(getWidth() / 2 - 5, getHeight() / 2 - 5),
 						new Vector2D(input.getMouseX() + mygame.camara.getPos().getX(),
 								input.getMouseY() + mygame.camara.getPos().getY()),
 						10, 10, 10);
 				bullet.setBounce(1);
 				bullet.setGroup(Bullet.GROUP_PLAYER);
+				bullet.getVel().add(getVel());
 				mygame.gameList.add(bullet);
 				setShootDelay(0);
 				
@@ -89,7 +92,7 @@ public class Player extends GameObjectLife {
 		}
 
 		if (getAcc().magnitude() > 0) {
-			getAcc().setMagnitude(1f);
+			getAcc().setMagnitude(2f);
 		}
 
 		getAcc().sub(getVel().clone().mul(.25f));
@@ -98,9 +101,9 @@ public class Player extends GameObjectLife {
 
 		for (GameObject gameObject : mygame.gameList) {
 			if (gameObject instanceof Wall) {
-				colltiontoWall((Wall) gameObject);
+				//colltiontoWall((Wall) gameObject);
 			}
-
+			
 //			if (gameObject instanceof BouncieWall) {
 //				collitcionBounciWall((BouncieWall) gameObject);
 //

@@ -24,7 +24,7 @@ public class Main extends StateBasedGame{
 	
 		System.out.println("lull");
 		AppGameContainer container = new AppGameContainer(new Main());
-		container.setDisplayMode(container.getScreenWidth(), container.getScreenHeight(), false);
+		container.setDisplayMode(1600, 900, false);
 		container.setVSync(false);
 		container.start();
 	}
@@ -34,6 +34,6 @@ public class Main extends StateBasedGame{
 		addState(new Menu());
 		addState(new Test1());
 		addState(new test3());
-				
+		
 	}
 }

@@ -157,10 +157,27 @@ public class Tile {
 			if (right == 0 && down == 0 && up == 1 && left == 1 && leftUp == 1) {
 				setTile(2, 2, tilelenght, image);
 			}
+			
 
+			
 			if (up == 1 && down == 1 && left == 1 && right == 1 && leftDown == 1 && leftUp == 1 && rightDown == 1
 					&& rightUp == 0) {
 				setTile(5, 2, tilelenght, image);
+			}
+			
+			if (up == 1 && down == 1 && left == 1 && right == 1 && leftDown == 1 && leftUp == 0 && rightDown == 1
+					&& rightUp == 1) {
+				setTile(6, 2, tilelenght, image);
+			}
+			
+			if (up == 1 && down == 1 && left == 1 && right == 1 && leftDown == 1 && leftUp == 1 && rightDown == 0
+					&& rightUp == 1) {
+				setTile(5, 1, tilelenght, image);
+			}
+			
+			if (up == 1 && down == 1 && left == 1 && right == 1 && leftDown == 0 && leftUp == 1 && rightDown == 1
+					&& rightUp == 1) {
+				setTile(6, 1, tilelenght, image);
 			}
 
 		}

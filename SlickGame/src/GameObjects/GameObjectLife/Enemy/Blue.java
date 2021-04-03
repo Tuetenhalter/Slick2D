@@ -7,7 +7,6 @@ import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.state.StateBasedGame;
 
 import GameObjects.Bullet;
-import GameObjects.GameObjectLife.GameObjectLife;
 import GameObjects.GameObjectLife.Player;
 import GameStates.MyBasicGameState;
 import idk.Vector2D;
@@ -41,9 +40,8 @@ public class Blue extends Enemy {
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta, MyBasicGameState mygame) {
 
-		if (getLive() < 0) {
+		if (getLive() <= 0) {
 			setDestroy(true);
-
 		}
 
 		Player player = mygame.player;
@@ -85,11 +83,15 @@ public class Blue extends Enemy {
 			setShootAngel(getShootAngel()+360);
 		}
 		
-		if (getShootDelay() <= getMaxLive()) {
+		if(Math.abs(getShootAngel()-angel) < 1) {
+			setShootAngel((float) angel);
+		}
+		
+		if (getShootDelay() <= getShootDelayMax()) {
 			setShootDelay(getShootDelay() + 1);
 		}
 
-		if (getShootDelay() > getMaxLive()) {
+		if (getShootDelay() > getShootDelayMax()) {
 			if (getPos().distanceSq(mygame.player.getPos()) < 10000000) {
 
 				Bullet bullet = new Bullet(getPos().clone().add(getWidth() / 2 - 5, getHeight() / 2 - 5),
