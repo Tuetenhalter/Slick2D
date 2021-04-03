@@ -4,6 +4,10 @@ import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
+
+import GameStates.Menu.OptionsMenu;
+import GameStates.Menu.PauseMenu;
+import GameStates.Menu.StartMenu;
 /**
  * 
  * @author Pascal Heimann, Amir Hamdoun,David Schmitt
@@ -31,9 +35,10 @@ public class Main extends StateBasedGame{
 
 	@Override
 	public void initStatesList(GameContainer container) throws SlickException {
-		addState(new Menu());
-		addState(new Test1());
-		addState(new test3());
+		addState(new StartMenu());
+		addState(new Game());
+		addState(new PauseMenu());
+		addState(new OptionsMenu());
 		
 	}
 }

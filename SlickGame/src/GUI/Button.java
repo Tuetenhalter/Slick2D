@@ -1,6 +1,5 @@
 package GUI;
 
-
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -17,8 +16,8 @@ public class Button {
 
 	private String label;
 
-	private float distanceright;
 	private float distanceleft;
+	private float distanceright;
 	private float distancetop;
 	private float distancebotten;
 
@@ -26,19 +25,21 @@ public class Button {
 	private Rectangle rect2;
 	Image startButton, menuButton, exitButton;
 
-	public Button(String label, float distanceright, float distanceleft, float distancetop, float distancebotten,
+	public Button(String label, float distanceleft, float distanceright, float distancetop, float distancebotten,
 			GameContainer container) {
 		super();
 		this.label = label;
-		this.distanceright = distanceright;
+		
 		this.distanceleft = distanceleft;
+		this.distanceright = distanceright;
 		this.distancetop = distancetop;
 		this.distancebotten = distancebotten;
 
 		float x = container.getWidth() * distanceleft;
 		float y = container.getHeight() * distancetop;
-		float width = container.getWidth() * (1 - distancebotten) - x;
-		float height = container.getHeight() * (1 - distanceright) - y;
+
+		float width = container.getWidth() * (1 - distanceright) - x;
+		float height = container.getHeight() * (1 - distancebotten) - y;
 
 		rect1 = new Rectangle(x, y, width, height);
 
@@ -59,13 +60,12 @@ public class Button {
 
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
 
-		startButton = new Image("res/start-knopf-400-117977923.jpg");
+	
 
 		g.resetTransform();
 
 		g.setColor(Color.gray);
 		g.fill(rect1);
-		
 
 		if (!mouseOver) {
 			g.setColor(Color.white);
@@ -74,11 +74,10 @@ public class Button {
 		}
 
 		g.setColor(Color.red);
-	
+
 		g.drawString(label, rect1.getCenterX() - g.getFont().getLineHeight() / 2,
 				rect1.getCenterY() - g.getFont().getWidth(label) / 2);
 
-//		g.drawImage(startButton, 100, 300);
 
 	}
 
@@ -101,6 +100,15 @@ public class Button {
 		startButton = new Image("res/start-knopf-400-117977923.jpg");
 		menuButton = new Image("res/start-knopf-400-117977923.jpg");
 		exitButton = new Image("res/start-knopf-400-117977923.jpg");
+	}
+	
+	public boolean clicked() {
+		boolean tmp = false;
+		if(clicked) {
+			clicked = false;
+			tmp = true;
+		}
+		return tmp;
 	}
 
 	public boolean isClicked() {

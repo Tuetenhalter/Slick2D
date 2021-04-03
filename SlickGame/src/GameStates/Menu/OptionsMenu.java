@@ -1,13 +1,14 @@
-package GameStates;
+package GameStates.Menu;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-public class test3 extends MyBasicGameState{
+import GameStates.States;
+
+public class OptionsMenu extends Menu{
 
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
@@ -17,28 +18,20 @@ public class test3 extends MyBasicGameState{
 
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
-		
-		game.getState(0).render(container, game, g);
-		
-		g.setColor(Color.green);
-		g.resetTransform();
-		g.drawString("test3", 100, 100);
-		
+		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
-		if(container.getInput().isKeyPressed(Input.KEY_J)) {
-			game.enterState(0);
-		}
+		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public int getID() {
 		// TODO Auto-generated method stub
-		return -1;
+		return States.OPTIONSMENU.getState();
 	}
 
 }

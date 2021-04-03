@@ -21,13 +21,13 @@ import Tile.TileMap;
 import idk.Camara;
 import idk.MapMaker;
 
-public class Test1 extends MyBasicGameState {
+public class Game extends MyBasicGameState {
 
 	TileMap tileMap;
 
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
-		System.out.println("[Test1] Start init");
+		System.out.println("[Game] Start init");
 
 		tileMap = new TileMap(100, 100, 32, 32, new Image("testdata/dungeontiles.gif"));
 
@@ -54,7 +54,7 @@ public class Test1 extends MyBasicGameState {
 //		gameList.add(new Player(0, 0, 210, 210, 50, 50, null, new Rectangle(200, 200, 50, 50), 100, 100));
 
 		// player = new Player(200, 200, 50, 50, 100);
-		System.out.println("[Test1] finised init");
+		System.out.println("[Game] finised init");
 	}
 
 	@Override
@@ -100,7 +100,7 @@ public class Test1 extends MyBasicGameState {
 		}
 
 		if (container.getInput().isKeyPressed(Input.KEY_ESCAPE)) {
-			container.exit();
+			game.enterState(States.PAUSEMENU.getState());
 		}
 
 		if (container.getInput().isKeyPressed(Input.KEY_H)) {
@@ -111,7 +111,7 @@ public class Test1 extends MyBasicGameState {
 	@Override
 	public int getID() {
 		// TODO Auto-generated method stub
-		return 0;
+		return States.GAME.getState();
 	}
 
 	public void creatMap() throws SlickException {

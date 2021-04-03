@@ -1,15 +1,15 @@
-package GameStates;
+package GameStates.Menu;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import GUI.Button;
+import GameStates.States;
 
-public class Menu extends BasicGameState {
+public class StartMenu extends Menu{
 
 	public Button play;
 
@@ -29,10 +29,9 @@ public class Menu extends BasicGameState {
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
 		play.update(container, game, delta);
 
-		if (play.isClicked()) {
-			play.setClicked(false);
+		if (play.clicked()) {
 			
-			game.enterState(0);
+			game.enterState(States.GAME.getState());
 
 		}
 
@@ -44,7 +43,7 @@ public class Menu extends BasicGameState {
 	@Override
 	public int getID() {
 		// TODO Auto-generated method stub
-		return 3;
+		return States.STARTMENU.getState();
 	}
 
 }

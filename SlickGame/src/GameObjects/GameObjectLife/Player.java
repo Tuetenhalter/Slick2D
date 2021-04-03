@@ -12,6 +12,7 @@ import GameObjects.GameObject;
 import GameObjects.Wall.BouncieWall;
 import GameObjects.Wall.Wall;
 import GameStates.MyBasicGameState;
+import idk.Options;
 import idk.Vector2D;
 
 public class Player extends GameObjectLife {
@@ -77,17 +78,17 @@ public class Player extends GameObjectLife {
 
 		getAcc().set(0, 0);
 
-		if (input.isKeyDown(Input.KEY_S)) {
+		if (input.isKeyDown(Options.back)) {
 			getAcc().add(0, 1);
 		}
 
-		if (input.isKeyDown(Input.KEY_W)) {
+		if (input.isKeyDown(Options.forward)) {
 			getAcc().add(0, -1);
 		}
-		if (input.isKeyDown(Input.KEY_D)) {
+		if (input.isKeyDown(Options.right)) {
 			getAcc().add(1, 0);
 		}
-		if (input.isKeyDown(Input.KEY_A)) {
+		if (input.isKeyDown(Options.left)) {
 			getAcc().add(-1, 0);
 		}
 
