@@ -75,10 +75,7 @@ public class Player extends GameObjectLife {
 								input.getMouseY() + mygame.getCamara().getPos().getY()),
 						10, 10, 10);
 				bullet.setBounce(1);
-				bullet.setGroup(Bullet.GROUP_PLAYER);
-				bullet.getVel().add(getVel());
-				
-				
+				bullet.setGroup(Bullet.GROUP_PLAYER);	
 				sound.play();
 				mygame.getGameList().add(bullet);
 				setShootDelay(0);

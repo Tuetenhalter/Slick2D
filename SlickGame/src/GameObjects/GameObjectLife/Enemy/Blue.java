@@ -12,7 +12,7 @@ import GameStates.MyBasicGameState;
 import idk.Vector2D;
 
 public class Blue extends Enemy {
-	
+
 	static final int SHOOTDELAYMAX = 20;
 	static final int MAXLIVE = 3;
 
@@ -36,7 +36,8 @@ public class Blue extends Enemy {
 		g.setColor(Color.blue);
 		g.fill(getHitBox());
 		Player player = mygame.getPlayer();
-		g.drawLine(player.getX() + player.getWidth() / 2, player.getY() + player.getHeight() / 2, getX() + getWidth() / 2, getY() + getHeight() / 2);
+		g.drawLine(player.getX() + player.getWidth() / 2, player.getY() + player.getHeight() / 2,
+				getX() + getWidth() / 2, getY() + getHeight() / 2);
 
 	}
 
@@ -47,49 +48,52 @@ public class Blue extends Enemy {
 			setDestroy(true);
 		}
 
+		shoot(container, game, delta, mygame);
+	}
+
+	public void shoot(GameContainer container, StateBasedGame game, int delta, MyBasicGameState mygame) {
 		Player player = mygame.getPlayer();
-		
+
 		double distanceX = (getX() + getWidth() / 2) - (player.getX() + player.getWidth() / 2);
 		double distanceY = (getY() + getHeight() / 2) - (player.getY() + player.getHeight() / 2);
 		double distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
 
 		double angel = Math.asin(distanceY / distance);
 		angel = Math.toDegrees(angel);
-		if (distanceX>0) {
+		if (distanceX > 0) {
 			angel = 180 - angel;
 		} else {
-			if (distanceY<0) {
+			if (distanceY < 0) {
 				angel = angel + 90 + 270;
 			}
 		}
-		
 
-		if(Math.abs(angel-getShootAngel()) < 180) {
-			if(angel < getShootAngel()) {
-				setShootAngel(getShootAngel()-1f);
-			}else {
-				setShootAngel(getShootAngel()+1f);
+		if (Math.abs(angel - getShootAngel()) < 180) {
+			if (angel < getShootAngel()) {
+				setShootAngel(getShootAngel() - 1f);
+			} else {
+				setShootAngel(getShootAngel() + 1f);
 			}
 		} else {
-			if(angel > getShootAngel()) {
-				setShootAngel(getShootAngel()-1f);
-			}else {
-				setShootAngel(getShootAngel()+1f);
+			if (angel > getShootAngel()) {
+				setShootAngel(getShootAngel() - 1f);
+			} else {
+				setShootAngel(getShootAngel() + 1f);
 			}
 		}
-		
-		if(getShootAngel() > 360) {
-			setShootAngel(getShootAngel()-360);
+
+		if (getShootAngel() > 360) {
+			setShootAngel(getShootAngel() - 360);
 		}
-		
-		if(getShootAngel() < 0) {
-			setShootAngel(getShootAngel()+360);
+
+		if (getShootAngel() < 0) {
+			setShootAngel(getShootAngel() + 360);
 		}
-		
-		if(Math.abs(getShootAngel()-angel) < 1) {
+
+		if (Math.abs(getShootAngel() - angel) < 1) {
 			setShootAngel((float) angel);
 		}
-		
+
 		if (getShootDelay() <= getShootDelayMax()) {
 			setShootDelay(getShootDelay() + 1);
 		}
@@ -97,16 +101,17 @@ public class Blue extends Enemy {
 		if (getShootDelay() > getShootDelayMax()) {
 			if (getPos().distanceSq(mygame.getPlayer().getPos()) < 10000000) {
 
-				Bullet bullet = new Bullet(getPos().clone().add(getWidth() / 2 - 5, getHeight() / 2 - 5),
-						mygame.getPlayer().getPos().clone().add(mygame.getPlayer().getWidth() / 2, mygame.getPlayer().getHeight() / 2),
+				Bullet bullet = new Bullet(
+						getPos().clone().add(getWidth() / 2 - 5, getHeight() / 2 - 5), mygame.getPlayer().getPos()
+								.clone().add(mygame.getPlayer().getWidth() / 2, mygame.getPlayer().getHeight() / 2),
 						10, 10, 10);
 
-				bullet.setVel(new Vector2D((float) Math.sin(Math.toRadians(getShootAngel()+90)), (float) Math.cos(Math.toRadians(getShootAngel()+90))));
+				bullet.setVel(new Vector2D((float) Math.sin(Math.toRadians(getShootAngel() + 90)),
+						(float) Math.cos(Math.toRadians(getShootAngel() + 90))));
 				bullet.setGroup(Bullet.GROUP_ENEMY);
 				mygame.getGameList().add(bullet);
 				setShootDelay(0);
 			}
-
 		}
 	}
 

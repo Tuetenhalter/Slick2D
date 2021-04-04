@@ -1,5 +1,7 @@
 package idk;
 
+import org.newdawn.slick.geom.Vector2f;
+
 public class Vector2D {
 	private float x, y;
 
@@ -56,6 +58,10 @@ public class Vector2D {
 	public float lengthsqr() {
 		return x * x + y * y;
 	}
+	
+	public float length() {
+		return magnitude();
+	}
 
 	public float distance(float vx, float vy) {
 		vx -= x;
@@ -84,9 +90,22 @@ public class Vector2D {
 		return this;
 	}
 	
-	public Vector2D limit(float f) {
-		if(magnitude() > f) {
-			setMagnitude(f);
+	public Vector2D limit(float max) {
+		if(magnitude() > max) {
+			setMagnitude(max);
+		}
+		return this;
+	}
+	public Vector2D limit(float min, float max) {
+		float magnitude = magnitude();
+		
+		if(magnitude < min) {
+			setMagnitude(min);
+		}
+		
+		
+		if(magnitude > max) {
+			setMagnitude(max);
 		}
 		return this;
 	}
@@ -100,6 +119,11 @@ public class Vector2D {
 	public Vector2D clone() {
 		return new Vector2D(x, y);
 	}
+	
+	public Vector2f toVector2f() {
+		return new Vector2f(x, y);
+	}
+	
 	
 	//Static
 	
@@ -143,6 +167,11 @@ public class Vector2D {
 
 	public void setY(float y) {
 		this.y = y;
+	}
+
+	@Override
+	public String toString() {
+		return "Vector2D [x=" + x + ", y=" + y + "]";
 	}
 
 }

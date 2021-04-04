@@ -78,7 +78,21 @@ public abstract class GameObject {
 	public void setVel(float speedX, float speedY) {
 		getVel().set(speedX, speedY);
 	}
-
+	
+	public float getCenterX() {
+		return pos.getX() + width/2;
+	}
+	
+	public float getCenterY() {
+		return pos.getY() + height/2;
+	}
+	
+	public Vector2D getCenter() {
+		return new Vector2D(getCenterX(), getCenterY());
+	}
+	
+	
+	
 	// Getter Setters
 
 	public Vector2D getPos() {

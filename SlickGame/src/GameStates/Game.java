@@ -15,6 +15,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import GameObjects.GameObject;
 import GameObjects.GameObjectLife.Player;
 import GameObjects.GameObjectLife.Enemy.Blue;
+import GameObjects.GameObjectLife.Enemy.Yellow;
 import GameObjects.Wall.Wall;
 import Tile.Tile;
 import Tile.TileMap;
@@ -30,7 +31,7 @@ public class Game extends MyBasicGameState {
 	static final int TILEARRAYHEIGHT = TILEARRAYWIDHT;
 	
 	static final int MAPRANDOM = 48;
-	static final int MAPIT = 0;
+	static final int MAPIT = 4;
 	static final int MAPFILLSPICKS = 2;
 	static final boolean MAPFILLHOLLS = false;
 
@@ -50,6 +51,13 @@ public class Game extends MyBasicGameState {
 		camara.setRangex2(camara.getRangex2() - container.getWidth());
 		camara.setRangey2(camara.getRangey2() - container.getHeight());
 		tileMap.createTileMap();
+		
+		Yellow yellow = new Yellow(1, 1, TILEWIDHT, TILEHEIGHT, 10, 10);
+		gameList.add(yellow);
+		player.getPos().set(500, 500);
+		yellow.getPos().set(601, 500);
+		yellow.getVel().set(0, 0);
+		
 
 //		gameList.add(new BouncieWall(500, 500, 25, 50, null));
 
@@ -69,8 +77,6 @@ public class Game extends MyBasicGameState {
 
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
-
-		System.out.println("Render1");
 
 		g.resetTransform();
 
@@ -96,7 +102,6 @@ public class Game extends MyBasicGameState {
 			g.setColor(Color.red);
 			g.fillRect(10, 10, 500 * (float) (player.getLive() / player.getMaxLive() + 0.0) + 10, 50);
 		}
-		System.out.println("Render2");
 	}
 
 	@Override
