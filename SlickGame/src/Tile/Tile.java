@@ -45,7 +45,7 @@ public class Tile
 					leftUp = 1;
 				}
 
-				if (j + 1 < map[0].length - 1)
+				if (j + 1 < map[0].length)
 				{
 					leftDown = map[i - 1][j + 1];
 				}
@@ -71,7 +71,7 @@ public class Tile
 				up = 1;
 			}
 
-			if (i + 1 < map.length - 1)
+			if (i + 1 < map.length)
 			{
 				right = map[i + 1][j];
 
@@ -84,7 +84,7 @@ public class Tile
 					rightUp = 1;
 				}
 
-				if (j + 1 < map[0].length - 1)
+				if (j + 1 < map[0].length)
 				{
 					rightDown = map[i + 1][j + 1];
 				}
