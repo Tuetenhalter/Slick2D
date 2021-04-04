@@ -20,10 +20,12 @@ Ideen
 
 Zu Ideen: 
 
+Map: 
+
+	Safezone? => Größte Zone "Loch" in einer Wand als sichere Zone machen oder Spawn 5x5 Feld 
 
 
-
-Gegener:
+Gegner:
 
 
 	Grünen
@@ -37,8 +39,6 @@ Gegener:
 	
 	Blau
 		schiesst auf Spieler
-		
-		
 		
 		
 		
@@ -67,10 +67,11 @@ Lootsystem:
 								2. Explodierende Gegner 
 								3. Kleine Fläche um Spieler, welche gegnern Schaden hinzufügt
 								4. Mehrere Schüsse gelichzeitig schießen
-										Frontal / Diagonal / Hinten / Seitlich
+										Frontal / Diagonal / Rektal (hinten) / Lateral (Seitlich) Die al Reihe LMAO XD
 								5. Sonderschüsse (skills) zb. Großer Schuss
 								6. Stacheln um einen Rum
 								7. Rage => Je weniger HP, desto mehr dmg/atackspeed
+								8. Bounces (steigerbar)
 								
 			Standard skills wählbar: 1-3 idk yet
 			
