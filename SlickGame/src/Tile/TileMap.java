@@ -1,8 +1,17 @@
 package Tile;
 
+import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.imageout.ImageIOWriter;
+import org.newdawn.slick.imageout.ImageOut;
 
 public class TileMap {
 
@@ -17,8 +26,8 @@ public class TileMap {
 	private Image image;
 
 	private Image map;
-	
-	//Constuctor
+
+	// Constuctor
 
 	public TileMap(int widhtArray, int heigthArray, int widhtTile, int heightTile, Tile[][] tileMap, Image image,
 			Image map) {
@@ -35,36 +44,36 @@ public class TileMap {
 	public TileMap(int widhtArray, int heigthArray, int widhtTile, int heightTile, Image image) {
 		this(widhtArray, heigthArray, widhtTile, heightTile, new Tile[widhtArray][heigthArray], image, null);
 	}
-	
-	public void createTileMap() throws SlickException{
-		
-		Image cimage = new Image(widhtArray*widhtTile, heigthArray*heightTile, Image.FILTER_NEAREST);
-		image.setFilter(Image.FILTER_NEAREST);
+
+	public void createTileMap() throws SlickException {
+
+		Image cimage = new Image(widhtArray * widhtTile, heigthArray * heightTile, Image.FILTER_LINEAR);
+		image.setFilter(Image.FILTER_LINEAR);
 		Graphics g = cimage.getGraphics();
-		
+
 		for (int i = 0; i < tileMap.length; i++) {
 			for (int j = 0; j < tileMap[0].length; j++) {
 				Tile tile = tileMap[i][j];
-				
-				if(tile != null) {
-					//g.drawImage(image, i*widhtTile, j*heightTile, tile.getX(), tile.getY(), tile.getX2(), tile.getY2());
-					if(tile.getImage() != null) {
-						g.drawImage(tile.getImage(), i*widhtTile, j*heightTile, i*widhtTile+widhtTile, j*heightTile+heightTile, tile.getX(), tile.getY(), tile.getX2(), tile.getY2());
+
+				if (tile != null) {
+					if (tile.getImage() != null) {
+
+						g.drawImage(tile.getImage(), i * widhtTile, j * heightTile, i * widhtTile + widhtTile,
+								j * heightTile + heightTile, tile.getX(), tile.getY(), tile.getX2(), tile.getY2());
+
 					}
-					
+
 				}
-				
+
 			}
 		}
-		
+
 		g.flush();
-		
+
 		map = cimage;
 	}
-	
-	
-	
-	//Getter Setters
+
+	// Getter Setters
 
 	public int getWidhtArray() {
 		return widhtArray;
@@ -101,17 +110,15 @@ public class TileMap {
 	public Tile[][] getTileMap() {
 		return tileMap;
 	}
-	
+
 	public Tile getTileMap(int x, int y) {
 		return tileMap[x][y];
 	}
-	
-	
 
 	public void setTileMap(Tile[][] tileMap) {
 		this.tileMap = tileMap;
 	}
-	
+
 	public void setTileMap(Tile tile, int x, int y) {
 		this.tileMap[x][y] = tile;
 	}
@@ -131,7 +138,5 @@ public class TileMap {
 	public void setMap(Image map) {
 		this.map = map;
 	}
-	
-	
 
 }

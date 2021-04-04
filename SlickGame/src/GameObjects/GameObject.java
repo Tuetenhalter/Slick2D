@@ -2,6 +2,7 @@ package GameObjects;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.state.StateBasedGame;
@@ -34,9 +35,9 @@ public abstract class GameObject {
 				new Rectangle(x, y, width, height));
 	}
 
-	public abstract void render(GameContainer container, StateBasedGame game, Graphics g, MyBasicGameState mygame);
+	public abstract void render(GameContainer container, StateBasedGame game, Graphics g, MyBasicGameState mygame) throws SlickException;
 
-	public abstract void update(GameContainer container, StateBasedGame game, int delta, MyBasicGameState mygame);
+	public abstract void update(GameContainer container, StateBasedGame game, int delta, MyBasicGameState mygame) throws SlickException;
 
 	public float getX() {
 		return pos.getX();
