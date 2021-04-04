@@ -20,6 +20,9 @@ import idk.Vector2D;
 
 public class Player extends GameObjectLife {
 	
+	static final float SPEED = 2f;
+	static final float REDUCE_SPEED = .25f;
+	
 	Sound sound;
 
 	public Player(Vector2D pos, Vector2D vel, Vector2D acc, float width, float height, Shape hitBox, float live,
@@ -52,7 +55,7 @@ public class Player extends GameObjectLife {
 //
 //		g.drawString("X: " + getPos().getX(), 5, 100);
 //		g.drawString("Y: " + getPos().getY(), 5, 120);
-		g.translate(-mygame.camara.getPos().getX(), -mygame.camara.getPos().getY());
+		g.translate(-mygame.getCamara().getPos().getX(), -mygame.getCamara().getPos().getY());
 
 	}
 
@@ -68,8 +71,8 @@ public class Player extends GameObjectLife {
 		if (input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
 			if (getShootDelay() > getShootDelayMax()) {
 				Bullet bullet = new Bullet(getPos().clone().add(getWidth() / 2 - 5, getHeight() / 2 - 5),
-						new Vector2D(input.getMouseX() + mygame.camara.getPos().getX(),
-								input.getMouseY() + mygame.camara.getPos().getY()),
+						new Vector2D(input.getMouseX() + mygame.getCamara().getPos().getX(),
+								input.getMouseY() + mygame.getCamara().getPos().getY()),
 						10, 10, 10);
 				bullet.setBounce(1);
 				bullet.setGroup(Bullet.GROUP_PLAYER);
@@ -77,7 +80,7 @@ public class Player extends GameObjectLife {
 				
 				
 				sound.play();
-				mygame.gameList.add(bullet);
+				mygame.getGameList().add(bullet);
 				setShootDelay(0);
 
 			}
@@ -101,14 +104,14 @@ public class Player extends GameObjectLife {
 		}
 
 		if (getAcc().magnitude() > 0) {
-			getAcc().setMagnitude(2f);
+			getAcc().setMagnitude(SPEED);
 		}
 
-		getAcc().sub(getVel().clone().mul(.25f));
+		getAcc().sub(getVel().clone().mul(REDUCE_SPEED));
 
 		getVel().add(getAcc());
 
-		for (GameObject gameObject : mygame.gameList) {
+		for (GameObject gameObject : mygame.getGameList()) {
 			if (gameObject instanceof Wall) {
 				// colltiontoWall((Wall) gameObject);
 			}

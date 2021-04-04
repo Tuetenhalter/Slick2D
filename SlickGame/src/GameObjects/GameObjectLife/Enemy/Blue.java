@@ -12,6 +12,9 @@ import GameStates.MyBasicGameState;
 import idk.Vector2D;
 
 public class Blue extends Enemy {
+	
+	static final int SHOOTDELAYMAX = 20;
+	static final int MAXLIVE = 3;
 
 	public Blue(Vector2D pos, Vector2D vel, Vector2D acc, float width, float height, Shape hitBox, float live,
 			float maxLive, int shootDelay, int shootDelayMax) {
@@ -19,8 +22,8 @@ public class Blue extends Enemy {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Blue(float x, float y, float width, float height, float maxlive, int shootDelayMax) {
-		super(x, y, width + 1, height + 1, maxlive, shootDelayMax);
+	public Blue(float x, float y, float width, float height) {
+		super(x, y, width + 1, height + 1, MAXLIVE, SHOOTDELAYMAX);
 		setHeight(height);
 		setWidth(width);
 		setShootAngel(0);
@@ -32,7 +35,7 @@ public class Blue extends Enemy {
 		getHitBox().setY(getPos().getY());
 		g.setColor(Color.blue);
 		g.fill(getHitBox());
-		Player player = mygame.player;
+		Player player = mygame.getPlayer();
 		g.drawLine(player.getX() + player.getWidth() / 2, player.getY() + player.getHeight() / 2, getX() + getWidth() / 2, getY() + getHeight() / 2);
 
 	}
@@ -44,7 +47,7 @@ public class Blue extends Enemy {
 			setDestroy(true);
 		}
 
-		Player player = mygame.player;
+		Player player = mygame.getPlayer();
 		
 		double distanceX = (getX() + getWidth() / 2) - (player.getX() + player.getWidth() / 2);
 		double distanceY = (getY() + getHeight() / 2) - (player.getY() + player.getHeight() / 2);
@@ -92,15 +95,15 @@ public class Blue extends Enemy {
 		}
 
 		if (getShootDelay() > getShootDelayMax()) {
-			if (getPos().distanceSq(mygame.player.getPos()) < 10000000) {
+			if (getPos().distanceSq(mygame.getPlayer().getPos()) < 10000000) {
 
 				Bullet bullet = new Bullet(getPos().clone().add(getWidth() / 2 - 5, getHeight() / 2 - 5),
-						mygame.player.getPos().clone().add(mygame.player.getWidth() / 2, mygame.player.getHeight() / 2),
+						mygame.getPlayer().getPos().clone().add(mygame.getPlayer().getWidth() / 2, mygame.getPlayer().getHeight() / 2),
 						10, 10, 10);
 
 				bullet.setVel(new Vector2D((float) Math.sin(Math.toRadians(getShootAngel()+90)), (float) Math.cos(Math.toRadians(getShootAngel()+90))));
 				bullet.setGroup(Bullet.GROUP_ENEMY);
-				mygame.gameList.add(bullet);
+				mygame.getGameList().add(bullet);
 				setShootDelay(0);
 			}
 

@@ -39,21 +39,23 @@ public class PauseMenu extends Menu {
 		resume.update(container, game, delta);
 		options.update(container, game, delta);
 		exit.update(container, game, delta);
-		
+
 		Input input = container.getInput();
-		
-		if(resume.clicked()) {
+
+		if (resume.clicked()) {
 			game.enterState(States.GAME.getState());
 		}
-		
-		if(options.clicked()) {
+
+		if (options.clicked()) {
+			OptionsMenu optionsMenu = (OptionsMenu) game.getState(States.OPTIONSMENU.getState());
+			optionsMenu.setLastState(this.getID());
 			game.enterState(States.OPTIONSMENU.getState());
 		}
-		
-		if(exit.clicked()) {
+
+		if (exit.clicked()) {
 			game.enterState(States.STARTMENU.getState());
 		}
-		
+
 		if (input.isKeyPressed(Input.KEY_ESCAPE)) {
 			game.enterState(States.GAME.getState());
 		}

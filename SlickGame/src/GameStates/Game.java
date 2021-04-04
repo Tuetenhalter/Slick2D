@@ -22,14 +22,23 @@ import idk.Camara;
 import idk.MapMaker;
 
 public class Game extends MyBasicGameState {
-
-	TileMap tileMap;
+	
+	static final int TILEWIDHT = 32;
+	static final int TILEHEIGHT = TILEWIDHT;
+	
+	static final int TILEARRAYWIDHT = 100;
+	static final int TILEARRAYHEIGHT = TILEARRAYWIDHT;
+	
+	static final int MAPRANDOM = 48;
+	static final int MAPIT = 0;
+	static final int MAPFILLSPICKS = 2;
+	static final boolean MAPFILLHOLLS = false;
 
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
 		System.out.println("[Game] Start init");
 
-		tileMap = new TileMap(100, 100, 128, 128, new Image("testdata/dungeontiles.gif"));
+		tileMap = new TileMap(TILEARRAYWIDHT, TILEARRAYHEIGHT, TILEWIDHT, TILEHEIGHT, new Image("testdata/dungeontiles.gif"));
 
 		container.setMinimumLogicUpdateInterval(20);
 		container.setMaximumLogicUpdateInterval(20);
@@ -55,18 +64,22 @@ public class Game extends MyBasicGameState {
 
 		// player = new Player(200, 200, 50, 50, 100);
 		System.out.println("[Game] finised init");
+
 	}
 
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
 
+		System.out.println("Render1");
+
 		g.resetTransform();
 
 		g.setColor(Color.red);
-		g.drawString("List: " + gameList.size(), 10, 50);
 
-		g.drawString("viewX: " + camara.getPos().getX(), 5, 140);
-		g.drawString("viewY: " + camara.getPos().getY(), 5, 160);
+//		g.drawString("List: " + gameList.size(), 10, 50);
+//
+//		g.drawString("viewX: " + camara.getPos().getX(), 5, 140);
+//		g.drawString("viewY: " + camara.getPos().getY(), 5, 160);
 
 		g.translate(-camara.getPos().getX(), -camara.getPos().getY());
 
@@ -83,14 +96,14 @@ public class Game extends MyBasicGameState {
 			g.setColor(Color.red);
 			g.fillRect(10, 10, 500 * (float) (player.getLive() / player.getMaxLive() + 0.0) + 10, 50);
 		}
-
+		System.out.println("Render2");
 	}
 
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
 
-		camara.camaraMove(this);
-		
+		camara.camaraMove(this, container);
+
 		for (int i = gameList.size() - 1; i >= 0; i--) {
 			gameList.get(i).update(container, game, delta, this);
 		}
@@ -117,14 +130,12 @@ public class Game extends MyBasicGameState {
 
 	public void creatMap() throws SlickException {
 
-		MapMaker mapMaker = new MapMaker(tileMap.getWidhtArray(), tileMap.getHeigthArray(), "Pascal", 0, 1, 48, true);
+		MapMaker mapMaker = new MapMaker(TILEARRAYHEIGHT, TILEARRAYHEIGHT, "Pascal", MAPIT, MAPFILLSPICKS, MAPRANDOM, MAPFILLHOLLS);
 		mapMaker.creat();
 
 		int[][] map = mapMaker.getList();
 
 		Random ran = new Random();
-		int blockx = 128;
-		int blocky = 128;
 		int ranx;
 		int rany;
 
@@ -134,7 +145,7 @@ public class Game extends MyBasicGameState {
 
 		} while (map[ranx][rany] == 1);
 
-		player = new Player(ranx * blockx, rany * blocky, blockx, blocky, 100, 10);
+		player = new Player(ranx * TILEWIDHT, rany * TILEHEIGHT, TILEWIDHT, TILEHEIGHT, 100, 10);
 		gameList.add(player);
 
 		do {
@@ -143,7 +154,7 @@ public class Game extends MyBasicGameState {
 
 		} while (map[ranx][rany] == 1);
 
-		gameList.add(new Blue(ranx * blockx, rany * blocky, blocky, blocky, 2, 20));
+		gameList.add(new Blue(ranx * TILEWIDHT, rany * TILEHEIGHT, TILEHEIGHT, TILEHEIGHT));
 
 		Image image = new Image("res/test.png");
 		image.setFilter(Image.FILTER_NEAREST);
@@ -160,13 +171,13 @@ public class Game extends MyBasicGameState {
 
 		camara.setRangex(0);
 		camara.setRangey(0);
-		camara.setRangex2(map.length * blockx);
-		camara.setRangey2(map[0].length * blocky);
+		camara.setRangex2(map.length * TILEWIDHT);
+		camara.setRangey2(map[0].length * TILEHEIGHT);
 
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map[0].length; j++) {
 				if (map[i][j] == 1) {
-					gameList.add(new Wall(i * blockx, j * blocky, blockx, blocky));
+					gameList.add(new Wall(i * TILEWIDHT, j * TILEHEIGHT, TILEWIDHT, TILEHEIGHT));
 				}
 			}
 		}

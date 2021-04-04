@@ -50,14 +50,14 @@ public class Bullet extends GameObject {
 
 		getHitBox().setX(getPos().getX());
 		getHitBox().setY(getPos().getY());
-		mygame.camara.drawShape(g, getHitBox(), Color.red);
+		mygame.getCamara().drawShape(g, getHitBox(), Color.red);
 
 	}
 
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta, MyBasicGameState mygame) {
 
-		for (GameObject gameObject : mygame.gameList) {
+		for (GameObject gameObject : mygame.getGameList()) {
 			if (gameObject instanceof Wall) {
 				colltiontoWall((Wall) gameObject);
 			}

@@ -49,9 +49,7 @@ public class Button {
 		y += x * .01f;
 
 		rect2 = new Rectangle(x, y, width, height);
-
-		System.out.println(this);
-
+		
 //		System.out.println("x: " + x);
 //		System.out.println("y: " + y);
 //		System.out.println("height: " + height);
