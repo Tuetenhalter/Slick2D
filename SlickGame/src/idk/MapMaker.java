@@ -85,11 +85,11 @@ public class MapMaker
 
 		for (int i = 0; i < fs; i++)
 		{
-			fillspikes();
+			//fillspikes();
 		}
 		if (fillholes)
 		{
-			fillholes();
+			//fillholes();
 		}
 
 	}

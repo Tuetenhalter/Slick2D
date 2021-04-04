@@ -116,7 +116,7 @@ public class Game extends MyBasicGameState {
 
 	public void creatMap() throws SlickException {
 
-		MapMaker mapMaker = new MapMaker(tileMap.getWidhtArray(), tileMap.getHeigthArray(), "Pascal", 4, 1, 48, true);
+		MapMaker mapMaker = new MapMaker(tileMap.getWidhtArray(), tileMap.getHeigthArray(), "Pascal", 0, 1, 48, true);
 		mapMaker.creat();
 
 		int[][] map = mapMaker.getList();
