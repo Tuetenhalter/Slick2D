@@ -13,8 +13,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.imageout.ImageIOWriter;
 import org.newdawn.slick.imageout.ImageOut;
 
-public class TileMap
-{
+public class TileMap {
 
 	private int widhtArray;
 	private int heigthArray;
@@ -31,8 +30,7 @@ public class TileMap
 	// Constuctor
 
 	public TileMap(int widhtArray, int heigthArray, int widhtTile, int heightTile, Tile[][] tileMap, Image image,
-			Image map)
-	{
+			Image map) {
 		super();
 		this.widhtArray = widhtArray;
 		this.heigthArray = heigthArray;
@@ -43,53 +41,25 @@ public class TileMap
 		this.map = map;
 	}
 
-	public TileMap(int widhtArray, int heigthArray, int widhtTile, int heightTile, Image image)
-	{
+	public TileMap(int widhtArray, int heigthArray, int widhtTile, int heightTile, Image image) {
 		this(widhtArray, heigthArray, widhtTile, heightTile, new Tile[widhtArray][heigthArray], image, null);
 	}
 
-<<<<<<< HEAD
-	public void createTileMap() throws SlickException
-	{
-
-		Image cimage = new Image(widhtArray * widhtTile, heigthArray * heightTile, Image.FILTER_NEAREST);
-		image.setFilter(Image.FILTER_NEAREST);
-=======
 	public void createTileMap() throws SlickException {
 
 		Image cimage = new Image(widhtArray * widhtTile, heigthArray * heightTile, Image.FILTER_LINEAR);
-		image.setFilter(Image.FILTER_LINEAR);
->>>>>>> branch 'master' of https://github.com/Tuetenhalter/Slick2D.git
 		Graphics g = cimage.getGraphics();
 
-<<<<<<< HEAD
-		for (int i = 0; i < tileMap.length; i++)
-		{
-			for (int j = 0; j < tileMap[0].length; j++)
-			{
-=======
 		for (int i = 0; i < tileMap.length; i++) {
 			for (int j = 0; j < tileMap[0].length; j++) {
->>>>>>> branch 'master' of https://github.com/Tuetenhalter/Slick2D.git
 				Tile tile = tileMap[i][j];
 
-<<<<<<< HEAD
-				if (tile != null)
-				{
-					// g.drawImage(image, i*widhtTile, j*heightTile, tile.getX(), tile.getY(),
-					// tile.getX2(), tile.getY2());
-					if (tile.getImage() != null)
-					{
-						g.drawImage(tile.getImage(), i * widhtTile, j * heightTile, i * widhtTile + widhtTile,
-								j * heightTile + heightTile, tile.getX(), tile.getY(), tile.getX2(), tile.getY2());
-=======
 				if (tile != null) {
 					if (tile.getImage() != null) {
 
 						g.drawImage(tile.getImage(), i * widhtTile, j * heightTile, i * widhtTile + widhtTile,
 								j * heightTile + heightTile, tile.getX(), tile.getY(), tile.getX2(), tile.getY2());
 
->>>>>>> branch 'master' of https://github.com/Tuetenhalter/Slick2D.git
 					}
 
 				}
@@ -101,99 +71,70 @@ public class TileMap
 
 		map = cimage;
 	}
-<<<<<<< HEAD
-=======
-
-	// Getter Setters
->>>>>>> branch 'master' of https://github.com/Tuetenhalter/Slick2D.git
 
 	// Getter Setters
 
-	public int getWidhtArray()
-	{
+	public int getWidhtArray() {
 		return widhtArray;
 	}
 
-	public void setWidhtArray(int widhtArray)
-	{
+	public void setWidhtArray(int widhtArray) {
 		this.widhtArray = widhtArray;
 	}
 
-	public int getHeigthArray()
-	{
+	public int getHeigthArray() {
 		return heigthArray;
 	}
 
-	public void setHeigthArray(int heigthArray)
-	{
+	public void setHeigthArray(int heigthArray) {
 		this.heigthArray = heigthArray;
 	}
 
-	public int getWidhtTile()
-	{
+	public int getWidhtTile() {
 		return widhtTile;
 	}
 
-	public void setWidhtTile(int widhtTile)
-	{
+	public void setWidhtTile(int widhtTile) {
 		this.widhtTile = widhtTile;
 	}
 
-	public int getHeightTile()
-	{
+	public int getHeightTile() {
 		return heightTile;
 	}
 
-	public void setHeightTile(int heightTile)
-	{
+	public void setHeightTile(int heightTile) {
 		this.heightTile = heightTile;
 	}
 
-	public Tile[][] getTileMap()
-	{
+	public Tile[][] getTileMap() {
 		return tileMap;
 	}
 
-<<<<<<< HEAD
-	public Tile getTileMap(int x, int y)
-	{
-=======
 	public Tile getTileMap(int x, int y) {
->>>>>>> branch 'master' of https://github.com/Tuetenhalter/Slick2D.git
 		return tileMap[x][y];
 	}
 
-	public void setTileMap(Tile[][] tileMap)
-	{
+	public void setTileMap(Tile[][] tileMap) {
 		this.tileMap = tileMap;
 	}
 
-<<<<<<< HEAD
-	public void setTileMap(Tile tile, int x, int y)
-	{
-=======
 	public void setTileMap(Tile tile, int x, int y) {
->>>>>>> branch 'master' of https://github.com/Tuetenhalter/Slick2D.git
 		this.tileMap[x][y] = tile;
 	}
 
-	public Image getImage()
-	{
+	public Image getImage() {
 		return image;
 	}
 
-	public void setImage(Image image)
-	{
+	public void setImage(Image image) {
 		this.image = image;
 	}
 
-	public Image getMap()
-	{
+	public Image getMap() {
 		return map;
 	}
 
-	public void setMap(Image map)
-	{
+	public void setMap(Image map) {
 		this.map = map;
 	}
 

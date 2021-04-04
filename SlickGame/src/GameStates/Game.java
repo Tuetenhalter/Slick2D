@@ -29,7 +29,7 @@ public class Game extends MyBasicGameState {
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
 		System.out.println("[Game] Start init");
 
-		tileMap = new TileMap(100, 100, 32, 32, new Image("testdata/dungeontiles.gif"));
+		tileMap = new TileMap(100, 100, 128, 128, new Image("testdata/dungeontiles.gif"));
 
 		container.setMinimumLogicUpdateInterval(20);
 		container.setMaximumLogicUpdateInterval(20);
@@ -90,6 +90,7 @@ public class Game extends MyBasicGameState {
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
 
 		camara.camaraMove(this);
+		
 		for (int i = gameList.size() - 1; i >= 0; i--) {
 			gameList.get(i).update(container, game, delta, this);
 		}
@@ -122,8 +123,8 @@ public class Game extends MyBasicGameState {
 		int[][] map = mapMaker.getList();
 
 		Random ran = new Random();
-		int blockx = 32;
-		int blocky = 32;
+		int blockx = 128;
+		int blocky = 128;
 		int ranx;
 		int rany;
 
@@ -145,6 +146,7 @@ public class Game extends MyBasicGameState {
 		gameList.add(new Blue(ranx * blockx, rany * blocky, blocky, blocky, 2, 20));
 
 		Image image = new Image("res/test.png");
+		image.setFilter(Image.FILTER_NEAREST);
 
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map[0].length; j++) {
