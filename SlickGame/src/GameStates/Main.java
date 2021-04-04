@@ -19,7 +19,8 @@ public class Main extends StateBasedGame{
 	
 	
 	public Main() {
-		super("Moin");
+		super("Servus");
+
 		// TODO Auto-generated constructor stub
 	}
 
@@ -28,6 +29,7 @@ public class Main extends StateBasedGame{
 	
 		System.out.println("lull");
 		AppGameContainer container = new AppGameContainer(new Main());
+		container.setIcon("res/Untitled.png");
 		container.setDisplayMode(1600, 900, false);
 		container.setVSync(false);
 		container.start();

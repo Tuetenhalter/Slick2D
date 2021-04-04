@@ -29,7 +29,7 @@ public class Game extends MyBasicGameState {
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
 		System.out.println("[Game] Start init");
 
-		tileMap = new TileMap(100, 100, 128, 128, new Image("testdata/dungeontiles.gif"));
+		tileMap = new TileMap(100, 100, 32, 32, new Image("testdata/dungeontiles.gif"));
 
 		container.setMinimumLogicUpdateInterval(20);
 		container.setMaximumLogicUpdateInterval(20);
@@ -122,8 +122,8 @@ public class Game extends MyBasicGameState {
 		int[][] map = mapMaker.getList();
 
 		Random ran = new Random();
-		int blockx = 128;
-		int blocky = 128;
+		int blockx = 32;
+		int blocky = 32;
 		int ranx;
 		int rany;
 

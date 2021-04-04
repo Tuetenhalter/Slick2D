@@ -114,7 +114,9 @@ public class Tile
 
 //			setTile(1, 1, tilelenght, image);
 			setTile(0, 0, tilelenght, new Image("testdata/dungeontiles.gif"));
+			
 //			 -------------------- Beginn erste Reihe
+			
 			if (left == 0 && up == 0 && right == 1 && down == 1 && rightDown == 1)
 			{
 				setTile(0, 0, tilelenght, image);
@@ -222,6 +224,7 @@ public class Tile
 			}
 
 			// ---------------- Beginn dritte Reihe
+			
 			if (left == 0 && down == 0 && up == 1 && right == 1 && rightUp == 1)
 			{
 				setTile(0, 2, tilelenght, image);
@@ -329,26 +332,26 @@ public class Tile
 
 			if (up == 1 && down == 1 && left == 0 && right == 1 && rightDown == 0 && rightUp == 0)
 			{
-				setTile(0, 4, tilelenght, image);
+				setTile(4, 4, tilelenght, image);
 			}
 			if (up == 1 && down == 1 && left == 1 && right == 1 && leftDown == 1 && leftUp == 1 && rightDown == 0
 					&& rightUp == 0)
 			{
-				setTile(1, 4, tilelenght, image);
+				setTile(5, 4, tilelenght, image);
 			}
 			if (up == 1 && down == 1 && left == 1 && right == 1 && leftDown == 0 && leftUp == 0 && rightDown == 1
 					&& rightUp == 1)
 			{
-				setTile(2, 4, tilelenght, image);
+				setTile(6, 4, tilelenght, image);
 			}
 			if (up == 1 && down == 1 && left == 1 && right == 0 && leftDown == 0 && leftUp == 0)
 			{
-				setTile(3, 4, tilelenght, image);
+				setTile(7, 4, tilelenght, image);
 			}
 			if (up == 1 && down == 1 && left == 1 && right == 1 && leftDown == 0 && leftUp == 0 && rightDown == 0
 					&& rightUp == 0)
 			{
-				setTile(4, 4, tilelenght, image);
+				setTile(8, 4, tilelenght, image);
 			}
 		}
 
