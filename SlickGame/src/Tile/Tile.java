@@ -45,7 +45,7 @@ public class Tile
 					leftUp = 1;
 				}
 
-				if (j + 1 < map[0].length - 1)
+				if (j + 1 < map[0].length)
 				{
 					leftDown = map[i - 1][j + 1];
 				}
@@ -71,7 +71,7 @@ public class Tile
 				up = 1;
 			}
 
-			if (i + 1 < map.length - 1)
+			if (i + 1 < map.length)
 			{
 				right = map[i + 1][j];
 
@@ -84,7 +84,7 @@ public class Tile
 					rightUp = 1;
 				}
 
-				if (j + 1 < map[0].length - 1)
+				if (j + 1 < map[0].length)
 				{
 					rightDown = map[i + 1][j + 1];
 				}
@@ -329,26 +329,26 @@ public class Tile
 
 			if (up == 1 && down == 1 && left == 0 && right == 1 && rightDown == 0 && rightUp == 0)
 			{
-				setTile(0, 4, tilelenght, image);
+				setTile(4, 4, tilelenght, image);
 			}
 			if (up == 1 && down == 1 && left == 1 && right == 1 && leftDown == 1 && leftUp == 1 && rightDown == 0
 					&& rightUp == 0)
 			{
-				setTile(1, 4, tilelenght, image);
+				setTile(5, 4, tilelenght, image);
 			}
 			if (up == 1 && down == 1 && left == 1 && right == 1 && leftDown == 0 && leftUp == 0 && rightDown == 1
 					&& rightUp == 1)
 			{
-				setTile(2, 4, tilelenght, image);
+				setTile(6, 4, tilelenght, image);
 			}
 			if (up == 1 && down == 1 && left == 1 && right == 0 && leftDown == 0 && leftUp == 0)
 			{
-				setTile(3, 4, tilelenght, image);
+				setTile(7, 4, tilelenght, image);
 			}
 			if (up == 1 && down == 1 && left == 1 && right == 1 && leftDown == 0 && leftUp == 0 && rightDown == 0
 					&& rightUp == 0)
 			{
-				setTile(4, 4, tilelenght, image);
+				setTile(8, 4, tilelenght, image);
 			}
 		}
 
