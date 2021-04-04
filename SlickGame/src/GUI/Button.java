@@ -1,6 +1,7 @@
 package GUI;
 
 import org.newdawn.slick.Color;
+import org.newdawn.slick.Font;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -60,7 +61,9 @@ public class Button {
 
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
 
-	
+//		Font currentFont = g.getFont();
+//		Font newFont = currentFont.deriveFont(( currentFont).getSize() * 1.4F);
+//		g.setFont(newFont);
 
 		g.resetTransform();
 
@@ -74,7 +77,7 @@ public class Button {
 		}
 
 		g.setColor(Color.red);
-
+		
 		g.drawString(label, rect1.getCenterX() - g.getFont().getLineHeight() / 2,
 				rect1.getCenterY() - g.getFont().getWidth(label) / 2);
 

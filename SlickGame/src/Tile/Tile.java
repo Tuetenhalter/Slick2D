@@ -1,6 +1,7 @@
 package Tile;
 
 import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 
 public class Tile
 {
@@ -21,7 +22,7 @@ public class Tile
 		this.image = image;
 	}
 
-	public Tile(int[][] map, int i, int j, Image image)
+	public Tile(int[][] map, int i, int j, Image image) throws SlickException
 	{
 		int up, down, left, right, leftUp, leftDown, rightUp, rightDown;
 
@@ -112,7 +113,7 @@ public class Tile
 			// Which tile
 
 //			setTile(1, 1, tilelenght, image);
-
+			setTile(0, 0, tilelenght, new Image("testdata/dungeontiles.gif"));
 //			 -------------------- Beginn erste Reihe
 			if (left == 0 && up == 0 && right == 1 && down == 1 && rightDown == 1)
 			{
@@ -187,7 +188,7 @@ public class Tile
 				setTile(3, 1, tilelenght, image);
 			}
 			
-			if (up == 1 && down == 1 && left == 0 && right == 1  && rightDown == 0 && rightUp == 0)
+			if (up == 1 && down == 1 && left == 0 && right == 1  && rightDown == 0 && rightUp == 1)
 			{
 				setTile(4, 1, tilelenght, image);
 			}
@@ -293,7 +294,7 @@ public class Tile
 			{
 				setTile(3, 3, tilelenght, image);
 			}
-			if (up == 1 && down == 0 && left == 0 && right == 1 && rightUp == 1)
+			if (up == 1 && down == 0 && left == 0 && right == 1 && rightUp == 0)
 			{
 				setTile(4, 3, tilelenght, image);
 			}

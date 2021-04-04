@@ -65,46 +65,47 @@ public class PauseMenu extends Menu {
 		return States.PAUSEMENU.getState();
 	}
 
-//	public void newImage(GameContainer container, StateBasedGame game) throws SlickException {
-//
-//		Image tmpImage = new Image(container.getWidth(), container.getHeight(), Image.FILTER_NEAREST);
-//		Graphics test = tmpImage.getGraphics();
-//		test.flush();
-//		game.getState(States.GAME.getState()).render(container, game, test);
-//
-//		image = new Image(container.getWidth(), container.getHeight(), Image.FILTER_NEAREST);
-//		ImageBuffer ib = new ImageBuffer(container.getWidth(), container.getHeight());
-//		Graphics ig = image.getGraphics();
-//
-//		int[][] red = new int[container.getWidth()][container.getHeight()];
-//		int[][] green = new int[container.getWidth()][container.getHeight()];
-//		int[][] blue = new int[container.getWidth()][container.getHeight()];
-//
-//		for (int i = 0; i < container.getWidth(); i++) {
-//			for (int j = 0; j < container.getHeight(); j++) {
-//				Color color = tmpImage.getColor(i, j);
-//
-//				for (int i2 = i - 1; i2 <= i + 1; i2++) {
-//					for (int j2 = j - 1; j2 <= j + 1; j2++) {
-//						if (!(i2 < 0 || i2 > container.getWidth() - 1 || j2 < 0 || j2 > container.getHeight() - 1)) {
-//							red[i2][j2] += color.getRed();
-//							green[i2][j2] += color.getGreen();
-//							blue[i2][j2] += color.getBlue();
-//						}
-//					}
-//				}
-//			}
-//		}
-//
-//		for (int i = 0; i < container.getWidth(); i++) {
-//			for (int j = 0; j < container.getHeight(); j++) {
-//				ib.setRGBA(i, j, blue[i][j] / 9, green[i][j] / 9, red[i][j] / 9, 255);
-//			}
-//		}
-//
-//		image = ib.getImage();
-//
-//		ig.flush();
-//	}
+	public void newImage(GameContainer container, StateBasedGame game) throws SlickException {
+
+		Image tmpImage = new Image(container.getWidth(), container.getHeight(), Image.FILTER_NEAREST);
+		Image image;
+		Graphics test = tmpImage.getGraphics();
+		test.flush();
+		game.getState(States.GAME.getState()).render(container, game, test);
+
+		image = new Image(container.getWidth(), container.getHeight(), Image.FILTER_NEAREST);
+		ImageBuffer ib = new ImageBuffer(container.getWidth(), container.getHeight());
+		Graphics ig = image.getGraphics();
+
+		int[][] red = new int[container.getWidth()][container.getHeight()];
+		int[][] green = new int[container.getWidth()][container.getHeight()];
+		int[][] blue = new int[container.getWidth()][container.getHeight()];
+
+		for (int i = 0; i < container.getWidth(); i++) {
+			for (int j = 0; j < container.getHeight(); j++) {
+				Color color = tmpImage.getColor(i, j);
+
+				for (int i2 = i - 1; i2 <= i + 1; i2++) {
+					for (int j2 = j - 1; j2 <= j + 1; j2++) {
+						if (!(i2 < 0 || i2 > container.getWidth() - 1 || j2 < 0 || j2 > container.getHeight() - 1)) {
+							red[i2][j2] += color.getRed();
+							green[i2][j2] += color.getGreen();
+							blue[i2][j2] += color.getBlue();
+						}
+					}
+				}
+			}
+		}
+
+		for (int i = 0; i < container.getWidth(); i++) {
+			for (int j = 0; j < container.getHeight(); j++) {
+				ib.setRGBA(i, j, blue[i][j] / 9, green[i][j] / 9, red[i][j] / 9, 255);
+			}
+		}
+
+		image = ib.getImage();
+
+		ig.flush();
+	}
 
 }
