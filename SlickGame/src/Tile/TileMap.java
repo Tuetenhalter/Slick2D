@@ -1,8 +1,17 @@
 package Tile;
 
+import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.imageout.ImageIOWriter;
+import org.newdawn.slick.imageout.ImageOut;
 
 public class TileMap
 {
@@ -39,19 +48,32 @@ public class TileMap
 		this(widhtArray, heigthArray, widhtTile, heightTile, new Tile[widhtArray][heigthArray], image, null);
 	}
 
+<<<<<<< HEAD
 	public void createTileMap() throws SlickException
 	{
 
 		Image cimage = new Image(widhtArray * widhtTile, heigthArray * heightTile, Image.FILTER_NEAREST);
 		image.setFilter(Image.FILTER_NEAREST);
+=======
+	public void createTileMap() throws SlickException {
+
+		Image cimage = new Image(widhtArray * widhtTile, heigthArray * heightTile, Image.FILTER_LINEAR);
+		image.setFilter(Image.FILTER_LINEAR);
+>>>>>>> branch 'master' of https://github.com/Tuetenhalter/Slick2D.git
 		Graphics g = cimage.getGraphics();
 
+<<<<<<< HEAD
 		for (int i = 0; i < tileMap.length; i++)
 		{
 			for (int j = 0; j < tileMap[0].length; j++)
 			{
+=======
+		for (int i = 0; i < tileMap.length; i++) {
+			for (int j = 0; j < tileMap[0].length; j++) {
+>>>>>>> branch 'master' of https://github.com/Tuetenhalter/Slick2D.git
 				Tile tile = tileMap[i][j];
 
+<<<<<<< HEAD
 				if (tile != null)
 				{
 					// g.drawImage(image, i*widhtTile, j*heightTile, tile.getX(), tile.getY(),
@@ -60,6 +82,14 @@ public class TileMap
 					{
 						g.drawImage(tile.getImage(), i * widhtTile, j * heightTile, i * widhtTile + widhtTile,
 								j * heightTile + heightTile, tile.getX(), tile.getY(), tile.getX2(), tile.getY2());
+=======
+				if (tile != null) {
+					if (tile.getImage() != null) {
+
+						g.drawImage(tile.getImage(), i * widhtTile, j * heightTile, i * widhtTile + widhtTile,
+								j * heightTile + heightTile, tile.getX(), tile.getY(), tile.getX2(), tile.getY2());
+
+>>>>>>> branch 'master' of https://github.com/Tuetenhalter/Slick2D.git
 					}
 
 				}
@@ -71,6 +101,11 @@ public class TileMap
 
 		map = cimage;
 	}
+<<<<<<< HEAD
+=======
+
+	// Getter Setters
+>>>>>>> branch 'master' of https://github.com/Tuetenhalter/Slick2D.git
 
 	// Getter Setters
 
@@ -119,8 +154,12 @@ public class TileMap
 		return tileMap;
 	}
 
+<<<<<<< HEAD
 	public Tile getTileMap(int x, int y)
 	{
+=======
+	public Tile getTileMap(int x, int y) {
+>>>>>>> branch 'master' of https://github.com/Tuetenhalter/Slick2D.git
 		return tileMap[x][y];
 	}
 
@@ -129,8 +168,12 @@ public class TileMap
 		this.tileMap = tileMap;
 	}
 
+<<<<<<< HEAD
 	public void setTileMap(Tile tile, int x, int y)
 	{
+=======
+	public void setTileMap(Tile tile, int x, int y) {
+>>>>>>> branch 'master' of https://github.com/Tuetenhalter/Slick2D.git
 		this.tileMap[x][y] = tile;
 	}
 

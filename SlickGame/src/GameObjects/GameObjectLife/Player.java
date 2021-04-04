@@ -4,7 +4,10 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.geom.Shape;
+import org.newdawn.slick.openal.SoundStore;
 import org.newdawn.slick.state.StateBasedGame;
 
 import GameObjects.Bullet;
@@ -16,6 +19,8 @@ import idk.Options;
 import idk.Vector2D;
 
 public class Player extends GameObjectLife {
+	
+	Sound sound;
 
 	public Player(Vector2D pos, Vector2D vel, Vector2D acc, float width, float height, Shape hitBox, float live,
 			float maxLive, int shootDelay, int shootDelayMax) {
@@ -23,10 +28,12 @@ public class Player extends GameObjectLife {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Player(float x, float y, float width, float height, float maxlive, int shootDelayMax) {
+	public Player(float x, float y, float width, float height, float maxlive, int shootDelayMax) throws SlickException{
 		super(x, y, width + 1, height + 1, maxlive, shootDelayMax);
 		setHeight(height);
 		setWidth(width);
+		
+		sound = new Sound("res/Shoot.wav");
 	}
 
 	@Override
@@ -50,15 +57,13 @@ public class Player extends GameObjectLife {
 	}
 
 	@Override
-	public void update(GameContainer container, StateBasedGame game, int delta, MyBasicGameState mygame) {
+	public void update(GameContainer container, StateBasedGame game, int delta, MyBasicGameState mygame) throws SlickException{
 		Input input = container.getInput();
 		if (getLive() <= 0) {
 			setDestroy(true);
 		}
 
-		if (getShootDelay() <= getShootDelayMax()) {
-			setShootDelay(getShootDelay() + 1);
-		}
+		setShootDelay(getShootDelay() + 1);
 
 		if (input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
 			if (getShootDelay() > getShootDelayMax()) {
@@ -69,9 +74,12 @@ public class Player extends GameObjectLife {
 				bullet.setBounce(1);
 				bullet.setGroup(Bullet.GROUP_PLAYER);
 				bullet.getVel().add(getVel());
+				
+				
+				sound.play();
 				mygame.gameList.add(bullet);
 				setShootDelay(0);
-				
+
 			}
 
 		}
@@ -102,9 +110,9 @@ public class Player extends GameObjectLife {
 
 		for (GameObject gameObject : mygame.gameList) {
 			if (gameObject instanceof Wall) {
-				//colltiontoWall((Wall) gameObject);
+				// colltiontoWall((Wall) gameObject);
 			}
-			
+
 //			if (gameObject instanceof BouncieWall) {
 //				collitcionBounciWall((BouncieWall) gameObject);
 //

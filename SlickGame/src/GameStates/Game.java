@@ -133,7 +133,7 @@ public class Game extends MyBasicGameState {
 
 		} while (map[ranx][rany] == 1);
 
-		player = new Player(ranx * blockx, rany * blocky, blockx, blocky, 100, 0);
+		player = new Player(ranx * blockx, rany * blocky, blockx, blocky, 100, 10);
 		gameList.add(player);
 
 		do {

@@ -6,13 +6,13 @@ import org.newdawn.slick.SlickException;
 public class Tile
 {
 
-	private float x;
-	private float y;
-	private float x2;
-	private float y2;
+	private int x;
+	private int y;
+	private int x2;
+	private int y2;
 	private Image image;
 
-	public Tile(float x, float y, float x2, float y2, Image image)
+	public Tile(int x, int y, int x2, int y2, Image image)
 	{
 		super();
 		this.x = x;
@@ -113,9 +113,6 @@ public class Tile
 			// Which tile
 
 //			setTile(1, 1, tilelenght, image);
-			setTile(0, 0, tilelenght, new Image("testdata/dungeontiles.gif"));
-			
-//			 -------------------- Beginn erste Reihe
 			
 			if (left == 0 && up == 0 && right == 1 && down == 1 && rightDown == 1)
 			{
@@ -357,7 +354,7 @@ public class Tile
 
 	}
 
-	public void setTile(float x, float y, int tilelenght, Image image)
+	public void setTile(int x, int y, int tilelenght, Image image)
 	{
 		this.x = x * tilelenght;
 		this.y = y * tilelenght;
@@ -366,42 +363,42 @@ public class Tile
 		this.image = image;
 	}
 
-	public float getX()
+	public int getX()
 	{
 		return x;
 	}
 
-	public void setX(float x)
+	public void setX(int x)
 	{
 		this.x = x;
 	}
 
-	public float getY()
+	public int getY()
 	{
 		return y;
 	}
 
-	public void setY(float y)
+	public void setY(int y)
 	{
 		this.y = y;
 	}
 
-	public float getX2()
+	public int getX2()
 	{
 		return x2;
 	}
 
-	public void setX2(float x2)
+	public void setX2(int x2)
 	{
 		this.x2 = x2;
 	}
 
-	public float getY2()
+	public int getY2()
 	{
 		return y2;
 	}
 
-	public void setY2(float y2)
+	public void setY2(int y2)
 	{
 		this.y2 = y2;
 	}
