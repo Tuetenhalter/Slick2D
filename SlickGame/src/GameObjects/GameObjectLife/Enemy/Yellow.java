@@ -34,31 +34,38 @@ public class Yellow extends Enemy {
 			throws SlickException {
 
 		poly = new Polygon();
-		poly.addPoint((float) Math.cos(Math.toRadians(angel)) * LENGHT, (float) Math.sin(Math.toRadians(angel)) * LENGHT);
-
+		poly.addPoint((float) Math.cos(Math.toRadians(angel)) * LENGHT,
+				(float) Math.sin(Math.toRadians(angel)) * LENGHT);
 		poly.addPoint((float) Math.cos(Math.toRadians(angel + 150)) * LENGHT,
 				(float) Math.sin(Math.toRadians(angel + 150)) * LENGHT);
-		poly.addPoint((float) Math.cos(Math.toRadians(angel + 180)) * LENGHT/2,
-				(float) Math.sin(Math.toRadians(angel + 180)) * LENGHT/2);
+		poly.addPoint((float) Math.cos(Math.toRadians(angel + 180)) * LENGHT / 2,
+				(float) Math.sin(Math.toRadians(angel + 180)) * LENGHT / 2);
 		poly.addPoint((float) Math.cos(Math.toRadians(angel - 150)) * LENGHT,
 				(float) Math.sin(Math.toRadians(angel - 150)) * LENGHT);
 
-		poly.setX(getX()+getHeight()/2);
-		poly.setY(getY()+getWidth()/2);
+		poly.setX(getX() + getHeight() / 2);
+		poly.setY(getY() + getWidth() / 2);
 		poly.setLocation(getCenter().toVector2f());
 		g.setColor(Color.yellow);
 		g.fill(poly);
-		
-		g.drawLine(getX(), getY(), getX()+getSpeedX()*100, getY()+getSpeedY()*100);
+
+//		g.drawLine(getX(), getY(), getX()+getSpeedX()*100, getY()+getSpeedY()*100);
 		g.setColor(Color.red);
-		getHitBox().setLocation(getPos().toVector2f());
-		g.draw(getHitBox());
+
+//		getHitBox().setLocation(getPos().toVector2f());
+//		g.draw(getHitBox());
 
 	}
 
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta, MyBasicGameState mygame)
 			throws SlickException {
+		
+		if (getLive() <= 0) {
+			setDestroy(true);
+		}
+
+		// Coliton
 
 		for (GameObject gameObject : mygame.getGameList()) {
 			if (gameObject instanceof Wall) {
@@ -66,40 +73,11 @@ public class Yellow extends Enemy {
 			}
 		}
 
-		float distance = mygame.getPlayer().getPos().distance(getPos());
-		System.out.println(distance);
-		float max = 500;
-		float min = 100;
-
-		if (distance > max) {
-			distance = max;
-		}
-		if (distance < min) {
-			distance = min;
-		}
-
-		distance = 1000 / (distance * distance);
-
-		setAcc(mygame.getPlayer().getPos().clone().sub(getPos()).setMagnitude(distance));
-
-		getVel().add(getAcc());
-		getPos().add(getVel());
+		move(mygame);
 		
 		shoot(container, game, delta, mygame);
 		
-		
-		double angel = Math.asin(getVel().getY() / getVel().length());
-		angel = Math.toDegrees(angel);
-		if (getVel().getX() > 0) {
-			angel = 180 - angel;
-		} else {
-			if (getVel().getX() < 0) {
-				angel = angel + 90 + 270;
-			}
-		}
-		
-		this.angel = 180-angel;
-		System.out.println(getPos());
+		getHitBox().setLocation(getPos().toVector2f());
 
 	}
 
@@ -165,14 +143,14 @@ public class Yellow extends Enemy {
 		}
 
 	}
-	
+
 	public void shoot(GameContainer container, StateBasedGame game, int delta, MyBasicGameState mygame) {
 		Player player = mygame.getPlayer();
 
 		double distanceX = (getX() + getWidth() / 2) - (player.getX() + player.getWidth() / 2);
 		double distanceY = (getY() + getHeight() / 2) - (player.getY() + player.getHeight() / 2);
 		double distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
-		
+
 		double angel = Math.asin(distanceY / distance);
 		angel = Math.toDegrees(angel);
 		if (distanceX > 0) {
@@ -229,4 +207,41 @@ public class Yellow extends Enemy {
 			}
 		}
 	}
+
+	public void move(MyBasicGameState mygame) {
+
+		float distance = mygame.getPlayer().getPos().distance(getPos());
+
+		float max = 500;
+		float min = 100;
+
+		if (distance > max) {
+			distance = max;
+		}
+		if (distance < min) {
+			distance = min;
+		}
+
+		distance = 1000 / (distance * distance);
+
+		setAcc(mygame.getPlayer().getPos().clone().sub(getPos()).setMagnitude(distance));
+
+		getVel().add(getAcc());
+		getPos().add(getVel());
+
+		double angel = Math.asin(getVel().getY() / getVel().length());
+		angel = Math.toDegrees(angel);
+		if (getVel().getX() > 0) {
+			angel = 180 - angel;
+		} else {
+			if (getVel().getX() < 0) {
+				angel = angel + 90 + 270;
+			}
+		}
+
+		this.angel = 180 - angel;
+		System.out.println(getPos());
+
+	}
+
 }

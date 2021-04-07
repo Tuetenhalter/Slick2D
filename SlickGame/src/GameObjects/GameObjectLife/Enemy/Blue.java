@@ -35,9 +35,11 @@ public class Blue extends Enemy {
 		getHitBox().setY(getPos().getY());
 		g.setColor(Color.blue);
 		g.fill(getHitBox());
-		Player player = mygame.getPlayer();
-		g.drawLine(player.getX() + player.getWidth() / 2, player.getY() + player.getHeight() / 2,
-				getX() + getWidth() / 2, getY() + getHeight() / 2);
+		
+		
+//		Player player = mygame.getPlayer();
+//		g.drawLine(player.getX() + player.getWidth() / 2, player.getY() + player.getHeight() / 2,
+//				getX() + getWidth() / 2, getY() + getHeight() / 2);
 
 	}
 

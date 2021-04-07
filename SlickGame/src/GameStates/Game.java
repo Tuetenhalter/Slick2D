@@ -58,19 +58,6 @@ public class Game extends MyBasicGameState {
 		yellow.getPos().set(601, 500);
 		yellow.getVel().set(0, 0);
 		
-
-//		gameList.add(new BouncieWall(500, 500, 25, 50, null));
-
-//		gameList.add(new Wall(0, 0, 50, 10800));
-//		gameList.add(new Wall(0, 0, 19200, 50));
-//
-//		gameList.add(new Wall(19200 - 50, 0, 50, 10800));
-//
-//		gameList.add(new Wall(0, 10800 - 50, 19200, 50));
-
-//		gameList.add(new Player(0, 0, 210, 210, 50, 50, null, new Rectangle(200, 200, 50, 50), 100, 100));
-
-		// player = new Player(200, 200, 50, 50, 100);
 		System.out.println("[Game] finised init");
 
 	}
