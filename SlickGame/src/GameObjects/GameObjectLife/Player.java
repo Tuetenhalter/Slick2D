@@ -21,7 +21,7 @@ import idk.Vector2D;
 public class Player extends GameObjectLife {
 	
 	static final float SPEED = 2f;
-	static final float REDUCE_SPEED = .25f;
+	static final float REDUCE_SPEED = .9f;
 	
 	Sound sound;
 
@@ -104,13 +104,13 @@ public class Player extends GameObjectLife {
 			getAcc().setMagnitude(SPEED);
 		}
 
-		getAcc().sub(getVel().clone().mul(REDUCE_SPEED));
 
 		getVel().add(getAcc());
+		getVel().mul(REDUCE_SPEED);
 
 		for (GameObject gameObject : mygame.getGameList()) {
 			if (gameObject instanceof Wall) {
-				// colltiontoWall((Wall) gameObject);
+				 colltiontoWall((Wall) gameObject);
 			}
 
 //			if (gameObject instanceof BouncieWall) {

@@ -9,7 +9,7 @@ import GameStates.MyBasicGameState;
 
 public class Camara {
 
-	static final float smooth = .25f;
+	static final float smooth = .1f;
 	static final float playerVel = 10f;
 
 	private Vector2D pos;

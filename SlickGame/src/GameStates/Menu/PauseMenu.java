@@ -49,7 +49,6 @@ public class PauseMenu extends Menu {
 		if (options.clicked()) {
 			OptionsMenu optionsMenu = (OptionsMenu) game.getState(States.OPTIONSMENU.getState());
 			optionsMenu.setLastState(this.getID());
-			game.getState(States.GAME.getState()).init(container, game);
 			game.enterState(States.OPTIONSMENU.getState());
 		}
 

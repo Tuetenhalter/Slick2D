@@ -17,6 +17,7 @@ public class StartMenu extends Menu {
 
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
+		
 		play = new Button("Play", .25f, .25f, .1f, .8f, container);
 		options = new Button("Option", 0.25f, 0.25f, 0.3f, 0.6f, container);
 		exit = new Button("exit", 0.25f, 0.25f, 0.7f, 0.2f, container);
@@ -36,6 +37,7 @@ public class StartMenu extends Menu {
 
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
+		
 		play.update(container, game, delta);
 		options.update(container, game, delta);
 		exit.update(container, game, delta);

@@ -1,11 +1,14 @@
 package GUI;
 
+
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -59,7 +62,7 @@ public class Button {
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
 
 		g.resetTransform();
-
+		
 		g.setColor(Color.gray);
 		g.fill(rect1);
 
@@ -91,12 +94,6 @@ public class Button {
 
 	}
 
-	public void bilder() throws SlickException {
-		startButton = new Image("res/start-knopf-400-117977923.jpg");
-		menuButton = new Image("res/start-knopf-400-117977923.jpg");
-		exitButton = new Image("res/start-knopf-400-117977923.jpg");
-	}
-	
 	public boolean clicked() {
 		boolean tmp = false;
 		if(clicked) {

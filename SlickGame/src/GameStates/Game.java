@@ -109,8 +109,8 @@ public class Game extends MyBasicGameState {
 			game.enterState(States.PAUSEMENU.getState());
 		}
 
-		if (container.getInput().isKeyPressed(Input.KEY_H)) {
-			game.enterState(1);
+		if (container.getInput().isKeyPressed(Input.KEY_R)) {
+			init(container, game);
 		}
 	}
 
