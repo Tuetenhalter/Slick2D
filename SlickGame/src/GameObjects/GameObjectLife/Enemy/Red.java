@@ -11,45 +11,41 @@ import GameStates.MyBasicGameState;
 import idk.Vector2D;
 
 public class Red extends Enemy {
-	
-	static final float REDUCE_SPEED = .1f;
+
+	static final float REDUCE_SPEED = .9f;
 	static final float SPEED = 1f;
-	
-	
-	public Red(float x, float y, float width, float height, float maxlive) {
-		super(x, y, width, height, maxlive, 0);
+	static final float MAXLIVE = 5f;
+
+	public Red(float x, float y, float width, float height) {
+		super(x, y, width, height, MAXLIVE, 0);
 
 	}
-	
-	
+
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g, MyBasicGameState mygame)
 			throws SlickException {
-		
 		getHitBox().setLocation(getPos().toVector2f());
-		g.setColor(Color.red);
+		g.setColor(Color.green);
 		g.fill(getHitBox());
-
 	}
 
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta, MyBasicGameState mygame)
 			throws SlickException {
-		
-		getAcc().set(0, 0);
-		
-		Vector2D test = getPos().clone();
-		
-		getHitBox().includes(mousex, mousey);
 
-		
-				
-				
-				
-		getVel().add(getAcc());
+		getAcc().set(0, 0);
+
+		Vector2D test = mygame.getPlayer().getPos().clone().sub(getPos());
+
+		test.setMagnitude(SPEED);
+
+		setAcc(test);
+
+		getVel().add(getAcc()).limit(32);
+		getVel().mul(REDUCE_SPEED);
 		getPos().add(getVel());
 	}
-	
+
 	public void colltiontoWall(Wall gameObject) {
 
 		float x = getX();

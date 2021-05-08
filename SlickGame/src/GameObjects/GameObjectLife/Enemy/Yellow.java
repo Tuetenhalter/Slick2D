@@ -240,7 +240,6 @@ public class Yellow extends Enemy {
 		}
 
 		this.angel = 180 - angel;
-		System.out.println(getPos());
 
 	}
 

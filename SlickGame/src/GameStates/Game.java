@@ -15,6 +15,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import GameObjects.GameObject;
 import GameObjects.GameObjectLife.Player;
 import GameObjects.GameObjectLife.Enemy.Blue;
+import GameObjects.GameObjectLife.Enemy.Red;
 import GameObjects.GameObjectLife.Enemy.Yellow;
 import GameObjects.Wall.Wall;
 import Tile.Tile;
@@ -57,6 +58,8 @@ public class Game extends MyBasicGameState {
 		player.getPos().set(500, 500);
 		yellow.getPos().set(601, 500);
 		yellow.getVel().set(0, 0);
+		
+		gameList.add(new Red(600, 600, TILEWIDHT, TILEHEIGHT));
 		
 		System.out.println("[Game] finised init");
 
