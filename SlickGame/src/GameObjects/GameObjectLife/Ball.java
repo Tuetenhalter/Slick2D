@@ -1,4 +1,4 @@
-package GameObjects.GameObjectLife.Enemy;
+package GameObjects.GameObjectLife;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -6,18 +6,20 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
+import GameObjects.GameObject;
+import GameObjects.GameObjectLife.Enemy.Enemy;
 import GameObjects.Wall.Wall;
 import GameStates.MyBasicGameState;
 import idk.Vector2D;
 
-public class Red extends Enemy {
+public class Ball extends GameObject {
 
-	static final float REDUCE_SPEED = .9f;
-	static final float SPEED = 1f;
+	static final float REDUCE_SPEED = .99f;
+	static final float SPEED = .5f;
 	static final float MAXLIVE = 5f;
 
-	public Red(float x, float y, float width, float height) {
-		super(x, y, width, height, MAXLIVE, 0);
+	public Ball(float x, float y, float width, float height) {
+		super(x, y, width, height);
 
 	}
 
@@ -32,7 +34,7 @@ public class Red extends Enemy {
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta, MyBasicGameState mygame)
 			throws SlickException {
-
+		
 		getAcc().set(0, 0);
 
 		Vector2D test = mygame.getPlayer().getPos().clone().sub(getPos());
@@ -41,8 +43,23 @@ public class Red extends Enemy {
 
 		setAcc(test);
 
+		if(mygame.getPlayer().getHitBox().intersects(getHitBox())) {
+			test.setMagnitude(getVel().length()+mygame.getPlayer().getVel().length());
+			
+			mygame.getPlayer().getVel().add(test);
+			setAcc(test.mul(-1f));
+		}
+		
 		getVel().add(getAcc()).limit(32);
 		getVel().mul(REDUCE_SPEED);
+		
+		for(GameObject gameObject : mygame.getGameList()) {
+			if(gameObject instanceof Wall) {
+				colltiontoWall((Wall) gameObject);
+			}
+		}
+		
+		
 		getPos().add(getVel());
 	}
 
@@ -81,24 +98,24 @@ public class Red extends Enemy {
 
 		// Links
 		if (x + speedx < x2 + width2 && x + speedx > x2 && y2 < y + height && y2 + height2 > y) {
-			setSpeedX(0);
+			setSpeedX(-getSpeedX());
 			setX(x2 + width2);
 		}
 
 		// Rechts
 		if (x + speedx + width > x2 && x + speedx + width < x2 + width2 && y2 < y + height && y2 + height2 > y) {
-			setSpeedX(0);
+			setSpeedX(-getSpeedX());
 			setX(x2 - width);
 		}
 
 		// oben
 		if (y + speedy < y2 + height2 && y + speedy > y2 && x2 < x + width && x2 + width2 > x) {
-			setSpeedY(0);
+			setSpeedY(-getSpeedY());
 			setY(y2 + height2);
 		}
 		// untem
 		if (y + speedy + height > y2 && y + speedy + height < y2 + height2 && x2 < x + width && x2 + width2 > x) {
-			setSpeedY(0);
+			setSpeedY(-getSpeedY());
 			setY(y2 - height);
 		}
 

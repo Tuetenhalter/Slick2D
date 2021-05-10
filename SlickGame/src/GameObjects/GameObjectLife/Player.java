@@ -22,6 +22,7 @@ public class Player extends GameObjectLife {
 	
 	static final float SPEED = 2f;
 	static final float REDUCE_SPEED = .9f;
+	private float dashCouldown = 0f;
 	
 	Sound sound;
 
@@ -103,8 +104,15 @@ public class Player extends GameObjectLife {
 		if (getAcc().magnitude() > 0) {
 			getAcc().setMagnitude(SPEED);
 		}
+		
+		dashCouldown--;
+		
+		if (input.isKeyDown(Input.KEY_SPACE) && dashCouldown <0) {
+			getAcc().mul(10);
+			dashCouldown = 20;
+		}
 
-
+		
 		getVel().add(getAcc());
 		getVel().mul(REDUCE_SPEED);
 
