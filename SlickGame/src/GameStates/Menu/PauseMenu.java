@@ -83,13 +83,17 @@ public class PauseMenu extends Menu {
 		int[][] green = new int[container.getWidth()][container.getHeight()];
 		int[][] blue = new int[container.getWidth()][container.getHeight()];
 
-		for (int i = 0; i < container.getWidth(); i++) {
-			for (int j = 0; j < container.getHeight(); j++) {
+		for (int i = 0; i < container.getWidth(); i++) 
+		{
+			for (int j = 0; j < container.getHeight(); j++) 
+			{
 				Color color = tmpImage.getColor(i, j);
-
-				for (int i2 = i - 1; i2 <= i + 1; i2++) {
-					for (int j2 = j - 1; j2 <= j + 1; j2++) {
-						if (!(i2 < 0 || i2 > container.getWidth() - 1 || j2 < 0 || j2 > container.getHeight() - 1)) {
+				for (int i2 = i - 1; i2 <= i + 1; i2++) 
+				{
+					for (int j2 = j - 1; j2 <= j + 1; j2++) 
+					{
+						if (!(i2 < 0 || i2 > container.getWidth() - 1 || j2 < 0 || j2 > container.getHeight() - 1)) 
+						{
 							red[i2][j2] += color.getRed();
 							green[i2][j2] += color.getGreen();
 							blue[i2][j2] += color.getBlue();

@@ -3,6 +3,8 @@ package GameStates;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MaximizeAction;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -24,13 +26,13 @@ import idk.Camara;
 import idk.MapMaker;
 
 public class Game extends MyBasicGameState {
-	
+
 	static final int TILEWIDHT = 32;
 	static final int TILEHEIGHT = TILEWIDHT;
-	
+
 	static final int TILEARRAYWIDHT = 100;
 	static final int TILEARRAYHEIGHT = TILEARRAYWIDHT;
-	
+
 	static final int MAPRANDOM = 48;
 	static final int MAPIT = 4;
 	static final int MAPFILLSPICKS = 2;
@@ -40,7 +42,8 @@ public class Game extends MyBasicGameState {
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
 		System.out.println("[Game] Start init");
 
-		tileMap = new TileMap(TILEARRAYWIDHT, TILEARRAYHEIGHT, TILEWIDHT, TILEHEIGHT, new Image("testdata/dungeontiles.gif"));
+		tileMap = new TileMap(TILEARRAYWIDHT, TILEARRAYHEIGHT, TILEWIDHT, TILEHEIGHT,
+				new Image("testdata/dungeontiles.gif"));
 
 		container.setMinimumLogicUpdateInterval(20);
 		container.setMaximumLogicUpdateInterval(20);
@@ -52,12 +55,13 @@ public class Game extends MyBasicGameState {
 		camara.setRangex2(camara.getRangex2() - container.getWidth());
 		camara.setRangey2(camara.getRangey2() - container.getHeight());
 		tileMap.createTileMap();
-		
+
 		Yellow yellow = new Yellow(1, 1, TILEWIDHT, TILEHEIGHT, 10, 10);
 		gameList.add(yellow);
 		player.getPos().set(500, 500);
 		yellow.getPos().set(601, 500);
 		yellow.getVel().set(0, 0);
+
 		
 		gameList.add(new Ball(600, 600, TILEWIDHT, TILEHEIGHT));
 		
@@ -115,17 +119,22 @@ public class Game extends MyBasicGameState {
 		if (container.getInput().isKeyPressed(Input.KEY_R)) {
 			init(container, game);
 		}
+		if(container.getInput().isKeyPressed(Input.KEY_O))
+		{
+			game.enterState(States.GAMEOVER.getState());
+		}
 	}
 
 	@Override
-	public int getID() {
-		// TODO Auto-generated method stub
+	public int getID() 
+	{
 		return States.GAME.getState();
 	}
 
 	public void creatMap() throws SlickException {
 
-		MapMaker mapMaker = new MapMaker(TILEARRAYHEIGHT, TILEARRAYHEIGHT, "Pascal", MAPIT, MAPFILLSPICKS, MAPRANDOM, MAPFILLHOLLS);
+		MapMaker mapMaker = new MapMaker(TILEARRAYHEIGHT, TILEARRAYHEIGHT, "Pascal", MAPIT, MAPFILLSPICKS, MAPRANDOM,
+				MAPFILLHOLLS);
 		mapMaker.creat();
 
 		int[][] map = mapMaker.getList();
