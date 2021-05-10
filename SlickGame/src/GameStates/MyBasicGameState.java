@@ -9,6 +9,7 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import GameObjects.GameObject;
+import GameObjects.GameObjectLife.Ball;
 import GameObjects.GameObjectLife.Player;
 import Tile.TileMap;
 import idk.Camara;
@@ -19,6 +20,7 @@ public abstract class MyBasicGameState extends BasicGameState {
 	
 	protected Camara camara;
 	protected Player player;
+	protected Ball ball;
 	
 	protected TileMap tileMap;
 

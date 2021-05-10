@@ -3,7 +3,6 @@ package GameStates;
 import java.util.ArrayList;
 import java.util.Random;
 
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MaximizeAction;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -11,7 +10,6 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.StateBasedGame;
 
 import GameObjects.GameObject;
@@ -27,7 +25,7 @@ import idk.MapMaker;
 
 public class Game extends MyBasicGameState {
 
-	static final int TILEWIDHT = 32;
+	static final int TILEWIDHT = 64;
 	static final int TILEHEIGHT = TILEWIDHT;
 
 	static final int TILEARRAYWIDHT = 100;
@@ -62,8 +60,8 @@ public class Game extends MyBasicGameState {
 		yellow.getPos().set(601, 500);
 		yellow.getVel().set(0, 0);
 
-		
-		gameList.add(new Ball(600, 600, TILEWIDHT, TILEHEIGHT));
+		ball = new Ball(600, 600, TILEWIDHT, TILEHEIGHT);
+		gameList.add(ball);
 		
 		System.out.println("[Game] finised init");
 
@@ -119,10 +117,7 @@ public class Game extends MyBasicGameState {
 		if (container.getInput().isKeyPressed(Input.KEY_R)) {
 			init(container, game);
 		}
-		if(container.getInput().isKeyPressed(Input.KEY_O))
-		{
-			game.enterState(States.GAMEOVER.getState());
-		}
+		
 	}
 
 	@Override

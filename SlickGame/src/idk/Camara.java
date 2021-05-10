@@ -1,9 +1,6 @@
 package idk;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.geom.Shape;
 
 import GameStates.MyBasicGameState;
 
@@ -51,7 +48,7 @@ public class Camara {
 		target.sub(container.getWidth() / 2, container.getHeight() / 2);
 		target.add(mygame.getPlayer().getWidth() / 2, mygame.getPlayer().getHeight() / 2);
 		target.add(mygame.getPlayer().getVel().clone().mul(playerVel));
-		
+
 		if (target.getX() < rangex) {
 			target.setX(rangex);
 		}
@@ -69,20 +66,6 @@ public class Camara {
 		target.sub(pos);
 		target.mul(smooth);
 		pos.add(target);
-
-	}
-
-	public void drawShape(Graphics g, Shape shape, Color color) {
-		g.setColor(color);
-
-		Vector2D v = new Vector2D(shape.getX(), shape.getY());
-
-//		v.sub(pos);
-
-		shape.setX(v.getX());
-		shape.setY(v.getY());
-
-		g.fill(shape);
 
 	}
 

@@ -50,7 +50,8 @@ public class Bullet extends GameObject {
 
 		getHitBox().setX(getPos().getX());
 		getHitBox().setY(getPos().getY());
-		mygame.getCamara().drawShape(g, getHitBox(), Color.red);
+		g.setColor(Color.red);
+		g.fill(getHitBox());
 
 	}
 
@@ -72,10 +73,6 @@ public class Bullet extends GameObject {
 						setDestroy(true);
 						Enemy blue = (Enemy) gameObject;
 						blue.setLive(blue.getLive() - 1);
-
-						if (blue.getLive() <= 0) {
-							blue.setDestroy(true);
-						}
 					}
 				}
 			}
@@ -86,10 +83,6 @@ public class Bullet extends GameObject {
 						setDestroy(true);
 						Player player = (Player) gameObject;
 						player.setLive(player.getLive() - 1);
-						System.out.println(this);
-						if (player.getLive() <= 0) {
-							player.setDestroy(true);
-						}
 					}
 				}
 			}

@@ -15,6 +15,7 @@ import GameObjects.GameObject;
 import GameObjects.Wall.BouncieWall;
 import GameObjects.Wall.Wall;
 import GameStates.MyBasicGameState;
+import GameStates.States;
 import idk.Options;
 import idk.Vector2D;
 
@@ -65,6 +66,7 @@ public class Player extends GameObjectLife {
 		Input input = container.getInput();
 		if (getLive() <= 0) {
 			setDestroy(true);
+			game.enterState(States.GAMEOVER.getState());
 		}
 
 		setShootDelay(getShootDelay() + 1);
