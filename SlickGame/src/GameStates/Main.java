@@ -6,6 +6,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 import org.omg.PortableInterceptor.ServerRequestInfo;
 
+import GameStates.Menu.GameOverMenu;
 import GameStates.Menu.OptionsMenu;
 import GameStates.Menu.PauseMenu;
 import GameStates.Menu.StartMenu;
@@ -42,6 +43,7 @@ public class Main extends StateBasedGame{
 		addState(new Game());
 		addState(new PauseMenu());
 		addState(new OptionsMenu());
+		addState(new GameOverMenu());
 		
 	}
 }
