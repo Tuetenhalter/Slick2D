@@ -13,8 +13,14 @@ import idk.Vector2D;
 
 public class Blue extends Enemy {
 
-	static final int SHOOTDELAYMAX = 20;
+	static final int SHOOTDELAYMAX = 1;
 	static final int MAXLIVE = 3;
+
+	static final float ROTATION_SPEED = 45f;
+
+	static final float BULLET_SPEED = 100f;
+	static final float BULLET_WIDTH = 10f;
+	static final float BULLET_HEIGHT = 10f;
 
 	public Blue(Vector2D pos, Vector2D vel, Vector2D acc, float width, float height, Shape hitBox, float live,
 			float maxLive, int shootDelay, int shootDelayMax) {
@@ -35,8 +41,7 @@ public class Blue extends Enemy {
 		getHitBox().setY(getPos().getY());
 		g.setColor(Color.blue);
 		g.fill(getHitBox());
-		
-		
+
 //		Player player = mygame.getPlayer();
 //		g.drawLine(player.getX() + player.getWidth() / 2, player.getY() + player.getHeight() / 2,
 //				getX() + getWidth() / 2, getY() + getHeight() / 2);
@@ -54,65 +59,68 @@ public class Blue extends Enemy {
 	}
 
 	public void shoot(GameContainer container, StateBasedGame game, int delta, MyBasicGameState mygame) {
-		Player player = mygame.getPlayer();
+		if (getPos().distanceSq(mygame.getPlayer().getPos()) < 10000000) {
 
-		double distanceX = (getX() + getWidth() / 2) - (player.getX() + player.getWidth() / 2);
-		double distanceY = (getY() + getHeight() / 2) - (player.getY() + player.getHeight() / 2);
-		double distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+			Player player = mygame.getPlayer();
 
-		double angel = Math.asin(distanceY / distance);
-		angel = Math.toDegrees(angel);
-		if (distanceX > 0) {
-			angel = 180 - angel;
-		} else {
-			if (distanceY < 0) {
-				angel = angel + 90 + 270;
-			}
-		}
+			double distanceX = (getX() + getWidth() / 2) - (player.getX() + player.getWidth() / 2);
+			double distanceY = (getY() + getHeight() / 2) - (player.getY() + player.getHeight() / 2);
+			double distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
 
-		if (Math.abs(angel - getShootAngel()) < 180) {
-			if (angel < getShootAngel()) {
-				setShootAngel(getShootAngel() - 1f);
+			double angel = Math.asin(distanceY / distance);
+			angel = Math.toDegrees(angel);
+			if (distanceX > 0) {
+				angel = 180 - angel;
 			} else {
-				setShootAngel(getShootAngel() + 1f);
+				if (distanceY < 0) {
+					angel = angel + 90 + 270;
+				}
 			}
-		} else {
-			if (angel > getShootAngel()) {
-				setShootAngel(getShootAngel() - 1f);
+
+			if (Math.abs(angel - getShootAngel()) < 180) {
+				if (angel < getShootAngel()) {
+					setShootAngel(getShootAngel() - ROTATION_SPEED * delta / 1000f);
+				} else {
+					setShootAngel(getShootAngel() + ROTATION_SPEED * delta / 1000f);
+				}
 			} else {
-				setShootAngel(getShootAngel() + 1f);
+				if (angel > getShootAngel()) {
+					setShootAngel(getShootAngel() - ROTATION_SPEED * delta / 1000f);
+				} else {
+					setShootAngel(getShootAngel() + ROTATION_SPEED * delta / 1000f);
+				}
 			}
-		}
 
-		if (getShootAngel() > 360) {
-			setShootAngel(getShootAngel() - 360);
-		}
+			if (getShootAngel() > 360) {
+				setShootAngel(getShootAngel() - 360);
+			}
 
-		if (getShootAngel() < 0) {
-			setShootAngel(getShootAngel() + 360);
-		}
+			if (getShootAngel() < 0) {
+				setShootAngel(getShootAngel() + 360);
+			}
 
-		if (Math.abs(getShootAngel() - angel) < 1) {
-			setShootAngel((float) angel);
-		}
+			if (Math.abs(getShootAngel() - angel) < 1) {
+				setShootAngel((float) angel);
 
-		if (getShootDelay() <= getShootDelayMax()) {
-			setShootDelay(getShootDelay() + 1);
-		}
+			}
 
-		if (getShootDelay() > getShootDelayMax()) {
-			if (getPos().distanceSq(mygame.getPlayer().getPos()) < 10000000) {
+			if (getShootDelay() > 0) {
+				setShootDelay(getShootDelay() - delta);
+			}
 
+			if (getShootDelay() <= 0) {
 				Bullet bullet = new Bullet(
-						getPos().clone().add(getWidth() / 2 - 5, getHeight() / 2 - 5), mygame.getPlayer().getPos()
-								.clone().add(mygame.getPlayer().getWidth() / 2, mygame.getPlayer().getHeight() / 2),
-						10, 10, 10);
+						getPos().clone().add(getWidth() / 2 - BULLET_WIDTH / 2, getHeight() / 2 - BULLET_HEIGHT / 2),
+						mygame.getPlayer().getPos().clone().add(mygame.getPlayer().getWidth() / 2,
+								mygame.getPlayer().getHeight() / 2),
+						BULLET_SPEED, BULLET_WIDTH, BULLET_HEIGHT);
 
 				bullet.setVel(new Vector2D((float) Math.sin(Math.toRadians(getShootAngel() + 90)),
 						(float) Math.cos(Math.toRadians(getShootAngel() + 90))));
+				bullet.getVel().setMagnitude(BULLET_SPEED);
 				bullet.setGroup(Bullet.GROUP_ENEMY);
 				mygame.getGameList().add(bullet);
-				setShootDelay(0);
+				setShootDelay(SHOOTDELAYMAX);
 			}
 		}
 	}

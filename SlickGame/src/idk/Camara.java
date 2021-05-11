@@ -6,8 +6,8 @@ import GameStates.MyBasicGameState;
 
 public class Camara {
 
-	static final float smooth = .1f;
-	static final float playerVel = 10f;
+	static final float smooth = 1f;
+	static final float playerVel = 0f;
 
 	private Vector2D pos;
 	private float rangex;

@@ -32,9 +32,9 @@ public class Game extends MyBasicGameState {
 	static final int TILEARRAYHEIGHT = TILEARRAYWIDHT;
 
 	static final int MAPRANDOM = 48;
-	static final int MAPIT = 4;
+	static final int MAPIT = 10;//4
 	static final int MAPFILLSPICKS = 2;
-	static final boolean MAPFILLHOLLS = false;
+	static final boolean MAPFILLHOLLS = true;
 
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
@@ -43,8 +43,8 @@ public class Game extends MyBasicGameState {
 		tileMap = new TileMap(TILEARRAYWIDHT, TILEARRAYHEIGHT, TILEWIDHT, TILEHEIGHT,
 				new Image("testdata/dungeontiles.gif"));
 
-		container.setMinimumLogicUpdateInterval(20);
-		container.setMaximumLogicUpdateInterval(20);
+//		container.setMinimumLogicUpdateInterval(20);
+//		container.setMaximumLogicUpdateInterval(20);
 
 		camara = new Camara(0, 0, -1000, -1000, 10000, 10000);
 		gameList = new ArrayList<GameObject>();
@@ -54,14 +54,14 @@ public class Game extends MyBasicGameState {
 		camara.setRangey2(camara.getRangey2() - container.getHeight());
 		tileMap.createTileMap();
 
-		Yellow yellow = new Yellow(1, 1, TILEWIDHT, TILEHEIGHT, 10, 10);
-		gameList.add(yellow);
-		player.getPos().set(500, 500);
-		yellow.getPos().set(601, 500);
-		yellow.getVel().set(0, 0);
+//		Yellow yellow = new Yellow(1, 1, TILEWIDHT, TILEHEIGHT, 10, 10);
+//		gameList.add(yellow);
+//		player.getPos().set(500, 500);
+//		yellow.getPos().set(601, 500);
+//		yellow.getVel().set(0, 0);
 
-		ball = new Ball(600, 600, TILEWIDHT, TILEHEIGHT);
-		gameList.add(ball);
+		//ball = new Ball(600, 600, TILEWIDHT, TILEHEIGHT);
+		//gameList.add(ball);
 		
 		System.out.println("[Game] finised init");
 
@@ -144,7 +144,7 @@ public class Game extends MyBasicGameState {
 
 		} while (map[ranx][rany] == 1);
 
-		player = new Player(ranx * TILEWIDHT, rany * TILEHEIGHT, TILEWIDHT, TILEHEIGHT, 100, 10);
+		player = new Player(ranx * TILEWIDHT, rany * TILEHEIGHT, TILEWIDHT, TILEHEIGHT);
 		gameList.add(player);
 
 		do {

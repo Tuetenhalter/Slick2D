@@ -85,8 +85,10 @@ public class Vector2D {
 
 	public Vector2D normalize() {
 		float magnitude = magnitude();
-		x /= magnitude;
-		y /= magnitude;
+		if(magnitude != 0) {
+			x /= magnitude;
+			y /= magnitude;
+		}
 		return this;
 	}
 	
@@ -151,6 +153,11 @@ public class Vector2D {
 	public void set(float x, float y) {
 		this.x = x;
 		this.y = y;
+	}
+	
+	public void set(Vector2D vector2d) {
+		this.x = vector2d.getX();
+		this.y = vector2d.getY();
 	}
 
 	public float getX() {

@@ -21,8 +21,12 @@ import idk.Vector2D;
 
 public class Player extends GameObjectLife {
 	
-	static final float SPEED = 2f;
-	static final float REDUCE_SPEED = .9f;
+	static final float SPEED = 2000f;
+	static final float MAX_SPEED = 1000f;
+	static final float REDUCE_SPEED = .99f;
+	static final float BULLET_SPEED = 1000f;
+	static final float MAXLIVE = 100f;
+	static final int SHOOT_DELAY_MAX = 1000;
 	private float dashCouldown = 0f;
 	
 	Sound sound;
@@ -33,8 +37,8 @@ public class Player extends GameObjectLife {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Player(float x, float y, float width, float height, float maxlive, int shootDelayMax) throws SlickException{
-		super(x, y, width + 1, height + 1, maxlive, shootDelayMax);
+	public Player(float x, float y, float width, float height) throws SlickException{
+		super(x, y, width + 1, height + 1, MAXLIVE, SHOOT_DELAY_MAX);
 		setHeight(height);
 		setWidth(width);
 		
@@ -43,7 +47,7 @@ public class Player extends GameObjectLife {
 
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g, MyBasicGameState mygame) {
-
+		
 		getHitBox().setX(getPos().getX());
 		getHitBox().setY(getPos().getY());
 //		mygame.camara.drawShape(g, getHitBox(), Color.blue);
@@ -51,37 +55,42 @@ public class Player extends GameObjectLife {
 		g.fill(getHitBox());
 
 		g.resetTransform();
-//		g.setColor(Color.red);
-//		g.drawString("speedX: " + getVel().getX(), 5, 20);
-//		g.drawString("speedY: " + getVel().getY(), 5, 40);
-//
-//		g.drawString("X: " + getPos().getX(), 5, 100);
-//		g.drawString("Y: " + getPos().getY(), 5, 120);
+		g.setColor(Color.red);
+		g.drawString("speedX: " + getVel().getX(), 5, 200);
+		g.drawString("speedY: " + getVel().getY(), 5, 400);
+
+		g.drawString("X: " + getPos().getX(), 5, 100);
+		g.drawString("Y: " + getPos().getY(), 5, 120);
 		g.translate(-mygame.getCamara().getPos().getX(), -mygame.getCamara().getPos().getY());
 
 	}
 
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta, MyBasicGameState mygame) throws SlickException{
+		
+		System.out.println(delta);
+		
 		Input input = container.getInput();
 		if (getLive() <= 0) {
 			setDestroy(true);
 			game.enterState(States.GAMEOVER.getState());
 		}
-
-		setShootDelay(getShootDelay() + 1);
+		
+		if(getShootDelay() > 0) {
+			setShootDelay(getShootDelay() - delta);			
+		}
 
 		if (input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
-			if (getShootDelay() > getShootDelayMax()) {
+			if (getShootDelay() <= 0) {
 				Bullet bullet = new Bullet(getPos().clone().add(getWidth() / 2 - 5, getHeight() / 2 - 5),
 						new Vector2D(input.getMouseX() + mygame.getCamara().getPos().getX(),
 								input.getMouseY() + mygame.getCamara().getPos().getY()),
-						10, 10, 10);
+						BULLET_SPEED, 10, 10);
 				bullet.setBounce(1);
 				bullet.setGroup(Bullet.GROUP_PLAYER);	
 				sound.play();
 				mygame.getGameList().add(bullet);
-				setShootDelay(0);
+				setShootDelay(getShootDelayMax());
 
 			}
 
@@ -104,6 +113,12 @@ public class Player extends GameObjectLife {
 		}
 
 		if (getAcc().magnitude() > 0) {
+
+				getAcc().setMagnitude(SPEED);				
+		
+		} else {	
+			getAcc().set(getVel());
+			getAcc().mul(-1f);
 			getAcc().setMagnitude(SPEED);
 		}
 		
@@ -115,12 +130,15 @@ public class Player extends GameObjectLife {
 		}
 
 		
-		getVel().add(getAcc());
-		getVel().mul(REDUCE_SPEED);
-
+		getVel().add(getAcc().clone().mul(delta/1000.0f));
+		getVel().limit(MAX_SPEED);
+		if(getVel().magnitude() < SPEED*delta/1000.0f) {
+			getVel().set(0, 0);
+		}
+		
 		for (GameObject gameObject : mygame.getGameList()) {
 			if (gameObject instanceof Wall) {
-				 colltiontoWall((Wall) gameObject);
+				 colltiontoWall((Wall) gameObject, delta);
 			}
 
 //			if (gameObject instanceof BouncieWall) {
@@ -129,16 +147,16 @@ public class Player extends GameObjectLife {
 //			}
 		}
 
-		getPos().add(getVel());
+		getPos().add(getVel().clone().mul(delta/1000.0f));
 	}
 
-	public void colltiontoWall(Wall gameObject) {
+	public void colltiontoWall(Wall gameObject, int delta) {
 
 		float x = getX();
 		float y = getY();
 
-		float speedx = getSpeedX();
-		float speedy = getSpeedY();
+		float speedx = getSpeedX()*delta/1000f;
+		float speedy = getSpeedY()*delta/1000f;
 
 		float height = getHeight();
 		float width = getWidth();

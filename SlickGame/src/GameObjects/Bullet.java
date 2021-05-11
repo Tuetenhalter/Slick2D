@@ -60,7 +60,7 @@ public class Bullet extends GameObject {
 
 		for (GameObject gameObject : mygame.getGameList()) {
 			if (gameObject instanceof Wall) {
-				colltiontoWall((Wall) gameObject);
+				colltiontoWall((Wall) gameObject, delta);
 			}
 
 			if (gameObject instanceof BouncieWall) {
@@ -88,17 +88,17 @@ public class Bullet extends GameObject {
 			}
 		}
 
-		getPos().add(getVel());
+		getPos().add(getVel().clone().mul(delta/1000f));
 
 	}
 
-	public void colltiontoWall(Wall gameObject) {
+	public void colltiontoWall(Wall gameObject, int delta) {
 
-		double x = getPos().getX();
-		double y = getPos().getY();
+		float x = getX();
+		float y = getY();
 
-		double speedx = getVel().getX();
-		double speedy = getVel().getY();
+		float speedx = getSpeedX() * delta / 1000f;
+		float speedy = getSpeedY() * delta / 1000f;
 
 		double height = getHeight();
 		double width = getWidth();
