@@ -7,7 +7,6 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 import org.newdawn.slick.geom.Shape;
-import org.newdawn.slick.openal.SoundStore;
 import org.newdawn.slick.state.StateBasedGame;
 
 import GameObjects.Bullet;
@@ -16,6 +15,7 @@ import GameObjects.Wall.BouncieWall;
 import GameObjects.Wall.Wall;
 import GameStates.MyBasicGameState;
 import GameStates.States;
+import idk.Camara;
 import idk.Options;
 import idk.Vector2D;
 
@@ -50,25 +50,25 @@ public class Player extends GameObjectLife {
 		
 		getHitBox().setX(getPos().getX());
 		getHitBox().setY(getPos().getY());
-//		mygame.camara.drawShape(g, getHitBox(), Color.blue);
+		
 		g.setColor(Color.red);
-		g.fill(getHitBox());
+		//g.fill(getHitBox());
 
-		g.resetTransform();
-		g.setColor(Color.red);
-		g.drawString("speedX: " + getVel().getX(), 5, 200);
-		g.drawString("speedY: " + getVel().getY(), 5, 400);
-
-		g.drawString("X: " + getPos().getX(), 5, 100);
-		g.drawString("Y: " + getPos().getY(), 5, 120);
-		g.translate(-mygame.getCamara().getPos().getX(), -mygame.getCamara().getPos().getY());
+//		g.resetTransform();
+//		g.setColor(Color.red);
+//		
+//		g.drawString("speedX: " + getVel().getX(), 5, 200);
+//		g.drawString("speedY: " + getVel().getY(), 5, 400);
+//
+//		g.drawString("X: " + getPos().getX(), 5, 100);
+//		g.drawString("Y: " + getPos().getY(), 5, 120);
+//		
+//		mygame.getCamara().translateCamara(g);
 
 	}
 
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta, MyBasicGameState mygame) throws SlickException{
-		
-		System.out.println(delta);
 		
 		Input input = container.getInput();
 		if (getLive() <= 0) {
@@ -138,7 +138,7 @@ public class Player extends GameObjectLife {
 		
 		for (GameObject gameObject : mygame.getGameList()) {
 			if (gameObject instanceof Wall) {
-				 colltiontoWall((Wall) gameObject, delta);
+				 //colltiontoWall((Wall) gameObject, delta);
 			}
 
 //			if (gameObject instanceof BouncieWall) {

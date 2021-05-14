@@ -1,17 +1,8 @@
 package Tile;
 
-import java.awt.image.BufferedImage;
-import java.awt.image.RenderedImage;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.imageout.ImageIOWriter;
-import org.newdawn.slick.imageout.ImageOut;
 
 public class TileMap {
 
@@ -23,31 +14,27 @@ public class TileMap {
 
 	private Tile[][] tileMap;
 
-	private Image image;
-
 	private Image map;
 
 	// Constuctor
 
-	public TileMap(int widhtArray, int heigthArray, int widhtTile, int heightTile, Tile[][] tileMap, Image image,
-			Image map) {
+	public TileMap(int widhtArray, int heigthArray, int widhtTile, int heightTile, Tile[][] tileMap, Image map) {
 		super();
 		this.widhtArray = widhtArray;
 		this.heigthArray = heigthArray;
 		this.widhtTile = widhtTile;
 		this.heightTile = heightTile;
 		this.tileMap = tileMap;
-		this.image = image;
 		this.map = map;
 	}
 
-	public TileMap(int widhtArray, int heigthArray, int widhtTile, int heightTile, Image image) {
-		this(widhtArray, heigthArray, widhtTile, heightTile, new Tile[widhtArray][heigthArray], image, null);
+	public TileMap(int widhtArray, int heigthArray, int widhtTile, int heightTile) {
+		this(widhtArray, heigthArray, widhtTile, heightTile, new Tile[widhtArray][heigthArray], null);
 	}
 
 	public void createTileMap() throws SlickException {
 
-		Image cimage = new Image(widhtArray * widhtTile, heigthArray * heightTile, Image.FILTER_LINEAR);
+		Image cimage = new Image(widhtArray * widhtTile, heigthArray * heightTile, Image.FILTER_NEAREST);
 		Graphics g = cimage.getGraphics();
 
 		for (int i = 0; i < tileMap.length; i++) {
@@ -120,14 +107,6 @@ public class TileMap {
 
 	public void setTileMap(Tile tile, int x, int y) {
 		this.tileMap[x][y] = tile;
-	}
-
-	public Image getImage() {
-		return image;
-	}
-
-	public void setImage(Image image) {
-		this.image = image;
 	}
 
 	public Image getMap() {

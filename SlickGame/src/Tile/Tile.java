@@ -26,7 +26,7 @@ public class Tile
 	{
 		int up, down, left, right, leftUp, leftDown, rightUp, rightDown;
 
-		int tilelenght = 32;
+		int tilelenght = 16;
 
 		if (map[i][j] == 1)
 		{

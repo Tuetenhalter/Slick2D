@@ -1,15 +1,22 @@
 package idk;
 
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
+import org.newdawn.slick.state.StateBasedGame;
 
 import GameStates.MyBasicGameState;
+import net.java.games.input.Mouse;
 
 public class Camara {
 
-	static final float smooth = 1f;
-	static final float playerVel = 0f;
+	static final float SMOOTH = 5f;
+	static final float SMOOTHZOOM = 5f;
+	static final float PLAYER_VEL = .1f;
 
 	private Vector2D pos;
+	private float zoom = .5f;
+	private float targedZoom = .5f;
 	private float rangex;
 	private float rangey;
 	private float rangex2;
@@ -42,29 +49,51 @@ public class Camara {
 		this.rangey2 = rangey2;
 	}
 
-	public void camaraMove(MyBasicGameState mygame, GameContainer container) {
+	public void translateCamara(GameContainer container, StateBasedGame game, Graphics g, MyBasicGameState mygame) {
+		g.resetTransform();
+		g.scale(zoom, zoom);
+		g.translate(-getPos().getX() + (container.getWidth() * (1 / zoom) / 2),
+				-getPos().getY() + (container.getHeight() * (1 / zoom) / 2));
+
+	}
+
+	public void camaraMove(MyBasicGameState mygame, GameContainer container, int delta) {
+		Input input = container.getInput();
+
+		if (input.isKeyPressed(Input.KEY_UP)) {
+			targedZoom *= 1.1f;
+		}
+		if (input.isKeyPressed(Input.KEY_DOWN)) {
+			targedZoom *= .9f;
+		}
+		
+		
+		zoom += (targedZoom - zoom) * (SMOOTHZOOM * delta / 1000f);
+
+//		System.out.println("targedZoom: " + targedZoom);
+//		System.out.println("zoom: " + zoom);
+//		System.out.println("(SMOOTHZOOM * delta / 1000f): " + (SMOOTHZOOM * delta / 1000f));
 
 		Vector2D target = mygame.getPlayer().getPos().clone();
-		target.sub(container.getWidth() / 2, container.getHeight() / 2);
 		target.add(mygame.getPlayer().getWidth() / 2, mygame.getPlayer().getHeight() / 2);
-		target.add(mygame.getPlayer().getVel().clone().mul(playerVel));
+		target.add(mygame.getPlayer().getVel().clone().mul(PLAYER_VEL));
 
-		if (target.getX() < rangex) {
-			target.setX(rangex);
-		}
-		if (target.getX() > rangex2) {
-			target.setX(rangex2);
-		}
-
-		if (target.getY() < rangey) {
-			target.setY(rangey);
-		}
-		if (target.getY() > rangey2) {
-			target.setY(rangey2);
-		}
+//		if (target.getX() < rangex) {
+//			target.setX(rangex);
+//		}
+//		if (target.getX() > rangex2) {
+//			target.setX(rangex2);
+//		}
+//
+//		if (target.getY() < rangey) {
+//			target.setY(rangey);
+//		}
+//		if (target.getY() > rangey2) {
+//			target.setY(rangey2);
+//		}
 
 		target.sub(pos);
-		target.mul(smooth);
+		target.mul(SMOOTH * delta / 1000f);
 		pos.add(target);
 
 	}
@@ -113,6 +142,22 @@ public class Camara {
 
 	public void setRangey2(float rangey2) {
 		this.rangey2 = rangey2;
+	}
+
+	public float getZoom() {
+		return zoom;
+	}
+
+	public void setZoom(float zoom) {
+		this.zoom = zoom;
+	}
+
+	public float getTargedZoom() {
+		return targedZoom;
+	}
+
+	public void setTargedZoom(float targedZoom) {
+		this.targedZoom = targedZoom;
 	}
 
 }

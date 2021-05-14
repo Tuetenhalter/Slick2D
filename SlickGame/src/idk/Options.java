@@ -48,7 +48,6 @@ public class Options {
             FileWriter writer = new FileWriter("MyFile.txt", true);
             BufferedWriter bufferedWriter = new BufferedWriter(writer);
  
-            bufferedWriter.write("ҧ");
             bufferedWriter.newLine();
             bufferedWriter.write("See You Again!");
  

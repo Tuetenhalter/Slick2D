@@ -10,6 +10,7 @@ import GameStates.Menu.GameOverMenu;
 import GameStates.Menu.OptionsMenu;
 import GameStates.Menu.PauseMenu;
 import GameStates.Menu.StartMenu;
+import idk.Stats;
 /**
  * 
  * @author Pascal Heimann, Amir Hamdoun,David Schmitt
@@ -21,14 +22,14 @@ public class Main extends StateBasedGame{
 	
 	
 	
-	public static void main(String[] args) throws SlickException {
-		
-	
+	public static void main(String[] args) throws SlickException {	
 		System.out.println("lull");
 		AppGameContainer container = new AppGameContainer(new Main("Moin"));
 		container.setIcon("res/Untitled.png");
 		container.setDisplayMode(1600, 900, false);
 		container.start();
+		
+		
 	}
 	public Main(String test) {
 		super(test);
