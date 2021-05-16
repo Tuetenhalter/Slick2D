@@ -83,14 +83,14 @@ public class MapMaker {
 	public void itaration() {
 		int[][] templist = new int[width][height];
 
-		int number = 24;
+		int number = 4;
 
 		for (int i = 0; i < list.length; i++) {
 			for (int j = 0; j < list[0].length; j++) {
 				int n = 0;
 				// System.out.println("i: " + i + ", j: " + j);
-				for (int i2 = i - 3; i2 <= i + 3; i2++) {
-					for (int j2 = j - 3; j2 <= j + 3; j2++) {
+				for (int i2 = i - 1; i2 <= i + 1; i2++) {
+					for (int j2 = j - 1; j2 <= j + 1; j2++) {
 
 						if (!(i2 == i && j2 == j)) {
 							// System.out.println("i2: " + i2 + ", j2: " + j2);

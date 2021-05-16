@@ -20,15 +20,16 @@ import idk.Options;
 import idk.Vector2D;
 
 public class Player extends GameObjectLife {
-	
+
 	static final float SPEED = 2000f;
-	static final float MAX_SPEED = 1000f;
-	static final float REDUCE_SPEED = .99f;
-	static final float BULLET_SPEED = 1000f;
+	static final float MAX_SPEED = 500f;
+	static final float REDUCE_SPEED = 1000f;
+	static final float BULLET_SPEED = 100f;
+
 	static final float MAXLIVE = 100f;
 	static final int SHOOT_DELAY_MAX = 1000;
 	private float dashCouldown = 0f;
-	
+
 	Sound sound;
 
 	public Player(Vector2D pos, Vector2D vel, Vector2D acc, float width, float height, Shape hitBox, float live,
@@ -37,22 +38,22 @@ public class Player extends GameObjectLife {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Player(float x, float y, float width, float height) throws SlickException{
+	public Player(float x, float y, float width, float height) throws SlickException {
 		super(x, y, width + 1, height + 1, MAXLIVE, SHOOT_DELAY_MAX);
 		setHeight(height);
 		setWidth(width);
-		
+
 		sound = new Sound("res/Shoot.wav");
 	}
 
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g, MyBasicGameState mygame) {
-		
+
 		getHitBox().setX(getPos().getX());
 		getHitBox().setY(getPos().getY());
-		
+
 		g.setColor(Color.red);
-		//g.fill(getHitBox());
+		g.fill(getHitBox());
 
 //		g.resetTransform();
 //		g.setColor(Color.red);
@@ -68,26 +69,28 @@ public class Player extends GameObjectLife {
 	}
 
 	@Override
-	public void update(GameContainer container, StateBasedGame game, int delta, MyBasicGameState mygame) throws SlickException{
-		
+	public void update(GameContainer container, StateBasedGame game, int delta, MyBasicGameState mygame)
+			throws SlickException {
+
 		Input input = container.getInput();
 		if (getLive() <= 0) {
 			setDestroy(true);
 			game.enterState(States.GAMEOVER.getState());
 		}
-		
-		if(getShootDelay() > 0) {
-			setShootDelay(getShootDelay() - delta);			
+
+		if (getShootDelay() > 0) {
+			setShootDelay(getShootDelay() - delta);
 		}
 
 		if (input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
+
 			if (getShootDelay() <= 0) {
-				Bullet bullet = new Bullet(getPos().clone().add(getWidth() / 2 - 5, getHeight() / 2 - 5),
-						new Vector2D(input.getMouseX() + mygame.getCamara().getPos().getX(),
-								input.getMouseY() + mygame.getCamara().getPos().getY()),
-						BULLET_SPEED, 10, 10);
+
+				Vector2D mouse = mygame.getCamara().mousePos(container);
+
+				Bullet bullet = new Bullet(getCenter(), mouse, BULLET_SPEED, 10, 10);
 				bullet.setBounce(1);
-				bullet.setGroup(Bullet.GROUP_PLAYER);	
+				bullet.setGroup(Bullet.GROUP_PLAYER);
 				sound.play();
 				mygame.getGameList().add(bullet);
 				setShootDelay(getShootDelayMax());
@@ -112,33 +115,26 @@ public class Player extends GameObjectLife {
 			getAcc().add(-1, 0);
 		}
 
-		if (getAcc().magnitude() > 0) {
-
-				getAcc().setMagnitude(SPEED);				
-		
-		} else {	
-			getAcc().set(getVel());
-			getAcc().mul(-1f);
-			getAcc().setMagnitude(SPEED);
-		}
-		
-		dashCouldown--;
-		
-		if (input.isKeyDown(Input.KEY_SPACE) && dashCouldown <0) {
+		getAcc().setMagnitude(SPEED);
+		if (input.isKeyDown(Input.KEY_SPACE) && dashCouldown < 0) {
 			getAcc().mul(10);
 			dashCouldown = 20;
 		}
+		Vector2D slow = getVel().clone();
 
-		
-		getVel().add(getAcc().clone().mul(delta/1000.0f));
+		slow.mul(-1f);
+		slow.setMagnitude(REDUCE_SPEED);
+
+		getAcc().add(slow);
+
+		dashCouldown--;
+
+		getVel().add(getAcc().clone().mul(delta / 1000.0f));
 		getVel().limit(MAX_SPEED);
-		if(getVel().magnitude() < SPEED*delta/1000.0f) {
-			getVel().set(0, 0);
-		}
-		
+
 		for (GameObject gameObject : mygame.getGameList()) {
 			if (gameObject instanceof Wall) {
-				 //colltiontoWall((Wall) gameObject, delta);
+				colltiontoWall((Wall) gameObject, delta);
 			}
 
 //			if (gameObject instanceof BouncieWall) {
@@ -147,7 +143,7 @@ public class Player extends GameObjectLife {
 //			}
 		}
 
-		getPos().add(getVel().clone().mul(delta/1000.0f));
+		getPos().add(getVel().clone().mul(delta / 1000.0f));
 	}
 
 	public void colltiontoWall(Wall gameObject, int delta) {
@@ -155,8 +151,8 @@ public class Player extends GameObjectLife {
 		float x = getX();
 		float y = getY();
 
-		float speedx = getSpeedX()*delta/1000f;
-		float speedy = getSpeedY()*delta/1000f;
+		float speedx = getSpeedX() * delta / 1000f;
+		float speedy = getSpeedY() * delta / 1000f;
 
 		float height = getHeight();
 		float width = getWidth();

@@ -39,6 +39,10 @@ public abstract class GameObject {
 
 	public abstract void update(GameContainer container, StateBasedGame game, int delta, MyBasicGameState mygame) throws SlickException;
 
+	
+	
+	
+	//Getter Setter
 	public float getX() {
 		return pos.getX();
 	}

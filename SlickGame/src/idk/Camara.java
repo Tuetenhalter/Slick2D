@@ -12,11 +12,11 @@ public class Camara {
 
 	static final float SMOOTH = 5f;
 	static final float SMOOTHZOOM = 5f;
-	static final float PLAYER_VEL = .1f;
+	static final float PLAYER_VEL = .25f;
 
 	private Vector2D pos;
-	private float zoom = .5f;
-	private float targedZoom = .5f;
+	private float zoom = 1;
+	private float targedZoom = 1;
 	private float rangex;
 	private float rangey;
 	private float rangex2;
@@ -52,8 +52,8 @@ public class Camara {
 	public void translateCamara(GameContainer container, StateBasedGame game, Graphics g, MyBasicGameState mygame) {
 		g.resetTransform();
 		g.scale(zoom, zoom);
-		g.translate(-getPos().getX() + (container.getWidth() * (1 / zoom) / 2),
-				-getPos().getY() + (container.getHeight() * (1 / zoom) / 2));
+		g.translate(-getPos().getX() + (container.getWidth()  * (1 / zoom)  / 2),
+				-getPos().getY() + (container.getHeight()  * (1 / zoom)  / 2));
 
 	}
 
@@ -66,8 +66,7 @@ public class Camara {
 		if (input.isKeyPressed(Input.KEY_DOWN)) {
 			targedZoom *= .9f;
 		}
-		
-		
+
 		zoom += (targedZoom - zoom) * (SMOOTHZOOM * delta / 1000f);
 
 //		System.out.println("targedZoom: " + targedZoom);
@@ -76,7 +75,8 @@ public class Camara {
 
 		Vector2D target = mygame.getPlayer().getPos().clone();
 		target.add(mygame.getPlayer().getWidth() / 2, mygame.getPlayer().getHeight() / 2);
-		target.add(mygame.getPlayer().getVel().clone().mul(PLAYER_VEL));
+
+		 target.add(mygame.getPlayer().getVel().clone().mul(PLAYER_VEL));
 
 //		if (target.getX() < rangex) {
 //			target.setX(rangex);
@@ -96,6 +96,18 @@ public class Camara {
 		target.mul(SMOOTH * delta / 1000f);
 		pos.add(target);
 
+	}
+
+	public Vector2D mousePos(GameContainer container) {
+		Vector2D mouse = new Vector2D(container.getInput().getMouseX(), container.getInput().getMouseY());
+		System.out.println(mouse);
+
+		mouse.mul(1/zoom);
+		mouse.sub(-getPos().getX() + (container.getWidth()  * (1 / zoom)  / 2),
+				-getPos().getY() + (container.getHeight()  * (1 / zoom)  / 2));
+		System.out.println(mouse);
+
+		return mouse;
 	}
 
 	// Getter Setter

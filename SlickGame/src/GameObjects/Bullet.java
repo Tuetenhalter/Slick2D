@@ -40,8 +40,8 @@ public class Bullet extends GameObject {
 //	}
 
 	public Bullet(Vector2D pos, Vector2D shootPos, float speed, float width, float height) {
-		super(pos, shootPos.sub(pos).setMagnitude(speed), new Vector2D(0, 0), width, height, null);
-		setHitBox(new Circle(pos.getX() + width / 2, pos.getY() + height / 2, width / 2));
+		super(pos.clone().sub(width / 2, height / 2), shootPos.sub(pos).setMagnitude(speed), new Vector2D(0, 0), width, height,
+				new Circle(pos.getX() + width / 2, pos.getY() + height / 2, width / 2));
 
 	}
 
@@ -76,8 +76,8 @@ public class Bullet extends GameObject {
 					}
 				}
 			}
-			
-			if(gameObject instanceof Player) {
+
+			if (gameObject instanceof Player) {
 				if (group == GROUP_ENEMY) {
 					if (gameObject.getHitBox().intersects(getHitBox())) {
 						setDestroy(true);
@@ -88,7 +88,7 @@ public class Bullet extends GameObject {
 			}
 		}
 
-		getPos().add(getVel().clone().mul(delta/1000f));
+		getPos().add(getVel().clone().mul(delta / 1000f));
 
 	}
 

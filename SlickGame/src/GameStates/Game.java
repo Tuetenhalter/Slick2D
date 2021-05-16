@@ -1,32 +1,28 @@
 package GameStates;
 
-import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.Random;
 
-import javax.swing.text.StyledEditorKit.BoldAction;
-
-import org.lwjgl.BufferUtils;
-import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
+
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 import GameObjects.GameObject;
-import GameObjects.GameObjectLife.Ball;
+
 import GameObjects.GameObjectLife.Player;
 import GameObjects.GameObjectLife.Enemy.Blue;
-import GameObjects.GameObjectLife.Enemy.Yellow;
+
 import GameObjects.Wall.Wall;
 import Tile.MapMaker;
 import Tile.Tile;
 import Tile.TileMap;
 import idk.Camara;
 import idk.Images;
+import idk.Vector2D;
 
 public class Game extends MyBasicGameState {
 
@@ -37,15 +33,15 @@ public class Game extends MyBasicGameState {
 	static final int TILE_ARRAY_WIDHT = 200;
 	static final int TILE_ARRAY_HEIGHT = TILE_ARRAY_WIDHT;
 
-	static final int MAP_RANDOM = 48;
-	static final int MAP_IT = 4;
-	static final int MAP_FILLSPICKS = 2;
+	static final int MAP_RANDOM = 49;
+	static final int MAP_IT = 20;
+	static final int MAP_FILLSPICKS = 1;
 	static final boolean MAP_FILLHOLLS = true;
 
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
 		System.out.println("[Game] Start init");
-		
+
 //		IntBuffer temp = BufferUtils.createIntBuffer(16);
 //		GL11.glGetInteger(GL11.GL_MAX_TEXTURE_SIZE, temp);
 //		System.out.println("Moin: " + temp.get(0));
@@ -75,7 +71,7 @@ public class Game extends MyBasicGameState {
 
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
-
+		
 		g.resetTransform();
 
 		g.setColor(Color.red);
@@ -86,7 +82,7 @@ public class Game extends MyBasicGameState {
 //		g.drawString("viewY: " + camara.getPos().getY(), 5, 160);
 
 		camara.translateCamara(container, game, g, this);
-
+		
 //		g.drawImage(tileMap.getMap(), 0, 0);
 		g.drawImage(tileMap.getMap(), 0, 0, TILE_WIDHT * TILE_ARRAY_WIDHT, TILE_HEIGHT * TILE_ARRAY_HEIGHT, 0, 0,
 				tileMap.getMap().getWidth(), tileMap.getMap().getHeight());
