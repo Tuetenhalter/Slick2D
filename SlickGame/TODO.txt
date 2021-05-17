@@ -74,7 +74,7 @@ Lootsystem:
 2. Bam sound von Moritz klauen (Done)
 3. Wir können eigene sounbds mit Bfxr btw
 
-coins
+ANSTATT COINS GIBT ES KARTOFFEL
 welche Upgrades
 je mehr level ist desto mehr leben die gegner haben und mehr damage 
 respawn point ( oben links )
@@ -83,12 +83,12 @@ wenn man den Ziel point erreicht dann gewinnt man und geht in die nächste ebene
 unterschiedliche arten von gegner 
 vision range
 spieler trägt kommunismus flagge
-ABILITES : SCHILD(Rote arme helm)                           ABLITIES SIND KOSTENLOSE MAN MUSS NUR EINE AUSWÄHLEN BEVORE DAS GAME ANFÄNGT
+ABILITES : SCHILD(Rote arme helm)                           ABLITIES SIND KARTOFFELLOS MAN MUSS NUR EINE AUSWÄHLEN BEVOR DAS GAME ANFÄNGT
 		   SPEEDBOOST( Vodka )
 		   TEAM MATE ( Kamerad oder genosse )
 WAFFEN : SNIPER ( 4 schüsse dann nachladen Sehr präzis wenig spray höhen damage)
 		 Schrotflinte (5 schüsse dann nachladen viele schüsse mehr damage je weniger range. die Schüsse haben viel weniger range)
-		 Kalashinikov (hat 30 dann nachladen man kann sprayn weniger damage als sniper)	                                                  WAFFEN KOSTEN COINS
+		 Kalashinikov (hat 30 dann nachladen man kann sprayn weniger damage als sniper)	                                                  WAFFEN KOSTEN KARTOFFEL
 		 Pistol ( hat 12 schüsse dann nachladen)
 		 man beginnt das game mit einem Pistol
 		 
