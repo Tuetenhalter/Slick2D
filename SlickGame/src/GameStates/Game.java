@@ -15,7 +15,7 @@ import GameObjects.GameObject;
 
 import GameObjects.GameObjectLife.Player;
 import GameObjects.GameObjectLife.Enemy.Blue;
-
+import GameObjects.GameObjectLife.Enemy.Yellow;
 import GameObjects.Wall.Wall;
 import Tile.MapMaker;
 import Tile.Tile;
@@ -56,11 +56,11 @@ public class Game extends MyBasicGameState {
 		camara.setRangex2(camara.getRangex2() - container.getWidth());
 		camara.setRangey2(camara.getRangey2() - container.getHeight());
 
-//		Yellow yellow = new Yellow(1, 1, TILEWIDHT, TILEHEIGHT, 10, 10);
-//		gameList.add(yellow);
+		Yellow yellow = new Yellow(1, 1, TILE_WIDHT, TILE_HEIGHT, 10, 10);
+		gameList.add(yellow);
 //		player.getPos().set(500, 500);
-//		yellow.getPos().set(601, 500);
-//		yellow.getVel().set(0, 0);
+		yellow.getPos().set(601, 500);
+		yellow.getVel().set(0, 0);
 
 		// ball = new Ball(600, 600, TILEWIDHT, TILEHEIGHT);
 		// gameList.add(ball);
@@ -120,6 +120,10 @@ public class Game extends MyBasicGameState {
 		if (container.getInput().isKeyPressed(Input.KEY_R)) {
 			init(container, game);
 		}
+		
+		if(container.getInput().isKeyPressed(Input.KEY_T)) {
+			player.setPos(camara.mousePos(container));
+		}
 
 	}
 
@@ -141,7 +145,7 @@ public class Game extends MyBasicGameState {
 		int ranx;
 		int rany;
 		boolean bool;
-		int corner = 3;
+		int corner = 0;
 		// 0 up left
 		// 1 up right
 		// 2 down right
@@ -168,18 +172,18 @@ public class Game extends MyBasicGameState {
 			rany = ran.nextInt(mapMaker.getHeight());
 
 			if (map[ranx][rany] == 0) {
-//				if ((ranx - cornerx) * (ranx - cornerx) + (rany - cornery) * (rany - cornery) < 300 * 300) {
-//					int n = 3;
-//					for (int i = ranx-n; i < ranx+n+1; i++) {
-//						for (int j = rany-n; j < rany+n+1; j++) {
-//							if(map[i][j] == 1) {
-//								bool = true;
-//							}
-//						}
-//					}
-//				} else {
-//					bool = true;
-//				}
+				if ((ranx - cornerx) * (ranx - cornerx) + (rany - cornery) * (rany - cornery) < 300 * 300) {
+					int n = 3;
+					for (int i = ranx-n; i < ranx+n+1; i++) {
+						for (int j = rany-n; j < rany+n+1; j++) {
+							if(map[i][j] == 1) {
+								bool = true;
+							}
+						}
+					}
+				} else {
+					bool = true;
+				}
 			} else {
 				bool = true;
 			}
@@ -190,16 +194,20 @@ public class Game extends MyBasicGameState {
 
 		// Place one Blue
 
-		do {
-			ranx = ran.nextInt(mapMaker.getWidth());
-			rany = ran.nextInt(mapMaker.getHeight());
+		
+		
+		for (int i = 0; i < 100; i++) {
+			do {
+				ranx = ran.nextInt(mapMaker.getWidth());
+				rany = ran.nextInt(mapMaker.getHeight());
 
-		} while (map[ranx][rany] == 1);
+			} while (map[ranx][rany] == 1);
 
-		gameList.add(new Blue(ranx * TILE_WIDHT, rany * TILE_HEIGHT, TILE_HEIGHT, TILE_HEIGHT));
+			gameList.add(new Blue(ranx * TILE_WIDHT, rany * TILE_HEIGHT, TILE_HEIGHT, TILE_HEIGHT));
 
+		}
+		
 		// Draw The Tile Map
-
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map[0].length; j++) {
 				tileMap.setTileMap(new Tile(map, i, j, Images.wall), i, j);

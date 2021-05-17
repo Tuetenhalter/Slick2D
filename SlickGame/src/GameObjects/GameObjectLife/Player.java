@@ -24,10 +24,10 @@ public class Player extends GameObjectLife {
 	static final float SPEED = 2000f;
 	static final float MAX_SPEED = 500f;
 	static final float REDUCE_SPEED = 1000f;
-	static final float BULLET_SPEED = 100f;
+	static final float BULLET_SPEED = 2000f;
 
 	static final float MAXLIVE = 100f;
-	static final int SHOOT_DELAY_MAX = 1000;
+	static final int SHOOT_DELAY_MAX = 100;
 	private float dashCouldown = 0f;
 
 	Sound sound;
@@ -89,7 +89,7 @@ public class Player extends GameObjectLife {
 				Vector2D mouse = mygame.getCamara().mousePos(container);
 
 				Bullet bullet = new Bullet(getCenter(), mouse, BULLET_SPEED, 10, 10);
-				bullet.setBounce(1);
+				bullet.setBounce(0);
 				bullet.setGroup(Bullet.GROUP_PLAYER);
 				sound.play();
 				mygame.getGameList().add(bullet);

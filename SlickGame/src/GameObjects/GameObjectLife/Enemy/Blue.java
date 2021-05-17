@@ -13,12 +13,12 @@ import idk.Vector2D;
 
 public class Blue extends Enemy {
 
-	static final int SHOOTDELAYMAX = 1;
+	static final int SHOOTDELAYMAX = 1000;
 	static final int MAXLIVE = 3;
 
 	static final float ROTATION_SPEED = 45f;
 
-	static final float BULLET_SPEED = 100f;
+	static final float BULLET_SPEED = 2000f;
 	static final float BULLET_WIDTH = 10f;
 	static final float BULLET_HEIGHT = 10f;
 
