@@ -15,6 +15,7 @@ import GameObjects.Wall.BouncieWall;
 import GameObjects.Wall.Wall;
 import GameStates.MyBasicGameState;
 import GameStates.States;
+import Weapon.Weapon;
 import idk.Camara;
 import idk.Options;
 import idk.Vector2D;
@@ -24,12 +25,16 @@ public class Player extends GameObjectLife {
 	static final float SPEED = 2000f;
 	static final float MAX_SPEED = 500f;
 	static final float REDUCE_SPEED = 1000f;
+	
+	
 	static final float BULLET_SPEED = 2000f;
 
 	static final float MAXLIVE = 100f;
 	static final int SHOOT_DELAY_MAX = 100;
+	
 	private float dashCouldown = 0f;
-
+	private Weapon weapon;
+	
 	Sound sound;
 
 	public Player(Vector2D pos, Vector2D vel, Vector2D acc, float width, float height, Shape hitBox, float live,
@@ -38,10 +43,11 @@ public class Player extends GameObjectLife {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Player(float x, float y, float width, float height) throws SlickException {
+	public Player(float x, float y, float width, float height, Weapon weapon) throws SlickException {
 		super(x, y, width + 1, height + 1, MAXLIVE, SHOOT_DELAY_MAX);
 		setHeight(height);
 		setWidth(width);
+		setWeapon(weapon);
 
 		sound = new Sound("res/Shoot.wav");
 	}
@@ -78,26 +84,10 @@ public class Player extends GameObjectLife {
 			game.enterState(States.GAMEOVER.getState());
 		}
 
-		if (getShootDelay() > 0) {
-			setShootDelay(getShootDelay() - delta);
-		}
+		Vector2D target = mygame.getCamara().mousePos(container);
+		weapon.shoot(this, target, container, game, delta, mygame);
 
-		if (input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
-
-			if (getShootDelay() <= 0) {
-
-				Vector2D mouse = mygame.getCamara().mousePos(container);
-
-				Bullet bullet = new Bullet(getCenter(), mouse, BULLET_SPEED, 10, 10);
-				bullet.setBounce(0);
-				bullet.setGroup(Bullet.GROUP_PLAYER);
-				sound.play();
-				mygame.getGameList().add(bullet);
-				setShootDelay(getShootDelayMax());
-
-			}
-
-		}
+		
 
 		getAcc().set(0, 0);
 
@@ -279,5 +269,13 @@ public class Player extends GameObjectLife {
 			setSpeedY(-getSpeedY());
 			return;
 		}
+	}
+
+	public Weapon getWeapon() {
+		return weapon;
+	}
+
+	public void setWeapon(Weapon weapon) {
+		this.weapon = weapon;
 	}
 }

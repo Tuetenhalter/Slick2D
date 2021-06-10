@@ -20,6 +20,7 @@ import GameObjects.Wall.Wall;
 import Tile.MapMaker;
 import Tile.Tile;
 import Tile.TileMap;
+import Weapon.Sniper;
 import idk.Camara;
 import idk.Images;
 import idk.Vector2D;
@@ -71,7 +72,7 @@ public class Game extends MyBasicGameState {
 
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
-		
+
 		g.resetTransform();
 
 		g.setColor(Color.red);
@@ -82,7 +83,7 @@ public class Game extends MyBasicGameState {
 //		g.drawString("viewY: " + camara.getPos().getY(), 5, 160);
 
 		camara.translateCamara(container, game, g, this);
-		
+
 //		g.drawImage(tileMap.getMap(), 0, 0);
 		g.drawImage(tileMap.getMap(), 0, 0, TILE_WIDHT * TILE_ARRAY_WIDHT, TILE_HEIGHT * TILE_ARRAY_HEIGHT, 0, 0,
 				tileMap.getMap().getWidth(), tileMap.getMap().getHeight());
@@ -120,8 +121,8 @@ public class Game extends MyBasicGameState {
 		if (container.getInput().isKeyPressed(Input.KEY_R)) {
 			init(container, game);
 		}
-		
-		if(container.getInput().isKeyPressed(Input.KEY_T)) {
+
+		if (container.getInput().isKeyPressed(Input.KEY_T)) {
 			player.setPos(camara.mousePos(container));
 		}
 
@@ -166,20 +167,29 @@ public class Game extends MyBasicGameState {
 			cornerx = TILE_ARRAY_WIDHT;
 		}
 
+		float distance = 1f;
 		do {
 			bool = false;
 			ranx = ran.nextInt(mapMaker.getWidth());
 			rany = ran.nextInt(mapMaker.getHeight());
 
-			if (map[ranx][rany] == 0) {
-				if ((ranx - cornerx) * (ranx - cornerx) + (rany - cornery) * (rany - cornery) < 300 * 300) {
-					int n = 3;
-					for (int i = ranx-n; i < ranx+n+1; i++) {
-						for (int j = rany-n; j < rany+n+1; j++) {
-							if(map[i][j] == 1) {
-								bool = true;
+			if ((ranx - cornerx) * (ranx - cornerx) + (rany - cornery) * (rany - cornery) < distance * distance) {
+				distance += 0.1f;
+				System.out.println(distance);
+				if (map[ranx][rany] == 0) {
+					int n = 1;
+					if (ranx != 0 && rany != 0 && ranx != TILE_ARRAY_WIDHT && rany != TILE_ARRAY_HEIGHT) {
+						System.out.println(ranx);
+						System.out.println(rany);
+						for (int i = ranx - n; i < ranx + n + 1; i++) {
+							for (int j = rany - n; j < rany + n + 1; j++) {
+								if (map[i][j] == 1) {
+									bool = true;
+								}
 							}
 						}
+					} else {
+						bool = true;
 					}
 				} else {
 					bool = true;
@@ -188,14 +198,14 @@ public class Game extends MyBasicGameState {
 				bool = true;
 			}
 		} while (bool);
-
-		player = new Player(ranx * TILE_WIDHT, rany * TILE_HEIGHT, TILE_WIDHT, TILE_HEIGHT);
+		
+		Sniper sniper = new Sniper();
+		
+		player = new Player(ranx * TILE_WIDHT, rany * TILE_HEIGHT, TILE_WIDHT, TILE_HEIGHT, sniper);
 		gameList.add(player);
 
 		// Place one Blue
 
-		
-		
 		for (int i = 0; i < 100; i++) {
 			do {
 				ranx = ran.nextInt(mapMaker.getWidth());
@@ -206,7 +216,7 @@ public class Game extends MyBasicGameState {
 			gameList.add(new Blue(ranx * TILE_WIDHT, rany * TILE_HEIGHT, TILE_HEIGHT, TILE_HEIGHT));
 
 		}
-		
+
 		// Draw The Tile Map
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map[0].length; j++) {
