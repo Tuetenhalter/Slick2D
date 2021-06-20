@@ -4,6 +4,8 @@ import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
+
+import GameStates.Menu.EndScreenMenu;
 import GameStates.Menu.GameOverMenu;
 import GameStates.Menu.OptionsMenu;
 import GameStates.Menu.PauseMenu;
@@ -44,12 +46,12 @@ public class Main extends StateBasedGame
 
 	@Override
 	public void initStatesList(GameContainer container) throws SlickException
-	{
+	{addState(new EndScreenMenu());
 		addState(new StartMenu());
-
+		
 		Game level1 = new Game("Level 1", 0);
 
-		Game level2 = new Game("Level 2", 1);
+		Game level2 = new Game("Level 2", 9);
 		level2.setDamage(1.1f);
 		level2.setLive(1.1f);
 		level2.setPotatos(2f);
@@ -97,7 +99,7 @@ public class Main extends StateBasedGame
 		level9.setPotatos(128f);
 		level9.setEnemys(150);
 
-		Game level10 = new Game("Level 10", 8);
+		Game level10 = new Game("Level 10", 9);
 		level10.setDamage(5f);
 		level10.setLive(5f);
 		level10.setPotatos(256f);
@@ -118,6 +120,7 @@ public class Main extends StateBasedGame
 		addState(new OptionsMenu());
 		addState(new ShopsMenu());
 		addState(new GameOverMenu());
+		
 
 	}
 }
