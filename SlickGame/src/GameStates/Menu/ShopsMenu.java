@@ -189,7 +189,7 @@ public class ShopsMenu extends Menu
 				}
 			}
 		}
-
+ 
 		if (back.clicked())
 		{
 			game.enterState(lastState);

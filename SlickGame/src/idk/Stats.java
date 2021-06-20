@@ -20,7 +20,7 @@ public class Stats
 	public static boolean sniper = false;
 
 	public static Weapon weapon;
-
+ 
 	public static void startUp() throws SlickException
 	{
 		load();

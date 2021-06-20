@@ -14,7 +14,7 @@ public class Images
 	public static Image kalashnikov;
 	public static Image schrot;
 	public static Image sniper;
-
+ 
 	public static void startUp() throws SlickException
 	{
 		Field[] list = Images.class.getFields();
