@@ -15,7 +15,8 @@ import idk.Options;
 import idk.Sounds;
 import idk.Vector2D;
 
-public class Pistol extends Weapon {
+public class Pistol extends Weapon
+{
 
 	public static final int SHOOT_DELAY_MAX = 150;
 
@@ -36,7 +37,8 @@ public class Pistol extends Weapon {
 	private int reloadTime = RELOAD_TIME;
 	private boolean playReloadSound = false;
 
-	public Pistol() {
+	public Pistol()
+	{
 		super();
 		setShootDelayMax(SHOOT_DELAY_MAX);
 		setAmmunitionMax(AMMUNTION_MAX);
@@ -45,23 +47,30 @@ public class Pistol extends Weapon {
 
 	@Override
 	public void shoot(GameObject me, Vector2D target, GameContainer container, StateBasedGame game, int delta,
-			MyBasicGameState mygame) {
+			MyBasicGameState mygame)
+	{
 		Input input = container.getInput();
 
 		// sub shoot delay
-		if (getShootDelay() > 0) {
+		if (getShootDelay() > 0)
+		{
 			setShootDelay(getShootDelay() - delta);
-		} else {
-			if (reload && playReloadSound) {
+		}
+		else
+		{
+			if (reload && playReloadSound)
+			{
 				Sounds.schrotReload.play(1f, Options.volume);
 				playReloadSound = false;
 			}
 		}
 
 		// reload
-		if (reload) {
+		if (reload)
+		{
 			reloadTime -= delta;
-			if (reloadTime < 0) {
+			if (reloadTime < 0)
+			{
 				// reset time
 				reloadTime = RELOAD_TIME;
 
@@ -74,8 +83,10 @@ public class Pistol extends Weapon {
 		}
 
 		// if button R pressed reload
-		if (input.isKeyDown(Options.reload) && me instanceof Player) {
-			if (!reload) {
+		if (input.isKeyDown(Options.reload) && me instanceof Player)
+		{
+			if (!reload)
+			{
 				reload = true;
 				reloadTime = RELOAD_TIME;
 				Sounds.schrotReload.play(1f, Options.volume);
@@ -83,10 +94,14 @@ public class Pistol extends Weapon {
 		}
 
 		// if shootdaly and button pressed shoot
-		if (getShootDelay() <= 0) {
-			if (input.isMousePressed(Options.shoot) || !(me instanceof Player)) {
-				if (!reload) {
-					if (getAmmunition() > 0) {
+		if (getShootDelay() <= 0)
+		{
+			if (input.isMousePressed(Options.shoot) || !(me instanceof Player))
+			{
+				if (!reload)
+				{
+					if (getAmmunition() > 0)
+					{
 						// play sound
 						Sounds.shoot.play(1f, Options.volume);
 
@@ -94,7 +109,8 @@ public class Pistol extends Weapon {
 						reloadTime = SHOOT_DELAY_MAX + RELOAD_TIME;
 
 						setAmmunition(getAmmunition() - 1);
-						if (getAmmunition() <= 0) {
+						if (getAmmunition() <= 0)
+						{
 							reload = true;
 							reloadTime = RELOAD_TIME;
 							playReloadSound = true;
@@ -115,9 +131,12 @@ public class Pistol extends Weapon {
 						// make the bullet
 						Bullet bullet = new Bullet(me.getCenter().clone(), target2, BULLET_SIZE, BULLET_SIZE);
 						bullet.setBounce(0);
-						if (me instanceof Player) {
+						if (me instanceof Player)
+						{
 							bullet.setGroup(Bullet.GROUP_PLAYER);
-						} else {
+						}
+						else
+						{
 							bullet.setGroup(Bullet.GROUP_ENEMY);
 						}
 						bullet.setLiveTime(BULLET_LIVE_TIME + mygame.getRandom().nextInt(BULLET_LIVE_TIME_RANDOM * 2)
@@ -127,7 +146,9 @@ public class Pistol extends Weapon {
 
 						// if ammuntion emty start reloading
 
-					} else {
+					}
+					else
+					{
 						reload = true;
 						reloadTime = RELOAD_TIME;
 						Sounds.schrotReload.play(1f, Options.volume);
@@ -140,13 +161,18 @@ public class Pistol extends Weapon {
 	}
 
 	public void renderGUI(GameContainer container, StateBasedGame game, Graphics g, MyBasicGameState mygame)
-			throws SlickException {
-		for (int i = 0; i < getAmmunitionMax(); i++) {
+			throws SlickException
+	{
+		for (int i = 0; i < getAmmunitionMax(); i++)
+		{
 
 			g.resetTransform();
-			if (i + 1 > getAmmunition()) {
+			if (i + 1 > getAmmunition())
+			{
 				g.setColor(Color.gray);
-			} else {
+			}
+			else
+			{
 				g.setColor(Color.red);
 			}
 			g.fillRect(1580 - i * 20, 840, 10, 50);
@@ -162,9 +188,10 @@ public class Pistol extends Weapon {
 //		// TODO Auto-generated method stub
 //
 //	}
-	
+
 	@Override
-	public String getName() {
+	public String getName()
+	{
 		return "Pistol";
 	}
 

@@ -1,11 +1,11 @@
 package idk;
 
 import java.lang.reflect.Field;
-
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-public class Images {
+public class Images
+{
 
 	public static Image spawn;
 	public static Image wall;
@@ -14,25 +14,29 @@ public class Images {
 	public static Image kalashnikov;
 	public static Image schrot;
 	public static Image sniper;
-	
 
-	public static void startUp() throws SlickException {
+	public static void startUp() throws SlickException
+	{
 		Field[] list = Images.class.getFields();
-		
-		for (int i = 0; i < list.length; i++) {
+
+		for (int i = 0; i < list.length; i++)
+		{
 			Field field = list[i];
 			Image image = new Image("res/" + field.getName() + ".png");
 			image.setFilter(Image.FILTER_NEAREST);
-			
-			try {
+
+			try
+			{
 				field.set(null, image);
-			} catch (IllegalArgumentException e) {
+			} catch (IllegalArgumentException e)
+			{
 				e.printStackTrace();
-			} catch (IllegalAccessException e) {
+			} catch (IllegalAccessException e)
+			{
 				e.printStackTrace();
 			}
 		}
-		
+
 		pistol = pistol.getFlippedCopy(true, false);
 		schrot = schrot.getScaledCopy(.5f);
 		sniper = sniper.getScaledCopy(.35f);

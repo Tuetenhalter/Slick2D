@@ -5,22 +5,24 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.state.StateBasedGame;
-
 import GameStates.MyBasicGameState;
 import idk.Vector2D;
 
-public class Red extends Enemy {
+public class Red extends Enemy
+{
 
 	static final int MAXLIVE = 3;
 	static final int DEMAGE = 10;
 
 	public Red(Vector2D pos, Vector2D vel, Vector2D acc, float width, float height, Shape hitBox, float live,
-			float maxLive) {
+			float maxLive)
+	{
 		super(pos, vel, acc, width, height, hitBox, live, maxLive, 0, 0);
 		// TODO Auto-generated constructor stub
 	}
 
-	public Red(float x, float y, float width, float height) {
+	public Red(float x, float y, float width, float height)
+	{
 		super(x, y, width + 1, height + 1, MAXLIVE, 0);
 		setHeight(height);
 		setWidth(width);
@@ -28,7 +30,8 @@ public class Red extends Enemy {
 	}
 
 	@Override
-	public void render(GameContainer container, StateBasedGame game, Graphics g, MyBasicGameState mygame) {
+	public void render(GameContainer container, StateBasedGame game, Graphics g, MyBasicGameState mygame)
+	{
 		getHitBox().setX(getPos().getX());
 		getHitBox().setY(getPos().getY());
 		g.setColor(Color.red);
@@ -41,13 +44,16 @@ public class Red extends Enemy {
 	}
 
 	@Override
-	public void update(GameContainer container, StateBasedGame game, int delta, MyBasicGameState mygame) {
+	public void update(GameContainer container, StateBasedGame game, int delta, MyBasicGameState mygame)
+	{
 
-		if (getLive() <= 0) {
+		if (getLive() <= 0)
+		{
 			setDestroy(true);
 		}
 
-		if (mygame.getPlayer().getHitBox().intersects(getHitBox())) {
+		if (mygame.getPlayer().getHitBox().intersects(getHitBox()))
+		{
 			setDestroy(true);
 			mygame.getPlayer().setLive(mygame.getPlayer().getLive() - DEMAGE);
 

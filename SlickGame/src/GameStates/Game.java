@@ -2,23 +2,18 @@ package GameStates;
 
 import java.util.ArrayList;
 import java.util.Random;
-
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.state.StateBasedGame;
-
 import GameObjects.End;
 import GameObjects.GameObject;
-
 import GameObjects.GameObjectLife.Player;
 import GameObjects.GameObjectLife.Enemy.Blue;
 import GameObjects.GameObjectLife.Enemy.Enemy;
-import GameObjects.GameObjectLife.Enemy.Yellow;
 import GameObjects.Wall.Wall;
 import Tile.MapMaker;
 import Tile.Tile;
@@ -29,9 +24,11 @@ import idk.Images;
 import idk.Stats;
 import idk.Vector2D;
 
-public class Game extends MyBasicGameState {
+public class Game extends MyBasicGameState
+{
 
-	public Game(String name, int id) {
+	public Game(String name, int id)
+	{
 		super();
 		this.name = name;
 		this.id = id;
@@ -61,7 +58,8 @@ public class Game extends MyBasicGameState {
 	protected int enemys = 50;
 
 	@Override
-	public void init(GameContainer container, StateBasedGame game) throws SlickException {
+	public void init(GameContainer container, StateBasedGame game) throws SlickException
+	{
 		System.out.println("[" + name + "] Start init");
 
 //		IntBuffer temp = BufferUtils.createIntBuffer(16);
@@ -78,11 +76,11 @@ public class Game extends MyBasicGameState {
 		camara.setRangex2(camara.getRangex2() - container.getWidth());
 		camara.setRangey2(camara.getRangey2() - container.getHeight());
 
-		//Yellow yellow = new Yellow(1, 1, TILE_WIDHT, TILE_HEIGHT, 10, 10);
-		//gameList.add(yellow);
+		// Yellow yellow = new Yellow(1, 1, TILE_WIDHT, TILE_HEIGHT, 10, 10);
+		// gameList.add(yellow);
 //		player.getPos().set(500, 500);
-		//yellow.getPos().set(601, 500);
-		//yellow.getVel().set(0, 0);
+		// yellow.getPos().set(601, 500);
+		// yellow.getVel().set(0, 0);
 
 		// ball = new Ball(600, 600, TILEWIDHT, TILEHEIGHT);
 		// gameList.add(ball);
@@ -92,7 +90,8 @@ public class Game extends MyBasicGameState {
 	}
 
 	@Override
-	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
+	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException
+	{
 
 		g.resetTransform();
 
@@ -109,67 +108,79 @@ public class Game extends MyBasicGameState {
 		g.drawImage(tileMap.getMap(), 0, 0, TILE_WIDHT * TILE_ARRAY_WIDHT, TILE_HEIGHT * TILE_ARRAY_HEIGHT, 0, 0,
 				tileMap.getMap().getWidth(), tileMap.getMap().getHeight());
 
-		for (GameObject gameObject : gameList) {
+		for (GameObject gameObject : gameList)
+		{
 			gameObject.render(container, game, g, this);
 		}
 
 		g.resetTransform();
 		g.setColor(Color.gray);
 		g.fillRect(10, 10, 510, 50);
-		if (player.getLive() > 0) {
+		if (player.getLive() > 0)
+		{
 			g.setColor(Color.red);
 			g.fillRect(10, 10, 500 * (float) (player.getLive() / player.getMaxLive() + 0.0) + 10, 50);
 		}
 		g.drawString(name, 10, 60);
 		g.drawString("Potatos:" + Stats.potatos, 10, 75);
 
-
 		player.getWeapon().renderGUI(container, game, g, this);
 	}
 
 	@Override
-	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
+	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException
+	{
 
-		if (end.getHitBox().intersects(player.getHitBox())) {
+		if (end.getHitBox().intersects(player.getHitBox()))
+		{
 			Stats.save();
 			game.getState(id + 101).init(container, game);
 			game.enterState(id + 101);
 		}
 
 		camara.camaraMove(this, container, delta);
-		for (int i = gameList.size() - 1; i >= 0; i--) {
+		for (int i = gameList.size() - 1; i >= 0; i--)
+		{
 			gameList.get(i).update(container, game, delta, this);
 		}
 
-		for (int i = gameList.size() - 1; i >= 0; i--) {
-			if (gameList.get(i).isDestroy()) {
-				if (getGameList().get(i) instanceof Enemy) {
+		for (int i = gameList.size() - 1; i >= 0; i--)
+		{
+			if (gameList.get(i).isDestroy())
+			{
+				if (getGameList().get(i) instanceof Enemy)
+				{
 					Stats.potatos += 10 * potatos;
 				}
 				gameList.remove(i);
 			}
 		}
 
-		if (container.getInput().isKeyPressed(Input.KEY_ESCAPE)) {
+		if (container.getInput().isKeyPressed(Input.KEY_ESCAPE))
+		{
 			game.enterState(States.PAUSEMENU.getState());
 		}
 
-		if (container.getInput().isKeyPressed(Input.KEY_J)) {
+		if (container.getInput().isKeyPressed(Input.KEY_J))
+		{
 			init(container, game);
 		}
 
-		if (container.getInput().isKeyPressed(Input.KEY_T)) {
+		if (container.getInput().isKeyPressed(Input.KEY_T))
+		{
 			player.setPos(camara.mousePos(container));
 		}
 
 	}
 
 	@Override
-	public int getID() {
+	public int getID()
+	{
 		return States.GAME.getState() + id;
 	}
 
-	public void creatMap() throws SlickException {
+	public void creatMap() throws SlickException
+	{
 
 		Random ran = new Random();
 		random = ran;
@@ -189,30 +200,43 @@ public class Game extends MyBasicGameState {
 
 		// loop for Player pos
 		float distance = 1f;
-		do {
+		do
+		{
 			bool = false;
 			ranx = ran.nextInt(mapMaker.getWidth());
 			rany = ran.nextInt(mapMaker.getHeight());
 
-			if ((ranx - cornerx) * (ranx - cornerx) + (rany - cornery) * (rany - cornery) < distance * distance) {
+			if ((ranx - cornerx) * (ranx - cornerx) + (rany - cornery) * (rany - cornery) < distance * distance)
+			{
 				distance += 0.1f;
-				if (map[ranx][rany] == 0) {
+				if (map[ranx][rany] == 0)
+				{
 					int n = 1;
-					if (ranx != 0 && rany != 0 && ranx != TILE_ARRAY_WIDHT && rany != TILE_ARRAY_HEIGHT) {
-						for (int i = ranx - n; i < ranx + n + 1; i++) {
-							for (int j = rany - n; j < rany + n + 1; j++) {
-								if (map[i][j] == 1) {
+					if (ranx != 0 && rany != 0 && ranx != TILE_ARRAY_WIDHT && rany != TILE_ARRAY_HEIGHT)
+					{
+						for (int i = ranx - n; i < ranx + n + 1; i++)
+						{
+							for (int j = rany - n; j < rany + n + 1; j++)
+							{
+								if (map[i][j] == 1)
+								{
 									bool = true;
 								}
 							}
 						}
-					} else {
+					}
+					else
+					{
 						bool = true;
 					}
-				} else {
+				}
+				else
+				{
 					bool = true;
 				}
-			} else {
+			}
+			else
+			{
 				bool = true;
 			}
 		} while (bool);
@@ -229,30 +253,43 @@ public class Game extends MyBasicGameState {
 		cornery = TILE_ARRAY_HEIGHT;
 
 		distance = 10f;
-		do {
+		do
+		{
 			bool = false;
 			ranx = ran.nextInt(mapMaker.getWidth());
 			rany = ran.nextInt(mapMaker.getHeight());
 
-			if ((ranx - cornerx) * (ranx - cornerx) + (rany - cornery) * (rany - cornery) < distance * distance) {
+			if ((ranx - cornerx) * (ranx - cornerx) + (rany - cornery) * (rany - cornery) < distance * distance)
+			{
 				distance += 0.1f;
-				if (map[ranx][rany] == 0) {
+				if (map[ranx][rany] == 0)
+				{
 					int n = 1;
-					if (ranx != 0 && rany != 0 && ranx != TILE_ARRAY_WIDHT && rany != TILE_ARRAY_HEIGHT) {
-						for (int i = ranx - n; i < ranx + n + 1; i++) {
-							for (int j = rany - n; j < rany + n + 1; j++) {
-								if (map[i][j] == 1) {
+					if (ranx != 0 && rany != 0 && ranx != TILE_ARRAY_WIDHT && rany != TILE_ARRAY_HEIGHT)
+					{
+						for (int i = ranx - n; i < ranx + n + 1; i++)
+						{
+							for (int j = rany - n; j < rany + n + 1; j++)
+							{
+								if (map[i][j] == 1)
+								{
 									bool = true;
 								}
 							}
 						}
-					} else {
+					}
+					else
+					{
 						bool = true;
 					}
-				} else {
+				}
+				else
+				{
 					bool = true;
 				}
-			} else {
+			}
+			else
+			{
 				bool = true;
 			}
 		} while (bool);
@@ -262,8 +299,10 @@ public class Game extends MyBasicGameState {
 		gameList.add(end);
 
 		// Place Blue
-		for (int i = 0; i < enemys; i++) {
-			do {
+		for (int i = 0; i < enemys; i++)
+		{
+			do
+			{
 				ranx = ran.nextInt(mapMaker.getWidth());
 				rany = ran.nextInt(mapMaker.getHeight());
 
@@ -275,8 +314,10 @@ public class Game extends MyBasicGameState {
 		}
 
 		// Draw The Tile Map
-		for (int i = 0; i < map.length; i++) {
-			for (int j = 0; j < map[0].length; j++) {
+		for (int i = 0; i < map.length; i++)
+		{
+			for (int j = 0; j < map[0].length; j++)
+			{
 				tileMap.setTileMap(new Tile(map, i, j, Images.wall), i, j);
 			}
 		}
@@ -286,9 +327,12 @@ public class Game extends MyBasicGameState {
 		mapMaker.onlyEges();
 		map = mapMaker.getList();
 
-		for (int i = 0; i < map.length; i++) {
-			for (int j = 0; j < map[0].length; j++) {
-				if (map[i][j] == 1) {
+		for (int i = 0; i < map.length; i++)
+		{
+			for (int j = 0; j < map[0].length; j++)
+			{
+				if (map[i][j] == 1)
+				{
 					gameList.add(new Wall(i * TILE_WIDHT, j * TILE_HEIGHT, TILE_WIDHT, TILE_HEIGHT));
 				}
 			}
@@ -304,62 +348,78 @@ public class Game extends MyBasicGameState {
 	}
 
 	@Override
-	public void mouseWheelMoved(int newValue) {
+	public void mouseWheelMoved(int newValue)
+	{
 
-		if (newValue < 0) {
+		if (newValue < 0)
+		{
 			camara.setTargedZoom(camara.getTargedZoom() * .9f);
-		} else {
+		}
+		else
+		{
 			camara.setTargedZoom(camara.getTargedZoom() * 1.1f);
 		}
 
 		super.mouseWheelMoved(newValue);
 	}
 
-	public String getName() {
+	public String getName()
+	{
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName(String name)
+	{
 		this.name = name;
 	}
 
-	public int getId() {
+	public int getId()
+	{
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(int id)
+	{
 		this.id = id;
 	}
 
-	public float getDamage() {
+	public float getDamage()
+	{
 		return damage;
 	}
 
-	public void setDamage(float damage) {
+	public void setDamage(float damage)
+	{
 		this.damage = damage;
 	}
 
-	public float getLive() {
+	public float getLive()
+	{
 		return live;
 	}
 
-	public void setLive(float live) {
+	public void setLive(float live)
+	{
 		this.live = live;
 	}
 
-	public float getPotatos() {
+	public float getPotatos()
+	{
 		return potatos;
 	}
 
-	public void setPotatos(float potatos) {
+	public void setPotatos(float potatos)
+	{
 		this.potatos = potatos;
 	}
 
-	public int getEnemys() {
+	public int getEnemys()
+	{
 		return enemys;
 	}
 
-	public void setEnemys(int enemys) {
+	public void setEnemys(int enemys)
+	{
 		this.enemys = enemys;
 	}
 }

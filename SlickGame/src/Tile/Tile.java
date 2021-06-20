@@ -113,7 +113,7 @@ public class Tile
 			// Which tile
 
 //			setTile(1, 1, tilelenght, image);
-			
+
 			if (left == 0 && up == 0 && right == 1 && down == 1 && rightDown == 1)
 			{
 				setTile(0, 0, tilelenght, image);
@@ -186,8 +186,8 @@ public class Tile
 			{
 				setTile(3, 1, tilelenght, image);
 			}
-			
-			if (up == 1 && down == 1 && left == 0 && right == 1  && rightDown == 0 && rightUp == 1)
+
+			if (up == 1 && down == 1 && left == 0 && right == 1 && rightDown == 0 && rightUp == 1)
 			{
 				setTile(4, 1, tilelenght, image);
 			}
@@ -221,7 +221,7 @@ public class Tile
 			}
 
 			// ---------------- Beginn dritte Reihe
-			
+
 			if (left == 0 && down == 0 && up == 1 && right == 1 && rightUp == 1)
 			{
 				setTile(0, 2, tilelenght, image);

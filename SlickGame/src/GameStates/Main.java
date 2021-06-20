@@ -4,22 +4,20 @@ import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
-import org.omg.PortableInterceptor.ServerRequestInfo;
-
 import GameStates.Menu.GameOverMenu;
 import GameStates.Menu.OptionsMenu;
 import GameStates.Menu.PauseMenu;
 import GameStates.Menu.ShopsMenu;
 import GameStates.Menu.StartMenu;
-import idk.Stats;
 
 /**
  * 
  * @author Pascal Heimann, Amir Hamdoun ,David Schmitt
- * 
+ * @version 4.2
  */
 
-public class Main extends StateBasedGame {
+public class Main extends StateBasedGame
+{
 
 	/**
 	 * 
@@ -27,7 +25,8 @@ public class Main extends StateBasedGame {
 	 * @throws SlickException
 	 */
 
-	public static void main(String[] args) throws SlickException {
+	public static void main(String[] args) throws SlickException
+	{
 		System.out.println("lull");
 		AppGameContainer container = new AppGameContainer(new Main("Moin"));
 		container.setIcon("res/Untitled.png");
@@ -36,14 +35,16 @@ public class Main extends StateBasedGame {
 
 	}
 
-	public Main(String test) {
+	public Main(String test)
+	{
 		super(test);
 
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	public void initStatesList(GameContainer container) throws SlickException {
+	public void initStatesList(GameContainer container) throws SlickException
+	{
 		addState(new StartMenu());
 
 		Game level1 = new Game("Level 1", 0);
@@ -112,7 +113,7 @@ public class Main extends StateBasedGame {
 		addState(level8);
 		addState(level9);
 		addState(level10);
-		
+
 		addState(new PauseMenu());
 		addState(new OptionsMenu());
 		addState(new ShopsMenu());

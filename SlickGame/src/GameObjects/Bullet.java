@@ -5,7 +5,6 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.state.StateBasedGame;
-
 import GameObjects.GameObjectLife.Player;
 import GameObjects.GameObjectLife.Enemy.Enemy;
 import GameObjects.Wall.BouncieWall;
@@ -13,7 +12,8 @@ import GameObjects.Wall.Wall;
 import GameStates.MyBasicGameState;
 import idk.Vector2D;
 
-public class Bullet extends GameObject {
+public class Bullet extends GameObject
+{
 
 	static final public int GROUP_PLAYER = 0;
 	static final public int GROUP_ENEMY = 1;
@@ -23,7 +23,8 @@ public class Bullet extends GameObject {
 	private int liveTime = 10000;
 	private int damage = 1;
 
-	public Bullet(float x, float y, float width, float height) {
+	public Bullet(float x, float y, float width, float height)
+	{
 		super(x, y, width, height);
 		// TODO Auto-generated constructor stub
 	}
@@ -40,23 +41,24 @@ public class Bullet extends GameObject {
 //		
 //		
 //	}
-	
-	public Bullet(Vector2D pos, Vector2D vel, float width, float height) {
+
+	public Bullet(Vector2D pos, Vector2D vel, float width, float height)
+	{
 		super(pos.clone().sub(width / 2, height / 2), vel, new Vector2D(0, 0), width, height,
 				new Circle(pos.getX() + width / 2, pos.getY() + height / 2, width / 2));
 
 	}
 
-	
-
-	public Bullet(Vector2D pos, Vector2D shootPos, float speed, float width, float height) {
-		super(pos.clone().sub(width / 2, height / 2), shootPos.sub(pos).setMagnitude(speed), new Vector2D(0, 0), width, height,
-				new Circle(pos.getX() + width / 2, pos.getY() + height / 2, width / 2));
+	public Bullet(Vector2D pos, Vector2D shootPos, float speed, float width, float height)
+	{
+		super(pos.clone().sub(width / 2, height / 2), shootPos.sub(pos).setMagnitude(speed), new Vector2D(0, 0), width,
+				height, new Circle(pos.getX() + width / 2, pos.getY() + height / 2, width / 2));
 
 	}
 
 	@Override
-	public void render(GameContainer container, StateBasedGame game, Graphics g, MyBasicGameState mygame) {
+	public void render(GameContainer container, StateBasedGame game, Graphics g, MyBasicGameState mygame)
+	{
 
 		getHitBox().setX(getPos().getX());
 		getHitBox().setY(getPos().getY());
@@ -66,20 +68,27 @@ public class Bullet extends GameObject {
 	}
 
 	@Override
-	public void update(GameContainer container, StateBasedGame game, int delta, MyBasicGameState mygame) {
+	public void update(GameContainer container, StateBasedGame game, int delta, MyBasicGameState mygame)
+	{
 
-		for (GameObject gameObject : mygame.getGameList()) {
-			if (gameObject instanceof Wall) {
+		for (GameObject gameObject : mygame.getGameList())
+		{
+			if (gameObject instanceof Wall)
+			{
 				colltiontoWall((Wall) gameObject, delta);
 			}
 
-			if (gameObject instanceof BouncieWall) {
+			if (gameObject instanceof BouncieWall)
+			{
 				colltiontoBouncieWall((BouncieWall) gameObject);
 			}
 
-			if (gameObject instanceof Enemy) {
-				if (group == GROUP_PLAYER) {
-					if (gameObject.getHitBox().intersects(getHitBox())) {
+			if (gameObject instanceof Enemy)
+			{
+				if (group == GROUP_PLAYER)
+				{
+					if (gameObject.getHitBox().intersects(getHitBox()))
+					{
 						setDestroy(true);
 						Enemy blue = (Enemy) gameObject;
 						blue.setLive(blue.getLive() - damage);
@@ -87,9 +96,12 @@ public class Bullet extends GameObject {
 				}
 			}
 
-			if (gameObject instanceof Player) {
-				if (group == GROUP_ENEMY) {
-					if (gameObject.getHitBox().intersects(getHitBox())) {
+			if (gameObject instanceof Player)
+			{
+				if (group == GROUP_ENEMY)
+				{
+					if (gameObject.getHitBox().intersects(getHitBox()))
+					{
 						setDestroy(true);
 						Player player = (Player) gameObject;
 						player.setLive(player.getLive() - damage);
@@ -98,15 +110,17 @@ public class Bullet extends GameObject {
 			}
 		}
 		liveTime -= delta;
-		if(liveTime < 0) {
+		if (liveTime < 0)
+		{
 			setDestroy(true);
 		}
-		
+
 		getPos().add(getVel().clone().mul(delta / 1000f));
 
 	}
 
-	public void colltiontoWall(Wall gameObject, int delta) {
+	public void colltiontoWall(Wall gameObject, int delta)
+	{
 
 		float x = getX();
 		float y = getY();
@@ -140,41 +154,57 @@ public class Bullet extends GameObject {
 		// Colotion
 
 		// Links
-		if (x + speedx < x2 + width2 && x + speedx > x2 && y2 < y + height && y2 + height2 > y) {
-			if (bounce > 0) {
+		if (x + speedx < x2 + width2 && x + speedx > x2 && y2 < y + height && y2 + height2 > y)
+		{
+			if (bounce > 0)
+			{
 				getVel().setX(getVel().getX() * -1);
 				bounce--;
-			} else {
+			}
+			else
+			{
 				setDestroy(true);
 			}
 			return;
 		}
 		// Rechts
-		if (x + speedx + width > x2 && x + speedx + width < x2 + width2 && y2 < y + height && y2 + height2 > y) {
-			if (bounce > 0) {
+		if (x + speedx + width > x2 && x + speedx + width < x2 + width2 && y2 < y + height && y2 + height2 > y)
+		{
+			if (bounce > 0)
+			{
 				getVel().setX(getVel().getX() * -1);
 				bounce--;
-			} else {
+			}
+			else
+			{
 				setDestroy(true);
 			}
 			return;
 		}
 		// oben
-		if (y + speedy < y2 + height2 && y + speedy > y2 && x2 < x + width && x2 + width2 > x) {
-			if (bounce > 0) {
+		if (y + speedy < y2 + height2 && y + speedy > y2 && x2 < x + width && x2 + width2 > x)
+		{
+			if (bounce > 0)
+			{
 				getVel().setY(getVel().getY() * -1);
 				bounce--;
-			} else {
+			}
+			else
+			{
 				setDestroy(true);
 			}
 			return;
 		}
 		// untem
-		if (y + speedy + height > y2 && y + speedy + height < y2 + height2 && x2 < x + width && x2 + width2 > x) {
-			if (bounce > 0) {
+		if (y + speedy + height > y2 && y + speedy + height < y2 + height2 && x2 < x + width && x2 + width2 > x)
+		{
+			if (bounce > 0)
+			{
 				getVel().setY(getVel().getY() * -1);
 				bounce--;
-			} else {
+			}
+			else
+			{
 				setDestroy(true);
 			}
 			return;
@@ -182,7 +212,8 @@ public class Bullet extends GameObject {
 
 	}
 
-	public void colltiontoBouncieWall(BouncieWall gameObject) {
+	public void colltiontoBouncieWall(BouncieWall gameObject)
+	{
 
 		double x = getPos().getX();
 		double y = getPos().getY();
@@ -216,58 +247,70 @@ public class Bullet extends GameObject {
 		// Colotion
 
 		// Links
-		if (x + speedx < x2 + width2 && x + speedx > x2 && y2 < y + height && y2 + height2 > y) {
+		if (x + speedx < x2 + width2 && x + speedx > x2 && y2 < y + height && y2 + height2 > y)
+		{
 			getVel().mul(-2);
 
 			return;
 		}
 		// Rechts
-		if (x + speedx + width > x2 && x + speedx + width < x2 + width2 && y2 < y + height && y2 + height2 > y) {
+		if (x + speedx + width > x2 && x + speedx + width < x2 + width2 && y2 < y + height && y2 + height2 > y)
+		{
 			getVel().mul(-2);
 			return;
 		}
 		// oben
-		if (y + speedy < y2 + height2 && y + speedy > y2 && x2 < x + width && x2 + width2 > x) {
+		if (y + speedy < y2 + height2 && y + speedy > y2 && x2 < x + width && x2 + width2 > x)
+		{
 			getVel().mul(-2);
 			return;
 		}
 		// untem
-		if (y + speedy + height > y2 && y + speedy + height < y2 + height2 && x2 < x + width && x2 + width2 > x) {
+		if (y + speedy + height > y2 && y + speedy + height < y2 + height2 && x2 < x + width && x2 + width2 > x)
+		{
 			getVel().mul(-2);
 			return;
 		}
 
 	}
 
-	public int getBounce() {
+	public int getBounce()
+	{
 		return bounce;
 	}
 
-	public void setBounce(int bounce) {
+	public void setBounce(int bounce)
+	{
 		this.bounce = bounce;
 	}
 
-	public int getGroup() {
+	public int getGroup()
+	{
 		return group;
 	}
 
-	public void setGroup(int group) {
+	public void setGroup(int group)
+	{
 		this.group = group;
 	}
 
-	public int getLiveTime() {
+	public int getLiveTime()
+	{
 		return liveTime;
 	}
 
-	public void setLiveTime(int liveTime) {
+	public void setLiveTime(int liveTime)
+	{
 		this.liveTime = liveTime;
 	}
 
-	public int getDamage() {
+	public int getDamage()
+	{
 		return damage;
 	}
 
-	public void setDamage(int damage) {
+	public void setDamage(int damage)
+	{
 		this.damage = damage;
 	}
 

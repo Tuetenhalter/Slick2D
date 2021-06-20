@@ -8,7 +8,6 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.state.StateBasedGame;
-
 import GameObjects.GameObject;
 import GameObjects.Wall.BouncieWall;
 import GameObjects.Wall.Wall;
@@ -19,7 +18,8 @@ import idk.Images;
 import idk.Options;
 import idk.Vector2D;
 
-public class Player extends GameObjectLife {
+public class Player extends GameObjectLife
+{
 
 	static final float SPEED = 2000f;
 	static final float MAX_SPEED = 500f;
@@ -36,12 +36,14 @@ public class Player extends GameObjectLife {
 	Sound sound;
 
 	public Player(Vector2D pos, Vector2D vel, Vector2D acc, float width, float height, Shape hitBox, float live,
-			float maxLive, int shootDelay, int shootDelayMax) {
+			float maxLive, int shootDelay, int shootDelayMax)
+	{
 		super(pos, vel, acc, width, height, hitBox, live, maxLive, shootDelay, shootDelayMax);
 		// TODO Auto-generated constructor stub
 	}
 
-	public Player(float x, float y, float width, float height, Weapon weapon) throws SlickException {
+	public Player(float x, float y, float width, float height, Weapon weapon) throws SlickException
+	{
 		super(x, y, width + 1, height + 1, MAXLIVE, SHOOT_DELAY_MAX);
 		setHeight(height);
 		setWidth(width);
@@ -51,13 +53,15 @@ public class Player extends GameObjectLife {
 	}
 
 	@Override
-	public void render(GameContainer container, StateBasedGame game, Graphics g, MyBasicGameState mygame) {
+	public void render(GameContainer container, StateBasedGame game, Graphics g, MyBasicGameState mygame)
+	{
 
 		getHitBox().setX(getPos().getX());
 		getHitBox().setY(getPos().getY());
 		g.setColor(Color.red);
 		g.fill(getHitBox());
-		g.drawImage(Images.player, getX(), getY(), getX()+getWidth(), getY()+getHeight(), 0, 0, Images.player.getWidth(), Images.player.getHeight());
+		g.drawImage(Images.player, getX(), getY(), getX() + getWidth(), getY() + getHeight(), 0, 0,
+				Images.player.getWidth(), Images.player.getHeight());
 
 //		g.resetTransform();
 //		g.setColor(Color.red);
@@ -74,10 +78,12 @@ public class Player extends GameObjectLife {
 
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta, MyBasicGameState mygame)
-			throws SlickException {
+			throws SlickException
+	{
 
 		Input input = container.getInput();
-		if (getLive() <= 0) {
+		if (getLive() <= 0)
+		{
 			setDestroy(true);
 			game.enterState(States.GAMEOVER.getState());
 		}
@@ -87,22 +93,27 @@ public class Player extends GameObjectLife {
 
 		getAcc().set(0, 0);
 
-		if (input.isKeyDown(Options.back)) {
+		if (input.isKeyDown(Options.back))
+		{
 			getAcc().add(0, 1);
 		}
 
-		if (input.isKeyDown(Options.forward)) {
+		if (input.isKeyDown(Options.forward))
+		{
 			getAcc().add(0, -1);
 		}
-		if (input.isKeyDown(Options.right)) {
+		if (input.isKeyDown(Options.right))
+		{
 			getAcc().add(1, 0);
 		}
-		if (input.isKeyDown(Options.left)) {
+		if (input.isKeyDown(Options.left))
+		{
 			getAcc().add(-1, 0);
 		}
 
 		getAcc().setMagnitude(SPEED);
-		if (input.isKeyDown(Input.KEY_SPACE) && dashCouldown < 0) {
+		if (input.isKeyDown(Input.KEY_SPACE) && dashCouldown < 0)
+		{
 			getAcc().mul(10);
 			dashCouldown = 20;
 		}
@@ -118,8 +129,10 @@ public class Player extends GameObjectLife {
 		getVel().add(getAcc().clone().mul(delta / 1000.0f));
 		getVel().limit(MAX_SPEED);
 
-		for (GameObject gameObject : mygame.getGameList()) {
-			if (gameObject instanceof Wall) {
+		for (GameObject gameObject : mygame.getGameList())
+		{
+			if (gameObject instanceof Wall)
+			{
 				colltiontoWall((Wall) gameObject, delta);
 			}
 
@@ -132,7 +145,8 @@ public class Player extends GameObjectLife {
 		getPos().add(getVel().clone().mul(delta / 1000.0f));
 	}
 
-	public void colltiontoWall(Wall gameObject, int delta) {
+	public void colltiontoWall(Wall gameObject, int delta)
+	{
 
 		float x = getX();
 		float y = getY();
@@ -166,24 +180,28 @@ public class Player extends GameObjectLife {
 		// Colotion
 
 		// Links
-		if (x + speedx < x2 + width2 && x + speedx > x2 && y2 < y + height && y2 + height2 > y) {
+		if (x + speedx < x2 + width2 && x + speedx > x2 && y2 < y + height && y2 + height2 > y)
+		{
 			setSpeedX(0);
 			setX(x2 + width2);
 		}
 
 		// Rechts
-		if (x + speedx + width > x2 && x + speedx + width < x2 + width2 && y2 < y + height && y2 + height2 > y) {
+		if (x + speedx + width > x2 && x + speedx + width < x2 + width2 && y2 < y + height && y2 + height2 > y)
+		{
 			setSpeedX(0);
 			setX(x2 - width);
 		}
 
 		// oben
-		if (y + speedy < y2 + height2 && y + speedy > y2 && x2 < x + width && x2 + width2 > x) {
+		if (y + speedy < y2 + height2 && y + speedy > y2 && x2 < x + width && x2 + width2 > x)
+		{
 			setSpeedY(0);
 			setY(y2 + height2);
 		}
 		// untem
-		if (y + speedy + height > y2 && y + speedy + height < y2 + height2 && x2 < x + width && x2 + width2 > x) {
+		if (y + speedy + height > y2 && y + speedy + height < y2 + height2 && x2 < x + width && x2 + width2 > x)
+		{
 			setSpeedY(0);
 			setY(y2 - height);
 		}
@@ -212,7 +230,8 @@ public class Player extends GameObjectLife {
 
 	}
 
-	public void collitcionBounciWall(BouncieWall gameObject) {
+	public void collitcionBounciWall(BouncieWall gameObject)
+	{
 
 		float x = getPos().getX();
 		float y = getPos().getY();
@@ -246,32 +265,38 @@ public class Player extends GameObjectLife {
 		// Colotion
 
 		// Links
-		if (x + speedx < x2 + width2 && x + speedx > x2 && y2 < y + height && y2 + height2 > y) {
+		if (x + speedx < x2 + width2 && x + speedx > x2 && y2 < y + height && y2 + height2 > y)
+		{
 			setSpeedX(-getSpeedX());
 			return;
 		}
 		// Rechts
-		if (x + speedx + width > x2 && x + speedx + width < x2 + width2 && y2 < y + height && y2 + height2 > y) {
+		if (x + speedx + width > x2 && x + speedx + width < x2 + width2 && y2 < y + height && y2 + height2 > y)
+		{
 			setSpeedX(-getSpeedX());
 			return;
 		}
 		// oben
-		if (y + speedy < y2 + height2 && y + speedy > y2 && x2 < x + width && x2 + width2 > x) {
+		if (y + speedy < y2 + height2 && y + speedy > y2 && x2 < x + width && x2 + width2 > x)
+		{
 			setSpeedY(-getSpeedY());
 			return;
 		}
 		// untem
-		if (y + speedy + height > y2 && y + speedy + height < y2 + height2 && x2 < x + width && x2 + width2 > x) {
+		if (y + speedy + height > y2 && y + speedy + height < y2 + height2 && x2 < x + width && x2 + width2 > x)
+		{
 			setSpeedY(-getSpeedY());
 			return;
 		}
 	}
 
-	public Weapon getWeapon() {
+	public Weapon getWeapon()
+	{
 		return weapon;
 	}
 
-	public void setWeapon(Weapon weapon) {
+	public void setWeapon(Weapon weapon)
+	{
 		this.weapon = weapon;
 	}
 }

@@ -1,5 +1,5 @@
 package GameStates.Menu;
- 
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -8,7 +8,6 @@ import org.newdawn.slick.state.StateBasedGame;
 import GUI.Button;
 import GameStates.States;
 import idk.Images;
-import idk.Options;
 import idk.Sounds;
 import idk.Stats;
 
@@ -20,7 +19,7 @@ public class StartMenu extends Menu
 	private Button exit;
 	private Button shop;
 
-	@Override  
+	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException
 	{
 		Stats.startUp();

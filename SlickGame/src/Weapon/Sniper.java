@@ -14,7 +14,8 @@ import idk.Options;
 import idk.Sounds;
 import idk.Vector2D;
 
-public class Sniper extends Weapon {
+public class Sniper extends Weapon
+{
 
 	public static final int SHOOT_DELAY_MAX = 1000;
 
@@ -35,40 +36,47 @@ public class Sniper extends Weapon {
 	private int reloadTime = RELOAD_TIME;
 	private boolean playReloadSound = false;
 
-	public  Sniper() {
+	public Sniper()
+	{
 		super();
 		setShootDelayMax(SHOOT_DELAY_MAX);
 		setAmmunitionMax(AMMUNTION_MAX);
 		setAmmunition(AMMUNTION_MAX);
 	}
-	
 
 	@Override
 	public void shoot(GameObject me, Vector2D target, GameContainer container, StateBasedGame game, int delta,
-			MyBasicGameState mygame) {
+			MyBasicGameState mygame)
+	{
 		Input input = container.getInput();
 
 		// sub shoot delay
-		if (getShootDelay() > 0) {
+		if (getShootDelay() > 0)
+		{
 			setShootDelay(getShootDelay() - delta);
-		}else {
-			if(reload && playReloadSound) {
+		}
+		else
+		{
+			if (reload && playReloadSound)
+			{
 				Sounds.schrotReload.play(1f, Options.volume);
 				playReloadSound = false;
 			}
 		}
 
 		// reload
-		if (reload) {
+		if (reload)
+		{
 			reloadTime -= delta;
-			if (reloadTime < 0) {
-				//reset time
+			if (reloadTime < 0)
+			{
+				// reset time
 				reloadTime = RELOAD_TIME;
 
-				//stop reloading
+				// stop reloading
 				reload = false;
-				
-				//set ammuntion
+
+				// set ammuntion
 				setAmmunition(AMMUNTION_MAX);
 			}
 		}
@@ -77,7 +85,8 @@ public class Sniper extends Weapon {
 		if (input.isKeyDown(Options.reload))
 
 		{
-			if (!reload) {
+			if (!reload)
+			{
 				reload = true;
 				reloadTime = RELOAD_TIME;
 				Sounds.schrotReload.play(1f, Options.volume);
@@ -85,10 +94,14 @@ public class Sniper extends Weapon {
 		}
 
 		// if shootdaly and button pressed shoot
-		if (getShootDelay() <= 0) {
-			if (input.isMousePressed(Options.shoot)) {
-				if (!reload) {
-					if (getAmmunition() > 0) {
+		if (getShootDelay() <= 0)
+		{
+			if (input.isMousePressed(Options.shoot))
+			{
+				if (!reload)
+				{
+					if (getAmmunition() > 0)
+					{
 						// play sound
 						Sounds.shoot.play(1f, Options.volume);
 
@@ -96,15 +109,16 @@ public class Sniper extends Weapon {
 						reloadTime = SHOOT_DELAY_MAX + RELOAD_TIME;
 
 						setAmmunition(getAmmunition() - 1);
-						if (getAmmunition() <= 0) {
+						if (getAmmunition() <= 0)
+						{
 							reload = true;
 							reloadTime = RELOAD_TIME;
 							playReloadSound = true;
 						}
-						
-						//reset shoot delay
+
+						// reset shoot delay
 						setShootDelay(getShootDelayMax());
-						
+
 						// get shoot direction
 						target.sub(me.getCenter());
 
@@ -123,10 +137,11 @@ public class Sniper extends Weapon {
 						bullet.setDamage(BULLET_DMG);
 						mygame.getGameList().add(bullet);
 
-						
 						// if ammuntion emty start reloading
 
-					} else {
+					}
+					else
+					{
 						reload = true;
 						reloadTime = RELOAD_TIME;
 						Sounds.schrotReload.play(1f, Options.volume);
@@ -137,26 +152,32 @@ public class Sniper extends Weapon {
 		}
 
 	}
-	
-	public void renderGUI(GameContainer container, StateBasedGame game, Graphics g, MyBasicGameState mygame) throws SlickException {
-		for (int i = 0; i < getAmmunitionMax(); i++) {
-			
+
+	public void renderGUI(GameContainer container, StateBasedGame game, Graphics g, MyBasicGameState mygame)
+			throws SlickException
+	{
+		for (int i = 0; i < getAmmunitionMax(); i++)
+		{
+
 			g.resetTransform();
-			if(i +1 > getAmmunition()) {
+			if (i + 1 > getAmmunition())
+			{
 				g.setColor(Color.gray);
-			} else {
+			}
+			else
+			{
 				g.setColor(Color.red);
 			}
-			g.fillRect(1580 - i*20, 840, 10, 50);
-			
+			g.fillRect(1580 - i * 20, 840, 10, 50);
+
 			mygame.getCamara().translateCamara(container, game, g, mygame);
-			
-			
+
 		}
 	}
-	
+
 	@Override
-	public String getName() {
+	public String getName()
+	{
 		return "Sniper";
 	}
 

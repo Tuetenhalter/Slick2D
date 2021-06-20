@@ -5,13 +5,13 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.state.StateBasedGame;
-
 import GameObjects.Bullet;
 import GameObjects.GameObjectLife.Player;
 import GameStates.MyBasicGameState;
 import idk.Vector2D;
 
-public class Blue extends Enemy {
+public class Blue extends Enemy
+{
 
 	static final int SHOOTDELAYMAX = 1000;
 	static final int SHOOTDELAY_RANDOM = 100;
@@ -26,16 +26,18 @@ public class Blue extends Enemy {
 	static final float SPRAY = 10f;
 	static final float BULLET_SIZE = 10f;
 	static final int BULLET_DMG = 10;
-	
+
 	protected int dmg = BULLET_DMG;
 
 	public Blue(Vector2D pos, Vector2D vel, Vector2D acc, float width, float height, Shape hitBox, float live,
-			float maxLive, int shootDelay, int shootDelayMax) {
+			float maxLive, int shootDelay, int shootDelayMax)
+	{
 		super(pos, vel, acc, width, height, hitBox, live, maxLive, shootDelay, shootDelayMax);
 		// TODO Auto-generated constructor stub
 	}
 
-	public Blue(float x, float y, float width, float height) {
+	public Blue(float x, float y, float width, float height)
+	{
 		super(x, y, width + 1, height + 1, MAXLIVE, SHOOTDELAYMAX);
 		setHeight(height);
 		setWidth(width);
@@ -43,7 +45,8 @@ public class Blue extends Enemy {
 	}
 
 	@Override
-	public void render(GameContainer container, StateBasedGame game, Graphics g, MyBasicGameState mygame) {
+	public void render(GameContainer container, StateBasedGame game, Graphics g, MyBasicGameState mygame)
+	{
 		getHitBox().setX(getPos().getX());
 		getHitBox().setY(getPos().getY());
 		g.setColor(Color.blue);
@@ -56,27 +59,34 @@ public class Blue extends Enemy {
 	}
 
 	@Override
-	public void update(GameContainer container, StateBasedGame game, int delta, MyBasicGameState mygame) {
+	public void update(GameContainer container, StateBasedGame game, int delta, MyBasicGameState mygame)
+	{
 
-		if (getLive() <= 0) {
+		if (getLive() <= 0)
+		{
 			setDestroy(true);
 		}
 
 		shoot(container, game, delta, mygame);
 	}
 
-	public void shoot(GameContainer container, StateBasedGame game, int delta, MyBasicGameState mygame) {
-		if (getPos().distanceSq(mygame.getPlayer().getPos()) < 10000000) {
+	public void shoot(GameContainer container, StateBasedGame game, int delta, MyBasicGameState mygame)
+	{
+		if (getPos().distanceSq(mygame.getPlayer().getPos()) < 10000000)
+		{
 
 			Player player = mygame.getPlayer();
 			Vector2D target = player.getPos().clone();
 
-			if (getShootDelay() > 0) {
+			if (getShootDelay() > 0)
+			{
 				setShootDelay(getShootDelay() - delta);
 			}
 
-			if (getShootDelay() <= 0) {
-				setShootDelay(getShootDelayMax() + mygame.getRandom().nextInt(SHOOTDELAY_RANDOM*2)- SHOOTDELAY_RANDOM);
+			if (getShootDelay() <= 0)
+			{
+				setShootDelay(
+						getShootDelayMax() + mygame.getRandom().nextInt(SHOOTDELAY_RANDOM * 2) - SHOOTDELAY_RANDOM);
 
 				// get shoot direction
 

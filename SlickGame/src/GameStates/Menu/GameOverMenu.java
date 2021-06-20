@@ -5,7 +5,6 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
-
 import GUI.Button;
 import GameStates.States;
 
@@ -13,7 +12,7 @@ public class GameOverMenu extends Menu
 {
 
 	private Button restart;
-	
+
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException
 	{
@@ -21,8 +20,8 @@ public class GameOverMenu extends Menu
 	}
 
 	@Override
-	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException 
-	{	
+	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException
+	{
 		g.setBackground(Color.black);
 		game.getState(States.GAME.getState()).render(container, game, g);
 		restart.render(container, game, g);
@@ -30,11 +29,11 @@ public class GameOverMenu extends Menu
 	}
 
 	@Override
-	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException 
+	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException
 	{
 		restart.update(container, game, delta);
-		
-		if (restart.clicked()) 
+
+		if (restart.clicked())
 		{
 			game.enterState(States.STARTMENU.getState());
 		}
@@ -42,7 +41,7 @@ public class GameOverMenu extends Menu
 	}
 
 	@Override
-	public int getID() 
+	public int getID()
 	{
 		return States.GAMEOVER.getState();
 	}

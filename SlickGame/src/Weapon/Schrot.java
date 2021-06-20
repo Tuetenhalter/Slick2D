@@ -10,7 +10,8 @@ import idk.Options;
 import idk.Sounds;
 import idk.Vector2D;
 
-public class Schrot extends Weapon {
+public class Schrot extends Weapon
+{
 
 	public static final int SHOOT_DELAY_MAX = 2500;
 
@@ -31,7 +32,8 @@ public class Schrot extends Weapon {
 	private boolean reload = false;
 	private int reloadTime = RELOAD_TIME;
 
-	public Schrot() {
+	public Schrot()
+	{
 		super();
 		setShootDelayMax(SHOOT_DELAY_MAX);
 		setAmmunitionMax(AMMUNTION_MAX);
@@ -40,64 +42,76 @@ public class Schrot extends Weapon {
 
 	@Override
 	public void shoot(GameObject me, Vector2D target, GameContainer container, StateBasedGame game, int delta,
-			MyBasicGameState mygame) {
+			MyBasicGameState mygame)
+	{
 		Input input = container.getInput();
 
-		//sub shoot delay
-		if (getShootDelay() > 0) {
+		// sub shoot delay
+		if (getShootDelay() > 0)
+		{
 			setShootDelay(getShootDelay() - delta);
 		}
-		
-		
-		//reload 
-		if (reload) {
+
+		// reload
+		if (reload)
+		{
 			reloadTime -= delta;
-			if (reloadTime < 0) {
+			if (reloadTime < 0)
+			{
 				reloadTime = RELOAD_TIME;
-				if (getAmmunition() >= getAmmunitionMax()) {
+				if (getAmmunition() >= getAmmunitionMax())
+				{
 					reload = false;
-				} else {
+				}
+				else
+				{
 					setAmmunition(getAmmunition() + 1);
-					if(getAmmunition() != AMMUNTION_MAX) {
-						Sounds.schrotReload.play(1f, Options.volume);						
+					if (getAmmunition() != AMMUNTION_MAX)
+					{
+						Sounds.schrotReload.play(1f, Options.volume);
 					}
 				}
 			}
 		}
 
-		//if button R pressed reload
-		if (input.isKeyDown(Options.reload)) {
-			if (!reload) {
+		// if button R pressed reload
+		if (input.isKeyDown(Options.reload))
+		{
+			if (!reload)
+			{
 				reload = true;
 				reloadTime = RELOAD_TIME;
 				Sounds.schrotReload.play(1f, Options.volume);
 			}
 		}
 
-		
-		//if shootdaly and button pressed shoot
-		if (getShootDelay() <= 0) {
-			if (input.isMousePressed(Options.shoot)) {
-				if (getAmmunition() > 0) {
-					//play sound
+		// if shootdaly and button pressed shoot
+		if (getShootDelay() <= 0)
+		{
+			if (input.isMousePressed(Options.shoot))
+			{
+				if (getAmmunition() > 0)
+				{
+					// play sound
 					Sounds.schrotShoot.play(1f, Options.volume);
-					
-					//if u shoot u stop reloading
+
+					// if u shoot u stop reloading
 					reload = false;
-					//after shooting the time of reloadgin is extra long
+					// after shooting the time of reloadgin is extra long
 					reloadTime = SHOOT_DELAY_MAX + RELOAD_TIME;
 					setAmmunition(getAmmunition() - 1);
-					//get shoot direction
+					// get shoot direction
 					target.sub(me.getCenter());
 
-					for (int i = 0; i < BULLET_AMMOUNT; i++) {
-						//calcilat random spray and speed
+					for (int i = 0; i < BULLET_AMMOUNT; i++)
+					{
+						// calcilat random spray and speed
 						float sprayAngle = SPRAY * (mygame.getRandom().nextFloat() - .5f);
 						float randomSpeed = BULLET_SPEED
 								+ BUTTET_RANDOM_SPEED * (mygame.getRandom().nextFloat() * 2 - 1);
 						Vector2D target2 = target.clone().addTheta(sprayAngle).setMagnitude(randomSpeed);
-						
-						//make the bullet
+
+						// make the bullet
 						Bullet bullet = new Bullet(me.getCenter().clone(), target2, BULLET_SIZE, BULLET_SIZE);
 						bullet.setBounce(0);
 						bullet.setGroup(Bullet.GROUP_PLAYER);
@@ -108,12 +122,15 @@ public class Schrot extends Weapon {
 					}
 
 					setShootDelay(getShootDelayMax());
-					//if ammuntion emty start reloading
-					if (getAmmunition() <= 0) {
+					// if ammuntion emty start reloading
+					if (getAmmunition() <= 0)
+					{
 						reload = true;
 						setAmmunition(-1);
 					}
-				} else {
+				}
+				else
+				{
 					reload = true;
 					Sounds.schrotReload.play(1f, Options.volume);
 				}
@@ -123,9 +140,10 @@ public class Schrot extends Weapon {
 		}
 
 	}
-	
+
 	@Override
-	public String getName() {
+	public String getName()
+	{
 		return "Schrot";
 	}
 
