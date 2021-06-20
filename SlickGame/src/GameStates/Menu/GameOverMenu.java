@@ -1,10 +1,8 @@
 package GameStates.Menu;
 
 import org.newdawn.slick.Color;
-import org.newdawn.slick.Font;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -38,7 +36,7 @@ public class GameOverMenu extends Menu
 		
 		if (restart.clicked()) 
 		{
-			game.enterState(States.GAME.getState());
+			game.enterState(States.STARTMENU.getState());
 		}
 
 	}

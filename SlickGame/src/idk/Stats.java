@@ -11,7 +11,6 @@ import java.io.IOException;
 import org.newdawn.slick.SlickException;
 
 import Weapon.Pistol;
-import Weapon.Sniper;
 import Weapon.Weapon;
 
 public class Stats {
@@ -26,7 +25,7 @@ public class Stats {
 	public static void startUp() throws SlickException {
 		load();
 		
-		weapon = new Sniper();
+		weapon = new Pistol();
 		System.out.println(potatos);
 		System.out.println(schrot);
 		System.out.println(kalashnikov);
