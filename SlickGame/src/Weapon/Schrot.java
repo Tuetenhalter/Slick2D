@@ -43,10 +43,13 @@ public class Schrot extends Weapon {
 			MyBasicGameState mygame) {
 		Input input = container.getInput();
 
+		//sub shoot delay
 		if (getShootDelay() > 0) {
 			setShootDelay(getShootDelay() - delta);
 		}
-
+		
+		
+		//reload 
 		if (reload) {
 			reloadTime -= delta;
 			if (reloadTime < 0) {
@@ -55,31 +58,46 @@ public class Schrot extends Weapon {
 					reload = false;
 				} else {
 					setAmmunition(getAmmunition() + 1);
+					if(getAmmunition() != AMMUNTION_MAX) {
+						Sounds.schrotReload.play(1f, Options.volume);						
+					}
 				}
 			}
 		}
 
+		//if button R pressed reload
 		if (input.isKeyDown(Options.reload)) {
-			reload = true;
-			Sounds.schrotReload.play(1f, Options.volume);
+			if (!reload) {
+				reload = true;
+				reloadTime = RELOAD_TIME;
+				Sounds.schrotReload.play(1f, Options.volume);
+			}
 		}
 
+		
+		//if shootdaly and button pressed shoot
 		if (getShootDelay() <= 0) {
 			if (input.isMousePressed(Options.shoot)) {
 				if (getAmmunition() > 0) {
+					//play sound
 					Sounds.schrotShoot.play(1f, Options.volume);
-
+					
+					//if u shoot u stop reloading
 					reload = false;
+					//after shooting the time of reloadgin is extra long
+					reloadTime = SHOOT_DELAY_MAX + RELOAD_TIME;
 					setAmmunition(getAmmunition() - 1);
+					//get shoot direction
 					target.sub(me.getCenter());
 
 					for (int i = 0; i < BULLET_AMMOUNT; i++) {
-
+						//calcilat random spray and speed
 						float sprayAngle = SPRAY * (mygame.getRandom().nextFloat() - .5f);
 						float randomSpeed = BULLET_SPEED
 								+ BUTTET_RANDOM_SPEED * (mygame.getRandom().nextFloat() * 2 - 1);
 						Vector2D target2 = target.clone().addTheta(sprayAngle).setMagnitude(randomSpeed);
-
+						
+						//make the bullet
 						Bullet bullet = new Bullet(me.getCenter().clone(), target2, BULLET_SIZE, BULLET_SIZE);
 						bullet.setBounce(0);
 						bullet.setGroup(Bullet.GROUP_PLAYER);
@@ -90,10 +108,10 @@ public class Schrot extends Weapon {
 					}
 
 					setShootDelay(getShootDelayMax());
-
+					//if ammuntion emty start reloading
 					if (getAmmunition() <= 0) {
 						reload = true;
-						Sounds.schrotReload.play(1f, Options.volume);
+						setAmmunition(-1);
 					}
 				} else {
 					reload = true;
