@@ -16,7 +16,7 @@ import idk.Vector2D;
 
 public class Kalashinikov extends Weapon {
 
-	public static final int SHOOT_DELAY_MAX = 100;
+	public static final int SHOOT_DELAY_MAX = 50;
 
 	public static final float BULLET_SPEED = 2000f;
 	// Bulletspeed +- BUTTET_RANDOM_SPEED
@@ -29,7 +29,7 @@ public class Kalashinikov extends Weapon {
 	public static final int BULLET_LIVE_TIME_RANDOM = 100;
 
 	public static final int AMMUNTION_MAX = 30;
-	public static final int RELOAD_TIME = 3000;
+	public static final int RELOAD_TIME = 1500;
 
 	private boolean reload = false;
 	private int reloadTime = RELOAD_TIME;

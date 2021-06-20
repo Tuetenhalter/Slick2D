@@ -21,6 +21,7 @@ import Tile.MapMaker;
 import Tile.Tile;
 import Tile.TileMap;
 import Weapon.Kalashinikov;
+import Weapon.Pistol;
 import Weapon.Schrot;
 import Weapon.Sniper;
 import Weapon.Weapon;
@@ -210,7 +211,7 @@ public class Game extends MyBasicGameState {
 		
 		
 		//waffe
-		Weapon sniper = new Kalashinikov();
+		Weapon sniper = new Sniper();
 		
 		player = new Player(ranx * TILE_WIDHT, rany * TILE_HEIGHT, TILE_WIDHT, TILE_HEIGHT, sniper);
 		gameList.add(player);
