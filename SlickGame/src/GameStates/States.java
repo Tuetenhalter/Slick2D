@@ -1,5 +1,5 @@
  package GameStates;
-
+ 
 public enum States {
 	
 	STARTMENU(0),

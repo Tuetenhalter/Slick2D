@@ -9,7 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import org.newdawn.slick.SlickException;
-
+ 
 public class Stats {
 	
 	public static int coins = 0;
@@ -17,7 +17,7 @@ public class Stats {
 	public static int xp = 0;
 	
 	public static void startUp() throws SlickException {
-		
+	
 		load();
 	}
 

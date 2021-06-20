@@ -8,7 +8,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 import GUI.Button;
 import GameStates.States;
-
+ 
 public class ShopsMenu extends Menu
 {
 	private int lastState;
