@@ -20,6 +20,7 @@ import GameObjects.Wall.Wall;
 import Tile.MapMaker;
 import Tile.Tile;
 import Tile.TileMap;
+import Weapon.Kalashinikov;
 import Weapon.Schrot;
 import Weapon.Sniper;
 import Weapon.Weapon;
@@ -184,7 +185,6 @@ public class Game extends MyBasicGameState {
 
 			if ((ranx - cornerx) * (ranx - cornerx) + (rany - cornery) * (rany - cornery) < distance * distance) {
 				distance += 0.1f;
-				System.out.println(distance);
 				if (map[ranx][rany] == 0) {
 					int n = 1;
 					if (ranx != 0 && rany != 0 && ranx != TILE_ARRAY_WIDHT && rany != TILE_ARRAY_HEIGHT) {
@@ -210,7 +210,7 @@ public class Game extends MyBasicGameState {
 		
 		
 		//waffe
-		Weapon sniper = new Schrot();
+		Weapon sniper = new Kalashinikov();
 		
 		player = new Player(ranx * TILE_WIDHT, rany * TILE_HEIGHT, TILE_WIDHT, TILE_HEIGHT, sniper);
 		gameList.add(player);
