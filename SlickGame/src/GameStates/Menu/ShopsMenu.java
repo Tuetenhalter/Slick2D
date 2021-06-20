@@ -8,93 +8,142 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 import GUI.Button;
 import GameStates.States;
- 
-public class ShopsMenu extends Menu
-{
+import Weapon.Kalashnikov;
+import Weapon.Pistol;
+import Weapon.Schrot;
+import Weapon.Sniper;
+import idk.Stats;
+
+public class ShopsMenu extends Menu {
+
 	private int lastState;
-	private Button upgrade1, upgrade2, upgrade3, upgrade4, upgrade5, upgrade6;
+	private Button pistol, schrot, kalashnikov, sniper;
+	private Button back;
 
 	@Override
-	public void init(GameContainer container, StateBasedGame game) throws SlickException
-	{ 
-		upgrade1 = new Button("Test1", 0.2f, 0.599f, 0.3f, 0.5f, container);
-		upgrade2 = new Button("Test2", 0.6f, 0.6f, 0.3f, 0.5f, container);
-		upgrade3 = new Button("Test3", 0.6f, 0.2f, 0.3f, 0.5f, container);
-		upgrade4 = new Button("Test4", 0.2f, 0.6f, 0.5f, 0.3f, container);
-		upgrade5 = new Button("Test5", 0.6f, 0.6f, 0.5f, 0.3f, container);
-		upgrade6 = new Button("Test6", 0.6f, 0.2f, 0.5f, 0.3f, container);
+	public void init(GameContainer container, StateBasedGame game) throws SlickException {
+		pistol = new Button("Pistol", 0.30f, 0.5f, 0.30f, 0.5f, container);
+		schrot = new Button("Schrot", 0.5f, 0.30f, 0.30f, 0.5f, container);
+		kalashnikov = new Button("Kalashnikov", 0.30f, 0.5f, 0.5f, 0.30f, container);
+		sniper = new Button("Sniper", 0.5f, 0.30f, 0.5f, 0.30f, container);
+
+		back = new Button("Back", .90f, .01f, .9f, .01f, container);
 	}
 
 	@Override
-	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException
-	{
+	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
 		// TODO Auto-generated method stub
 		
-		upgrade2.render(container, game, g);
-		upgrade1.render(container, game, g);
-		upgrade3.render(container, game, g);
-		upgrade4.render(container, game, g);
-		upgrade5.render(container, game, g);
-		upgrade6.render(container, game, g);
+		//Green or red if u bord it or not
+		
+		//Pistal 
+		g.setColor(Color.green);
+		g.fillRect(0, 0, container.getWidth()/2, container.getHeight()/2);
+		
+		//schrot
+		if(Stats.schrot) {
+			g.setColor(Color.green);
+		}else {
+			g.setColor(Color.red);
+		}
+		g.fillRect(container.getWidth()/2, 0, container.getWidth()/2, container.getHeight()/2);
+		
+		//kalashnikov
+		if(Stats.kalashnikov) {
+			g.setColor(Color.green);
+		}else {
+			g.setColor(Color.red);
+		}
+		g.fillRect(0, container.getHeight()/2, container.getWidth()/2, container.getHeight()/2);
+		
+		//sniper
+		if(Stats.sniper) {
+			g.setColor(Color.green);
+		}else {
+			g.setColor(Color.red);
+		}
+		g.fillRect(container.getWidth()/2, container.getHeight()/2, container.getWidth()/2, container.getHeight()/2);
+		
+		
+		schrot.render(container, game, g);
+		pistol.render(container, game, g);
+		kalashnikov.render(container, game, g);
+		sniper.render(container, game, g);
+		back.render(container, game, g);
 
-		g.drawString("Coins: " + "coins Variable", container.getWidth() / 16, container.getHeight() / 14);
+		g.drawString("Potatos: " + Stats.potatos, container.getWidth() / 16, container.getHeight() / 14);
+		g.drawString("Weapon: " + Stats.weapon.getName(), container.getWidth() / 16, container.getHeight() / 14 + 15);
 		g.setColor(Color.red);
 		g.drawLine(0.2f, 0.2f, 0.3f, 0.5f);
 	}
 
 	@Override
-	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException
-	{
+	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
 
-		upgrade1.update(container, game, delta);
-		upgrade2.update(container, game, delta);
-		upgrade3.update(container, game, delta);
-		upgrade4.update(container, game, delta);
-		upgrade5.update(container, game, delta);
-		upgrade6.update(container, game, delta);
+		pistol.update(container, game, delta);
+		schrot.update(container, game, delta);
+		kalashnikov.update(container, game, delta);
+		sniper.update(container, game, delta);
+		back.update(container, game, delta);
 
-		if (upgrade1.isClicked())
-		{
-			
+		if (pistol.clicked()) {
+			Stats.weapon = new Pistol();
 		}
 
-		if (upgrade2.isClicked())
-		{
-
+		if (schrot.clicked()) {
+			if(Stats.schrot) {
+				Stats.weapon = new Schrot();				
+			} else {
+				if(Stats.potatos >= 200) {
+					Stats.potatos -= 200;
+					Stats.schrot = true;
+					Stats.weapon = new Schrot();
+					Stats.save();
+				}
+			}
 		}
 
-		if (upgrade3.isClicked())
-		{
-
+		if (kalashnikov.clicked()) {
+			if(Stats.kalashnikov) {
+				Stats.weapon = new Kalashnikov();
+			} else {
+				if(Stats.potatos >= 1000) {
+					Stats.potatos -= 1000;
+					Stats.schrot = true;
+					Stats.weapon = new Kalashnikov();
+					Stats.save();
+				}
+			}
 		}
-		if (upgrade4.isClicked())
-		{
-
+		if (sniper.clicked()) {
+			if(Stats.sniper) {
+				Stats.weapon = new Sniper();
+			} else {
+				if(Stats.potatos >= 5000) {
+					Stats.potatos -= 5000;
+					Stats.sniper = true;
+					Stats.weapon = new Sniper();
+					Stats.save();
+				}
+			}
 		}
-		if (upgrade5.isClicked())
-		{
 
-		}
-		if (upgrade6.isClicked())
-		{
-
+		if (back.clicked()) {
+			game.enterState(lastState);
 		}
 	}
 
 	@Override
-	public int getID()
-	{
+	public int getID() {
 		// TODO Auto-generated method stub
 		return States.SHOP.getState();
 	}
 
-	public int getLastState()
-	{
+	public int getLastState() {
 		return lastState;
 	}
 
-	public void setLastState(int lastState)
-	{
+	public void setLastState(int lastState) {
 		this.lastState = lastState;
 	}
 }

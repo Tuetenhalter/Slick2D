@@ -45,6 +45,8 @@ public abstract class Weapon {
 		}
 	}
 	
+	public abstract String getName();
+	
 	public void shoot(GameObject me, GameObject target, GameContainer container, StateBasedGame game, int delta, MyBasicGameState mygame) {
 		shoot(me, target.getPos(), container, game, delta, mygame);
 	}

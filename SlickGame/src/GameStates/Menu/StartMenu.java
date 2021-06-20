@@ -31,8 +31,6 @@ public class StartMenu extends Menu
 		exit = new Button("Exit", 0.25f, 0.25f, 0.7f, 0.2f, container);
 		shop = new Button("Shop", 0.25f, 0.25f, 0.5f, 0.4f, container);
 
-		Options.init();
-
 	}
 
 	@Override
@@ -58,6 +56,7 @@ public class StartMenu extends Menu
 
 		if (play.clicked())
 		{
+			game.getState(States.GAME.getState()).init(container, game);
 			game.enterState(States.GAME.getState());
 		}
 

@@ -9,6 +9,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import GameObjects.Bullet;
 import GameObjects.GameObject;
+import GameObjects.GameObjectLife.Player;
 import GameStates.MyBasicGameState;
 import idk.Options;
 import idk.Sounds;
@@ -35,13 +36,12 @@ public class Pistol extends Weapon {
 	private int reloadTime = RELOAD_TIME;
 	private boolean playReloadSound = false;
 
-	public  Pistol() {
+	public Pistol() {
 		super();
 		setShootDelayMax(SHOOT_DELAY_MAX);
 		setAmmunitionMax(AMMUNTION_MAX);
 		setAmmunition(AMMUNTION_MAX);
 	}
-	
 
 	@Override
 	public void shoot(GameObject me, Vector2D target, GameContainer container, StateBasedGame game, int delta,
@@ -51,8 +51,8 @@ public class Pistol extends Weapon {
 		// sub shoot delay
 		if (getShootDelay() > 0) {
 			setShootDelay(getShootDelay() - delta);
-		}else {
-			if(reload && playReloadSound) {
+		} else {
+			if (reload && playReloadSound) {
 				Sounds.schrotReload.play(1f, Options.volume);
 				playReloadSound = false;
 			}
@@ -62,21 +62,19 @@ public class Pistol extends Weapon {
 		if (reload) {
 			reloadTime -= delta;
 			if (reloadTime < 0) {
-				//reset time
+				// reset time
 				reloadTime = RELOAD_TIME;
 
-				//stop reloading
+				// stop reloading
 				reload = false;
-				
-				//set ammuntion
+
+				// set ammuntion
 				setAmmunition(AMMUNTION_MAX);
 			}
 		}
 
 		// if button R pressed reload
-		if (input.isKeyDown(Options.reload))
-
-		{
+		if (input.isKeyDown(Options.reload) && me instanceof Player) {
 			if (!reload) {
 				reload = true;
 				reloadTime = RELOAD_TIME;
@@ -86,7 +84,7 @@ public class Pistol extends Weapon {
 
 		// if shootdaly and button pressed shoot
 		if (getShootDelay() <= 0) {
-			if (input.isMousePressed(Options.shoot)) {
+			if (input.isMousePressed(Options.shoot) || !(me instanceof Player)) {
 				if (!reload) {
 					if (getAmmunition() > 0) {
 						// play sound
@@ -101,29 +99,32 @@ public class Pistol extends Weapon {
 							reloadTime = RELOAD_TIME;
 							playReloadSound = true;
 						}
-						
-						//reset shoot delay
+
+						// reset shoot delay
 						setShootDelay(getShootDelayMax());
-						
+
 						// get shoot direction
-						target.sub(me.getCenter());
 
 						// calcilat random spray and speed
 						float sprayAngle = SPRAY * (mygame.getRandom().nextFloat() - .5f);
 						float randomSpeed = BULLET_SPEED
 								+ BUTTET_RANDOM_SPEED * (mygame.getRandom().nextFloat() * 2 - 1);
-						Vector2D target2 = target.clone().addTheta(sprayAngle).setMagnitude(randomSpeed);
+						Vector2D target2 = target.clone().sub(me.getCenter()).addTheta(sprayAngle)
+								.setMagnitude(randomSpeed);
 
 						// make the bullet
 						Bullet bullet = new Bullet(me.getCenter().clone(), target2, BULLET_SIZE, BULLET_SIZE);
 						bullet.setBounce(0);
-						bullet.setGroup(Bullet.GROUP_PLAYER);
+						if (me instanceof Player) {
+							bullet.setGroup(Bullet.GROUP_PLAYER);
+						} else {
+							bullet.setGroup(Bullet.GROUP_ENEMY);
+						}
 						bullet.setLiveTime(BULLET_LIVE_TIME + mygame.getRandom().nextInt(BULLET_LIVE_TIME_RANDOM * 2)
 								- BULLET_LIVE_TIME_RANDOM);
 						bullet.setDamage(BULLET_DMG);
 						mygame.getGameList().add(bullet);
 
-						
 						// if ammuntion emty start reloading
 
 					} else {
@@ -137,21 +138,21 @@ public class Pistol extends Weapon {
 		}
 
 	}
-	
-	public void renderGUI(GameContainer container, StateBasedGame game, Graphics g, MyBasicGameState mygame) throws SlickException {
+
+	public void renderGUI(GameContainer container, StateBasedGame game, Graphics g, MyBasicGameState mygame)
+			throws SlickException {
 		for (int i = 0; i < getAmmunitionMax(); i++) {
-			
+
 			g.resetTransform();
-			if(i +1 > getAmmunition()) {
+			if (i + 1 > getAmmunition()) {
 				g.setColor(Color.gray);
 			} else {
 				g.setColor(Color.red);
 			}
-			g.fillRect(1580 - i*20, 840, 10, 50);
-			
+			g.fillRect(1580 - i * 20, 840, 10, 50);
+
 			mygame.getCamara().translateCamara(container, game, g, mygame);
-			
-			
+
 		}
 	}
 
@@ -161,5 +162,10 @@ public class Pistol extends Weapon {
 //		// TODO Auto-generated method stub
 //
 //	}
+	
+	@Override
+	public String getName() {
+		return "Pistol";
+	}
 
 }

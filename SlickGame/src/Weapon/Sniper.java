@@ -154,6 +154,11 @@ public class Sniper extends Weapon {
 			
 		}
 	}
+	
+	@Override
+	public String getName() {
+		return "Sniper";
+	}
 
 //	@Override
 //	public void renderGUI(GameContainer container, StateBasedGame game, Graphics g, MyBasicGameState mygame)

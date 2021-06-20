@@ -3,6 +3,8 @@ package GameObjects.GameObjectLife.Enemy;
 import org.newdawn.slick.geom.Shape;
 
 import GameObjects.GameObjectLife.GameObjectLife;
+import GameObjects.Wall.Wall;
+import Weapon.Weapon;
 import idk.Vector2D;
 
 public abstract class Enemy extends GameObjectLife {
@@ -27,4 +29,5 @@ public abstract class Enemy extends GameObjectLife {
 	public void setShootAngel(float shootAngel) {
 		this.shootAngel = shootAngel;
 	}
+
 }

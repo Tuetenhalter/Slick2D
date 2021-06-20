@@ -20,13 +20,14 @@ import GameObjects.Wall.Wall;
 import Tile.MapMaker;
 import Tile.Tile;
 import Tile.TileMap;
-import Weapon.Kalashinikov;
+import Weapon.Kalashnikov;
 import Weapon.Pistol;
 import Weapon.Schrot;
 import Weapon.Sniper;
 import Weapon.Weapon;
 import idk.Camara;
 import idk.Images;
+import idk.Stats;
 import idk.Vector2D;
 
 public class Game extends MyBasicGameState {
@@ -42,10 +43,15 @@ public class Game extends MyBasicGameState {
 	static final int MAP_IT = 20;
 	static final int MAP_FILLSPICKS = 1;
 	static final boolean MAP_FILLHOLLS = true;
+	
+	protected String name = "Game";
+	protected int id = 100;
+	protected float damage = 1f;
+	protected float live = 1f;
 
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
-		System.out.println("[Game] Start init");
+		System.out.println("[" + name + "] Start init");
 
 //		IntBuffer temp = BufferUtils.createIntBuffer(16);
 //		GL11.glGetInteger(GL11.GL_MAX_TEXTURE_SIZE, temp);
@@ -211,21 +217,21 @@ public class Game extends MyBasicGameState {
 		
 		
 		//waffe
-		Weapon sniper = new Sniper();
+		Weapon sniper = Stats.weapon;
 		
 		player = new Player(ranx * TILE_WIDHT, rany * TILE_HEIGHT, TILE_WIDHT, TILE_HEIGHT, sniper);
 		gameList.add(player);
 
-		// Place one Blue
-
+		// Place Blue
 		for (int i = 0; i < 100; i++) {
 			do {
 				ranx = ran.nextInt(mapMaker.getWidth());
 				rany = ran.nextInt(mapMaker.getHeight());
 
 			} while (map[ranx][rany] == 1);
-
-			gameList.add(new Blue(ranx * TILE_WIDHT, rany * TILE_HEIGHT, TILE_HEIGHT, TILE_HEIGHT));
+			Blue blue = new Blue(ranx * TILE_WIDHT, rany * TILE_HEIGHT, TILE_HEIGHT, TILE_HEIGHT);
+			blue.setLive(blue.getLive()*live);
+			gameList.add(blue);
 
 		}
 

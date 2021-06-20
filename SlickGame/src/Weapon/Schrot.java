@@ -123,5 +123,10 @@ public class Schrot extends Weapon {
 		}
 
 	}
+	
+	@Override
+	public String getName() {
+		return "Schrot";
+	}
 
 }

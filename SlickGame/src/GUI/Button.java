@@ -45,11 +45,17 @@ public class Button {
 		float height = container.getHeight() * (1 - distancebotten) - y;
 
 		rect1 = new Rectangle(x, y, width, height);
-
-		height -= x * .02f;
-		width -= x * .02f;
-		x += x * .01f;
-		y += x * .01f;
+		float length;
+		if(width < height) {
+			length = width;
+		}else {
+			length = height;
+		}
+		
+		x += length * .1f;
+		y += length * .1f;
+		height -= length * .2f;
+		width -= length * .2f;
 
 		rect2 = new Rectangle(x, y, width, height);
 		

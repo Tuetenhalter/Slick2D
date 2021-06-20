@@ -14,7 +14,7 @@ import idk.Options;
 import idk.Sounds;
 import idk.Vector2D;
 
-public class Kalashinikov extends Weapon {
+public class Kalashnikov extends Weapon {
 
 	public static final int SHOOT_DELAY_MAX = 50;
 
@@ -35,7 +35,7 @@ public class Kalashinikov extends Weapon {
 	private int reloadTime = RELOAD_TIME;
 	private boolean playReloadSound = false;
 
-	public  Kalashinikov() {
+	public  Kalashnikov() {
 		super();
 		setShootDelayMax(SHOOT_DELAY_MAX);
 		setAmmunitionMax(AMMUNTION_MAX);
@@ -161,5 +161,10 @@ public class Kalashinikov extends Weapon {
 //		// TODO Auto-generated method stub
 //
 //	}
+	
+	@Override
+	public String getName() {
+		return "Kalashnikov";
+	}
 
 }

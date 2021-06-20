@@ -6,7 +6,6 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.state.StateBasedGame;
 
 import GameStates.MyBasicGameState;
-import net.java.games.input.Mouse;
 
 public class Camara {
 
