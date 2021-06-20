@@ -6,7 +6,8 @@ public enum States {
 	GAME(1),
 	PAUSEMENU(2),
 	OPTIONSMENU(3),
-	GAMEOVER(4);
+	GAMEOVER(4),
+	SHOP(5);
 	
 	private int state;
 	

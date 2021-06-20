@@ -9,6 +9,7 @@ import org.omg.PortableInterceptor.ServerRequestInfo;
 import GameStates.Menu.GameOverMenu;
 import GameStates.Menu.OptionsMenu;
 import GameStates.Menu.PauseMenu;
+import GameStates.Menu.ShopsMenu;
 import GameStates.Menu.StartMenu;
 import idk.Stats;
 /**
@@ -19,7 +20,11 @@ import idk.Stats;
 
 public class Main extends StateBasedGame{
 	
-	
+	/**
+	 * 
+	 * @param args
+	 * @throws SlickException
+	 */
 	
 	
 	public static void main(String[] args) throws SlickException {	
@@ -45,6 +50,7 @@ public class Main extends StateBasedGame{
 		addState(new Game());
 		addState(new PauseMenu());
 		addState(new OptionsMenu());
+		addState(new ShopsMenu());
 		addState(new GameOverMenu());
 		
 	}
