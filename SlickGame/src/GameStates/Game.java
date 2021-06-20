@@ -9,21 +9,20 @@ import org.newdawn.slick.Graphics;
 
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.state.StateBasedGame;
 
+import GameObjects.End;
 import GameObjects.GameObject;
 
 import GameObjects.GameObjectLife.Player;
 import GameObjects.GameObjectLife.Enemy.Blue;
+import GameObjects.GameObjectLife.Enemy.Enemy;
 import GameObjects.GameObjectLife.Enemy.Yellow;
 import GameObjects.Wall.Wall;
 import Tile.MapMaker;
 import Tile.Tile;
 import Tile.TileMap;
-import Weapon.Kalashnikov;
-import Weapon.Pistol;
-import Weapon.Schrot;
-import Weapon.Sniper;
 import Weapon.Weapon;
 import idk.Camara;
 import idk.Images;
@@ -31,6 +30,12 @@ import idk.Stats;
 import idk.Vector2D;
 
 public class Game extends MyBasicGameState {
+
+	public Game(String name, int id) {
+		super();
+		this.name = name;
+		this.id = id;
+	}
 
 	static final int TILE_PIXEL = 16;
 	static final int TILE_WIDHT = 64;
@@ -43,11 +48,17 @@ public class Game extends MyBasicGameState {
 	static final int MAP_IT = 20;
 	static final int MAP_FILLSPICKS = 1;
 	static final boolean MAP_FILLHOLLS = true;
-	
+
+	protected End end;
+
 	protected String name = "Game";
-	protected int id = 100;
+	protected int id = 0;
+
 	protected float damage = 1f;
 	protected float live = 1f;
+	protected float potatos = 1f;
+
+	protected int enemys = 50;
 
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
@@ -67,17 +78,16 @@ public class Game extends MyBasicGameState {
 		camara.setRangex2(camara.getRangex2() - container.getWidth());
 		camara.setRangey2(camara.getRangey2() - container.getHeight());
 
-		Yellow yellow = new Yellow(1, 1, TILE_WIDHT, TILE_HEIGHT, 10, 10);
-		gameList.add(yellow);
+		//Yellow yellow = new Yellow(1, 1, TILE_WIDHT, TILE_HEIGHT, 10, 10);
+		//gameList.add(yellow);
 //		player.getPos().set(500, 500);
-		yellow.getPos().set(601, 500);
-		yellow.getVel().set(0, 0);
+		//yellow.getPos().set(601, 500);
+		//yellow.getVel().set(0, 0);
 
 		// ball = new Ball(600, 600, TILEWIDHT, TILEHEIGHT);
 		// gameList.add(ball);
 
-		System.out.println("[Game] finised init");
-
+		System.out.println("[" + name + "] finised init");
 
 	}
 
@@ -110,21 +120,32 @@ public class Game extends MyBasicGameState {
 			g.setColor(Color.red);
 			g.fillRect(10, 10, 500 * (float) (player.getLive() / player.getMaxLive() + 0.0) + 10, 50);
 		}
-		
+		g.drawString(name, 10, 60);
+		g.drawString("Potatos:" + Stats.potatos, 10, 75);
+
+
 		player.getWeapon().renderGUI(container, game, g, this);
 	}
 
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
-		
-		
-		
+
+		if (end.getHitBox().intersects(player.getHitBox())) {
+			Stats.save();
+			game.getState(id + 101).init(container, game);
+			game.enterState(id + 101);
+		}
+
 		camara.camaraMove(this, container, delta);
 		for (int i = gameList.size() - 1; i >= 0; i--) {
 			gameList.get(i).update(container, game, delta, this);
 		}
+
 		for (int i = gameList.size() - 1; i >= 0; i--) {
 			if (gameList.get(i).isDestroy()) {
+				if (getGameList().get(i) instanceof Enemy) {
+					Stats.potatos += 10 * potatos;
+				}
 				gameList.remove(i);
 			}
 		}
@@ -145,7 +166,7 @@ public class Game extends MyBasicGameState {
 
 	@Override
 	public int getID() {
-		return States.GAME.getState();
+		return States.GAME.getState() + id;
 	}
 
 	public void creatMap() throws SlickException {
@@ -162,28 +183,11 @@ public class Game extends MyBasicGameState {
 		int ranx;
 		int rany;
 		boolean bool;
-		int corner = 0;
-		// 0 up left
-		// 1 up right
-		// 2 down right
-		// 3 down left
 
-		int cornerx;
-		int cornery;
+		int cornerx = 0;
+		int cornery = 0;
 
-		if (corner == 0 || corner == 1) {
-			cornery = 0;
-		} else {
-			cornery = TILE_ARRAY_HEIGHT;
-		}
-
-		if (corner == 0 || corner == 3) {
-			cornerx = 0;
-		} else {
-			cornerx = TILE_ARRAY_WIDHT;
-		}
-		
-		//loop for Player pos
+		// loop for Player pos
 		float distance = 1f;
 		do {
 			bool = false;
@@ -195,8 +199,6 @@ public class Game extends MyBasicGameState {
 				if (map[ranx][rany] == 0) {
 					int n = 1;
 					if (ranx != 0 && rany != 0 && ranx != TILE_ARRAY_WIDHT && rany != TILE_ARRAY_HEIGHT) {
-						System.out.println(ranx);
-						System.out.println(rany);
 						for (int i = ranx - n; i < ranx + n + 1; i++) {
 							for (int j = rany - n; j < rany + n + 1; j++) {
 								if (map[i][j] == 1) {
@@ -214,23 +216,60 @@ public class Game extends MyBasicGameState {
 				bool = true;
 			}
 		} while (bool);
-		
-		
-		//waffe
+
+		// waffe
 		Weapon sniper = Stats.weapon;
-		
+
 		player = new Player(ranx * TILE_WIDHT, rany * TILE_HEIGHT, TILE_WIDHT, TILE_HEIGHT, sniper);
 		gameList.add(player);
 
+		// loop for end
+
+		cornerx = TILE_ARRAY_WIDHT;
+		cornery = TILE_ARRAY_HEIGHT;
+
+		distance = 10f;
+		do {
+			bool = false;
+			ranx = ran.nextInt(mapMaker.getWidth());
+			rany = ran.nextInt(mapMaker.getHeight());
+
+			if ((ranx - cornerx) * (ranx - cornerx) + (rany - cornery) * (rany - cornery) < distance * distance) {
+				distance += 0.1f;
+				if (map[ranx][rany] == 0) {
+					int n = 1;
+					if (ranx != 0 && rany != 0 && ranx != TILE_ARRAY_WIDHT && rany != TILE_ARRAY_HEIGHT) {
+						for (int i = ranx - n; i < ranx + n + 1; i++) {
+							for (int j = rany - n; j < rany + n + 1; j++) {
+								if (map[i][j] == 1) {
+									bool = true;
+								}
+							}
+						}
+					} else {
+						bool = true;
+					}
+				} else {
+					bool = true;
+				}
+			} else {
+				bool = true;
+			}
+		} while (bool);
+
+		end = new End(new Vector2D(ranx * TILE_WIDHT, rany * TILE_HEIGHT), new Vector2D(), new Vector2D(), 64, 64,
+				new Circle(ranx * TILE_WIDHT + TILE_WIDHT / 2, rany * TILE_HEIGHT + TILE_HEIGHT / 2, 32));
+		gameList.add(end);
+
 		// Place Blue
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < enemys; i++) {
 			do {
 				ranx = ran.nextInt(mapMaker.getWidth());
 				rany = ran.nextInt(mapMaker.getHeight());
 
 			} while (map[ranx][rany] == 1);
 			Blue blue = new Blue(ranx * TILE_WIDHT, rany * TILE_HEIGHT, TILE_HEIGHT, TILE_HEIGHT);
-			blue.setLive(blue.getLive()*live);
+			blue.setLive(blue.getLive() * live);
 			gameList.add(blue);
 
 		}
@@ -266,7 +305,6 @@ public class Game extends MyBasicGameState {
 
 	@Override
 	public void mouseWheelMoved(int newValue) {
-		System.out.println(newValue);
 
 		if (newValue < 0) {
 			camara.setTargedZoom(camara.getTargedZoom() * .9f);
@@ -275,5 +313,53 @@ public class Game extends MyBasicGameState {
 		}
 
 		super.mouseWheelMoved(newValue);
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public float getDamage() {
+		return damage;
+	}
+
+	public void setDamage(float damage) {
+		this.damage = damage;
+	}
+
+	public float getLive() {
+		return live;
+	}
+
+	public void setLive(float live) {
+		this.live = live;
+	}
+
+	public float getPotatos() {
+		return potatos;
+	}
+
+	public void setPotatos(float potatos) {
+		this.potatos = potatos;
+	}
+
+	public int getEnemys() {
+		return enemys;
+	}
+
+	public void setEnemys(int enemys) {
+		this.enemys = enemys;
 	}
 }

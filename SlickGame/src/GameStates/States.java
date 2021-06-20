@@ -3,7 +3,7 @@
 public enum States {
 	
 	STARTMENU(0),
-	GAME(1),
+	GAME(100),
 	PAUSEMENU(2),
 	OPTIONSMENU(3),
 	GAMEOVER(4),

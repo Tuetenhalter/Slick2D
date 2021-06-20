@@ -10,6 +10,11 @@ public class Images {
 	public static Image spawn;
 	public static Image wall;
 	public static Image player;
+	public static Image pistol;
+	public static Image kalashnikov;
+	public static Image schrot;
+	public static Image sniper;
+	
 
 	public static void startUp() throws SlickException {
 		Field[] list = Images.class.getFields();
@@ -27,6 +32,10 @@ public class Images {
 				e.printStackTrace();
 			}
 		}
+		
+		pistol = pistol.getFlippedCopy(true, false);
+		schrot = schrot.getScaledCopy(.5f);
+		sniper = sniper.getScaledCopy(.35f);
 	}
 
 }
