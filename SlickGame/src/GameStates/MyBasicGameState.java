@@ -1,6 +1,7 @@
 package GameStates;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -9,7 +10,6 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import GameObjects.GameObject;
-import GameObjects.GameObjectLife.Ball;
 import GameObjects.GameObjectLife.Player;
 import Tile.TileMap;
 import idk.Camara;
@@ -20,9 +20,10 @@ public abstract class MyBasicGameState extends BasicGameState {
 	
 	protected Camara camara;
 	protected Player player;
-	protected Ball ball;
 	
 	protected TileMap tileMap;
+	
+	protected Random random;
 
 	public abstract void init(GameContainer container, StateBasedGame game) throws SlickException;
 
@@ -62,6 +63,14 @@ public abstract class MyBasicGameState extends BasicGameState {
 
 	public void setTileMap(TileMap tileMap) {
 		this.tileMap = tileMap;
+	}
+
+	public Random getRandom() {
+		return random;
+	}
+
+	public void setRandom(Random random) {
+		this.random = random;
 	}
 
 }

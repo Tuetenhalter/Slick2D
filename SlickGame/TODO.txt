@@ -81,7 +81,6 @@ je mehr level ist desto mehr leben die gegner haben und mehr damage
 ziel point (unten rechts )
 wenn man den Ziel point erreicht dann gewinnt man und geht in die nächste ebene
 unterschiedliche arten von gegner 
-vision range
 spieler trägt kommunismus flagge
 ABILITES : SCHILD(Rote arme helm)                           ABLITIES SIND KARTOFFELLOS MAN MUSS NUR EINE AUSWÄHLEN BEVOR DAS GAME ANFÄNGT
 		   SPEEDBOOST( Vodka )

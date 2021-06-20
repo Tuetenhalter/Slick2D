@@ -9,6 +9,7 @@ import GUI.Button;
 import GameStates.States;
 import idk.Images;
 import idk.Options;
+import idk.Sounds;
 import idk.Stats;
 
 public class StartMenu extends Menu {
@@ -21,6 +22,7 @@ public class StartMenu extends Menu {
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
 		Stats.startUp();
 		Images.startUp();
+		Sounds.startUp();
 		play = new Button("Play", .25f, .25f, .1f, .8f, container);
 		options = new Button("Option", 0.25f, 0.25f, 0.3f, 0.6f, container);
 		exit = new Button("exit", 0.25f, 0.25f, 0.7f, 0.2f, container);

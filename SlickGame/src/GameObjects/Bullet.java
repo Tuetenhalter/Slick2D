@@ -20,6 +20,8 @@ public class Bullet extends GameObject {
 
 	private int bounce = 0;
 	private int group;
+	private int liveTime = 10000;
+	private int damage = 1;
 
 	public Bullet(float x, float y, float width, float height) {
 		super(x, y, width, height);
@@ -38,6 +40,14 @@ public class Bullet extends GameObject {
 //		
 //		
 //	}
+	
+	public Bullet(Vector2D pos, Vector2D vel, float width, float height) {
+		super(pos.clone().sub(width / 2, height / 2), vel, new Vector2D(0, 0), width, height,
+				new Circle(pos.getX() + width / 2, pos.getY() + height / 2, width / 2));
+
+	}
+
+	
 
 	public Bullet(Vector2D pos, Vector2D shootPos, float speed, float width, float height) {
 		super(pos.clone().sub(width / 2, height / 2), shootPos.sub(pos).setMagnitude(speed), new Vector2D(0, 0), width, height,
@@ -72,7 +82,7 @@ public class Bullet extends GameObject {
 					if (gameObject.getHitBox().intersects(getHitBox())) {
 						setDestroy(true);
 						Enemy blue = (Enemy) gameObject;
-						blue.setLive(blue.getLive() - 1);
+						blue.setLive(blue.getLive() - damage);
 					}
 				}
 			}
@@ -82,12 +92,16 @@ public class Bullet extends GameObject {
 					if (gameObject.getHitBox().intersects(getHitBox())) {
 						setDestroy(true);
 						Player player = (Player) gameObject;
-						player.setLive(player.getLive() - 1);
+						player.setLive(player.getLive() - damage);
 					}
 				}
 			}
 		}
-
+		liveTime -= delta;
+		if(liveTime < 0) {
+			setDestroy(true);
+		}
+		
 		getPos().add(getVel().clone().mul(delta / 1000f));
 
 	}
@@ -239,6 +253,22 @@ public class Bullet extends GameObject {
 
 	public void setGroup(int group) {
 		this.group = group;
+	}
+
+	public int getLiveTime() {
+		return liveTime;
+	}
+
+	public void setLiveTime(int liveTime) {
+		this.liveTime = liveTime;
+	}
+
+	public int getDamage() {
+		return damage;
+	}
+
+	public void setDamage(int damage) {
+		this.damage = damage;
 	}
 
 }

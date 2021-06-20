@@ -14,7 +14,7 @@ import idk.Vector2D;
 public class Blue extends Enemy {
 
 	static final int SHOOTDELAYMAX = 1000;
-	static final int MAXLIVE = 3;
+	static final int MAXLIVE = 100;
 
 	static final float ROTATION_SPEED = 45f;
 

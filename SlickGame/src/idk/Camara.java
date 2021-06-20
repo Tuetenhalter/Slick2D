@@ -100,12 +100,12 @@ public class Camara {
 
 	public Vector2D mousePos(GameContainer container) {
 		Vector2D mouse = new Vector2D(container.getInput().getMouseX(), container.getInput().getMouseY());
-		System.out.println(mouse);
+
 
 		mouse.mul(1/zoom);
 		mouse.sub(-getPos().getX() + (container.getWidth()  * (1 / zoom)  / 2),
 				-getPos().getY() + (container.getHeight()  * (1 / zoom)  / 2));
-		System.out.println(mouse);
+
 
 		return mouse;
 	}

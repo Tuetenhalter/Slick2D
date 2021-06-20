@@ -1,7 +1,9 @@
 package Weapon;
 
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 import GameObjects.Bullet;
@@ -11,7 +13,7 @@ import idk.Vector2D;
 
 public class Sniper extends Weapon {
 	
-	public static int SHOOT_DELAY_MAX = 1000;
+	public static final int SHOOT_DELAY_MAX = 1000;
 
 	public static final float BULLET_SPEED = 2000f;
 	public static final float BULLET_SIZE = 10f;
@@ -47,6 +49,13 @@ public class Sniper extends Weapon {
 		}
 
 	}
+	
+	@Override
+	public void renderGUI(GameContainer container, StateBasedGame game, Graphics g, MyBasicGameState mygame)
+			throws SlickException {
+		// TODO Auto-generated method stub
+		
+	}
 
 	@Override
 	public String toString() {
@@ -54,6 +63,8 @@ public class Sniper extends Weapon {
 				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
 				+ "]";
 	}
+
+	
 	
 	
 }

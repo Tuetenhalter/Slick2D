@@ -31,6 +31,7 @@ public class Main extends StateBasedGame{
 		
 		
 	}
+	
 	public Main(String test) {
 		super(test);
 

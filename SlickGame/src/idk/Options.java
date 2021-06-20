@@ -19,6 +19,9 @@ public class Options {
 	public static int right = Input.KEY_D;
 	public static int back = Input.KEY_S;
 	
+	public static int shoot = Input.MOUSE_LEFT_BUTTON;
+	public static int reload = Input.KEY_R;
+	
 	
 	
 	static public void init() {

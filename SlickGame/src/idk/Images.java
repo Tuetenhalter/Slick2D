@@ -9,6 +9,7 @@ public class Images {
 
 	public static Image spawn;
 	public static Image wall;
+	public static Image player;
 
 	public static void startUp() throws SlickException {
 		Field[] list = Images.class.getFields();

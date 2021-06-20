@@ -20,7 +20,9 @@ import GameObjects.Wall.Wall;
 import Tile.MapMaker;
 import Tile.Tile;
 import Tile.TileMap;
+import Weapon.Schrot;
 import Weapon.Sniper;
+import Weapon.Weapon;
 import idk.Camara;
 import idk.Images;
 import idk.Vector2D;
@@ -68,6 +70,7 @@ public class Game extends MyBasicGameState {
 
 		System.out.println("[Game] finised init");
 
+
 	}
 
 	@Override
@@ -99,11 +102,15 @@ public class Game extends MyBasicGameState {
 			g.setColor(Color.red);
 			g.fillRect(10, 10, 500 * (float) (player.getLive() / player.getMaxLive() + 0.0) + 10, 50);
 		}
+		
+		player.getWeapon().renderGUI(container, game, g, this);
 	}
 
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
-
+		
+		
+		
 		camara.camaraMove(this, container, delta);
 		for (int i = gameList.size() - 1; i >= 0; i--) {
 			gameList.get(i).update(container, game, delta, this);
@@ -118,7 +125,7 @@ public class Game extends MyBasicGameState {
 			game.enterState(States.PAUSEMENU.getState());
 		}
 
-		if (container.getInput().isKeyPressed(Input.KEY_R)) {
+		if (container.getInput().isKeyPressed(Input.KEY_J)) {
 			init(container, game);
 		}
 
@@ -136,6 +143,7 @@ public class Game extends MyBasicGameState {
 	public void creatMap() throws SlickException {
 
 		Random ran = new Random();
+		random = ran;
 		MapMaker mapMaker = new MapMaker(TILE_ARRAY_HEIGHT, TILE_ARRAY_HEIGHT, ran, MAP_IT, MAP_FILLSPICKS, MAP_RANDOM,
 				MAP_FILLHOLLS);
 		tileMap = new TileMap(TILE_ARRAY_WIDHT, TILE_ARRAY_HEIGHT, TILE_PIXEL, TILE_PIXEL);
@@ -166,7 +174,8 @@ public class Game extends MyBasicGameState {
 		} else {
 			cornerx = TILE_ARRAY_WIDHT;
 		}
-
+		
+		//loop for Player pos
 		float distance = 1f;
 		do {
 			bool = false;
@@ -199,7 +208,9 @@ public class Game extends MyBasicGameState {
 			}
 		} while (bool);
 		
-		Sniper sniper = new Sniper();
+		
+		//waffe
+		Weapon sniper = new Schrot();
 		
 		player = new Player(ranx * TILE_WIDHT, rany * TILE_HEIGHT, TILE_WIDHT, TILE_HEIGHT, sniper);
 		gameList.add(player);

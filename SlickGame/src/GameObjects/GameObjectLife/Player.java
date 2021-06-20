@@ -9,14 +9,13 @@ import org.newdawn.slick.Sound;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.state.StateBasedGame;
 
-import GameObjects.Bullet;
 import GameObjects.GameObject;
 import GameObjects.Wall.BouncieWall;
 import GameObjects.Wall.Wall;
 import GameStates.MyBasicGameState;
 import GameStates.States;
 import Weapon.Weapon;
-import idk.Camara;
+import idk.Images;
 import idk.Options;
 import idk.Vector2D;
 
@@ -25,16 +24,15 @@ public class Player extends GameObjectLife {
 	static final float SPEED = 2000f;
 	static final float MAX_SPEED = 500f;
 	static final float REDUCE_SPEED = 1000f;
-	
-	
+
 	static final float BULLET_SPEED = 2000f;
 
 	static final float MAXLIVE = 100f;
 	static final int SHOOT_DELAY_MAX = 100;
-	
+
 	private float dashCouldown = 0f;
 	private Weapon weapon;
-	
+
 	Sound sound;
 
 	public Player(Vector2D pos, Vector2D vel, Vector2D acc, float width, float height, Shape hitBox, float live,
@@ -57,9 +55,9 @@ public class Player extends GameObjectLife {
 
 		getHitBox().setX(getPos().getX());
 		getHitBox().setY(getPos().getY());
-
 		g.setColor(Color.red);
 		g.fill(getHitBox());
+		g.drawImage(Images.player, getX(), getY(), getX()+getWidth(), getY()+getHeight(), 0, 0, Images.player.getWidth(), Images.player.getHeight());
 
 //		g.resetTransform();
 //		g.setColor(Color.red);
@@ -86,8 +84,6 @@ public class Player extends GameObjectLife {
 
 		Vector2D target = mygame.getCamara().mousePos(container);
 		weapon.shoot(this, target, container, game, delta, mygame);
-
-		
 
 		getAcc().set(0, 0);
 
