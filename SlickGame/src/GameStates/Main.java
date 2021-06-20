@@ -15,7 +15,7 @@ import idk.Stats;
 /**
  * 
  * @author Pascal Heimann, Amir Hamdoun ,David Schmitt
- *
+ * 
  */
 
 public class Main extends StateBasedGame{
