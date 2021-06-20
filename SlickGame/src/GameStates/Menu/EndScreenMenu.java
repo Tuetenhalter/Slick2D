@@ -22,7 +22,7 @@ public class EndScreenMenu extends Menu
 		endBackgroundScreen = new Image("res/bg.png");
 		
 	}
-
+ 
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException
 	{

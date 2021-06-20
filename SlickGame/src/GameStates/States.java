@@ -16,5 +16,5 @@ public enum States
 	{
 		return state;
 	}
-
+ 
 }
