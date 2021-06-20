@@ -16,7 +16,7 @@ public class ShopsMenu extends Menu
 
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException
-	{
+	{ 
 		upgrade1 = new Button("Test1", 0.2f, 0.599f, 0.3f, 0.5f, container);
 		upgrade2 = new Button("Test2", 0.6f, 0.6f, 0.3f, 0.5f, container);
 		upgrade3 = new Button("Test3", 0.6f, 0.2f, 0.3f, 0.5f, container);

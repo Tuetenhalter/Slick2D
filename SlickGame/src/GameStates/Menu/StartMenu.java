@@ -20,7 +20,7 @@ public class StartMenu extends Menu
 	private Button exit;
 	private Button shop;
 
-	@Override
+	@Override  
 	public void init(GameContainer container, StateBasedGame game) throws SlickException
 	{
 		Stats.startUp();
