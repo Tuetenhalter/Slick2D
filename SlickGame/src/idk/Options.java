@@ -22,6 +22,8 @@ public class Options {
 	public static int shoot = Input.MOUSE_LEFT_BUTTON;
 	public static int reload = Input.KEY_R;
 	
+	public static float volume = .1f;
+	
 	
 	
 	static public void init() {

@@ -14,8 +14,8 @@ public class Sounds {
 	public static void startUp() throws SlickException {
 		schrotShoot = new Sound("res/Shotgun_shoot.wav");
 		schrotReload = new Sound("res/Shotgun_reload.wav");
-//		backgroundMusick = new Sound("res/soviet-anthem.mp3");
-//		
-//		backgroundMusick.loop();
+		backgroundMusick = new Sound("res/soviet-anthem.wav");
+		
+		backgroundMusick.loop(1f, Options.volume);
 	}
 }

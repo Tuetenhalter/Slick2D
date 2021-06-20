@@ -1,13 +1,8 @@
 package Weapon;
 
-import java.util.Random;
-
 import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
-import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
-
 import GameObjects.Bullet;
 import GameObjects.GameObject;
 import GameStates.MyBasicGameState;
@@ -26,7 +21,7 @@ public class Schrot extends Weapon {
 	public static final float SPRAY = 10f;
 	public static final float BULLET_SIZE = 10f;
 	public static final int BULLET_DMG = 10;
-	
+
 	public static final int BULLET_LIVE_TIME = 500;
 	public static final int BULLET_LIVE_TIME_RANDOM = 100;
 
@@ -66,12 +61,14 @@ public class Schrot extends Weapon {
 
 		if (input.isKeyDown(Options.reload)) {
 			reload = true;
+			Sounds.schrotReload.play(1f, Options.volume);
 		}
 
 		if (getShootDelay() <= 0) {
 			if (input.isMousePressed(Options.shoot)) {
 				if (getAmmunition() > 0) {
-					Sounds.schrotShoot.play();
+					Sounds.schrotShoot.play(1f, Options.volume);
+
 					reload = false;
 					setAmmunition(getAmmunition() - 1);
 					target.sub(me.getCenter());
@@ -86,18 +83,21 @@ public class Schrot extends Weapon {
 						Bullet bullet = new Bullet(me.getCenter().clone(), target2, BULLET_SIZE, BULLET_SIZE);
 						bullet.setBounce(0);
 						bullet.setGroup(Bullet.GROUP_PLAYER);
-						bullet.setLiveTime(BULLET_LIVE_TIME + mygame.getRandom().nextInt(BULLET_LIVE_TIME_RANDOM*2) - BULLET_LIVE_TIME_RANDOM);
+						bullet.setLiveTime(BULLET_LIVE_TIME + mygame.getRandom().nextInt(BULLET_LIVE_TIME_RANDOM * 2)
+								- BULLET_LIVE_TIME_RANDOM);
 						bullet.setDamage(BULLET_DMG);
 						mygame.getGameList().add(bullet);
 					}
 
 					setShootDelay(getShootDelayMax());
-					
-					if(getAmmunition() <= 0) {
+
+					if (getAmmunition() <= 0) {
 						reload = true;
+						Sounds.schrotReload.play(1f, Options.volume);
 					}
 				} else {
 					reload = true;
+					Sounds.schrotReload.play(1f, Options.volume);
 				}
 
 			}
