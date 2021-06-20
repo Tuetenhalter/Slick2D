@@ -19,7 +19,7 @@ public class EndScreenMenu extends Menu
 	public void init(GameContainer container, StateBasedGame game) throws SlickException
 	{
 		back = new Button("back", .90f, .01f, .9f, .01f, container);
-		endBackgroundScreen = new Image("res/bg.png");
+		endBackgroundScreen = new Image("res/bg.jpg");
 		
 	}
  
@@ -29,7 +29,7 @@ public class EndScreenMenu extends Menu
 		// TODO Auto-generated method stub
 		
 		g.clear();
-		endBackgroundScreen.draw(0,0);
+		g.drawImage(endBackgroundScreen,0,0);
 		back.render(container, game, g);
 		g.setColor(Color.white);
 		g.drawString("YOU WON WTF ARE YOU CRAZY?!?!?!!!", container.getWidth()/7, container.getHeight()/8);
