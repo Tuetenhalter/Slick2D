@@ -46,12 +46,12 @@ public class Main extends StateBasedGame
  
 	@Override
 	public void initStatesList(GameContainer container) throws SlickException
-	{addState(new EndScreenMenu());
+	{
 		addState(new StartMenu());
 		
 		Game level1 = new Game("Level 1", 0);
 
-		Game level2 = new Game("Level 2", 9);
+		Game level2 = new Game("Level 2", 1);
 		level2.setDamage(1.1f);
 		level2.setLive(1.1f);
 		level2.setPotatos(2f);
@@ -120,7 +120,7 @@ public class Main extends StateBasedGame
 		addState(new OptionsMenu());
 		addState(new ShopsMenu());
 		addState(new GameOverMenu());
-		
+		addState(new EndScreenMenu());
 
 	}
 }
